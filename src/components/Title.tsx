@@ -8,10 +8,9 @@ const TitleContainer = styled.div`
 `;
 
 const TitleText = styled.h1`
-  font-size: 2rem;
+  font-size: 2em;
   color: #000000;
   text-align: center;
-  margin: 0;
 `;
 
 const Title = () => (

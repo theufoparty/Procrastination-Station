@@ -4,8 +4,14 @@ import Navbar from '../components/Navbar';
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 2em;
+  flex-direction: column;
   background-color: #e6e8ec;
+
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    padding: 2em;
+  }
 `;
 
 const MainContent = styled.main`

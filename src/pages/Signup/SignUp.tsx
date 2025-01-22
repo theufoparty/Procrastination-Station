@@ -29,16 +29,19 @@ const LeftSection = styled.div`
 `;
 
 const Title = styled.h1`
-  margin: 0;
   font-weight: 100;
-  font-size: 2rem;
+  font-size: 2.4em;
   color: #333;
-  padding-top: 2em;
+  margin-top: 2em;
+
+  @media (min-width: 768px) {
+    font-size: 4em;
+    margin-top: 0;
+  }
 `;
 
 const RightSection = styled.div`
   width: 100%;
-  max-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +49,7 @@ const RightSection = styled.div`
 
   @media (min-width: 768px) {
     align-items: flex-start;
+    width: 30%;
   }
 `;
 
@@ -58,6 +62,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  margin: 1em;
 `;
 
 const FormGroup = styled.div`
@@ -164,11 +169,7 @@ const SignUp = () => {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       await updateProfile(user, { displayName: name });
@@ -197,46 +198,46 @@ const SignUp = () => {
         <FormContainer>
           <StyledForm onSubmit={handleSubmit} noValidate>
             <FormGroup>
-              <StyledLabel htmlFor="signup-name">Name</StyledLabel>
+              <StyledLabel htmlFor='signup-name'>Name</StyledLabel>
               <StyledInput
-                id="signup-name"
-                name="name"
-                type="text"
-                autoComplete="name"
+                id='signup-name'
+                name='name'
+                type='text'
+                autoComplete='name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
 
-              <StyledLabel htmlFor="signup-email">Email</StyledLabel>
+              <StyledLabel htmlFor='signup-email'>Email</StyledLabel>
               <StyledInput
-                id="signup-email"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id='signup-email'
+                name='email'
+                type='email'
+                autoComplete='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <StyledLabel htmlFor="signup-password">Password</StyledLabel>
+              <StyledLabel htmlFor='signup-password'>Password</StyledLabel>
               <StyledInput
-                id="signup-password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
+                id='signup-password'
+                name='password'
+                type='password'
+                autoComplete='new-password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormGroup>
 
             <ButtonGroup>
-              <StyledButton type="submit">Sign Up</StyledButton>
-              <SecondaryButton type="button" onClick={() => navigate('/login')}>
+              <StyledButton type='submit'>Sign Up</StyledButton>
+              <SecondaryButton type='button' onClick={() => navigate('/login')}>
                 Go to Login
               </SecondaryButton>
             </ButtonGroup>
 
             {error && (
-              <ErrorMessage role="alert" aria-live="assertive">
+              <ErrorMessage role='alert' aria-live='assertive'>
                 {error}
               </ErrorMessage>
             )}

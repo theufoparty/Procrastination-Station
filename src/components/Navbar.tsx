@@ -6,18 +6,21 @@ import { auth, db } from '../../firebaseConfig';
 import { Link } from 'react-router-dom';
 
 const Sidebar = styled.div`
-  width: 20%;
+  width: 100%;
   background-color: #feffff;
   border-right: 1px solid #e6e8ec;
   color: #000000;
   left: 2em;
   top: 2em;
-  padding: 2rem 1rem;
-  border-radius: 1em 0 0 1em;
+  padding: 1rem 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (min-width: 768px) {
+    width: 20%;
+  }
 `;
 
 const Greeting = styled.h2`

@@ -13,7 +13,7 @@ const PageContainer = styled.main`
 
   @media (min-width: 768px) {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
   }
 `;
@@ -29,14 +29,18 @@ const LeftSection = styled.div`
 
 const Title = styled.h1`
   font-weight: 100;
-  font-size: 2em;
+  font-size: 2.4em;
   color: #333;
-  padding-top: 2em;
+  margin-top: 2em;
+
+  @media (min-width: 768px) {
+    font-size: 4em;
+    margin-top: 0;
+  }
 `;
 
 const RightSection = styled.div`
   width: 100%;
-  max-width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,17 +48,20 @@ const RightSection = styled.div`
 
   @media (min-width: 768px) {
     align-items: flex-start;
+    width: 30%;
   }
 `;
 
 const FormContainer = styled.div`
   width: 100%;
+  padding: 1em;
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  margin: 1em;
 `;
 
 const FormGroup = styled.div`
@@ -177,39 +184,36 @@ const Login = () => {
         <FormContainer>
           <StyledForm onSubmit={handleSubmit} noValidate>
             <FormGroup>
-              <StyledLabel htmlFor="login-email">Email</StyledLabel>
+              <StyledLabel htmlFor='login-email'>Email</StyledLabel>
               <StyledInput
-                id="login-email"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id='login-email'
+                name='email'
+                type='email'
+                autoComplete='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <StyledLabel htmlFor="login-password">Password</StyledLabel>
+              <StyledLabel htmlFor='login-password'>Password</StyledLabel>
               <StyledInput
-                id="login-password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
+                id='login-password'
+                name='password'
+                type='password'
+                autoComplete='current-password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </FormGroup>
 
             <ButtonGroup>
-              <StyledButton type="submit">Login</StyledButton>
-              <SecondaryButton
-                type="button"
-                onClick={() => navigate('/signup')}
-              >
+              <StyledButton type='submit'>Login</StyledButton>
+              <SecondaryButton type='button' onClick={() => navigate('/signup')}>
                 Go to Sign Up
               </SecondaryButton>
             </ButtonGroup>
 
             {error && (
-              <ErrorMessage role="alert" aria-live="assertive">
+              <ErrorMessage role='alert' aria-live='assertive'>
                 {error}
               </ErrorMessage>
             )}
