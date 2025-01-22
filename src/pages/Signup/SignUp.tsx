@@ -14,8 +14,7 @@ const PageContainer = styled.main`
 
   @media (min-width: 768px) {
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-evenly;
   }
 `;
 
@@ -48,8 +47,11 @@ const RightSection = styled.div`
   gap: 1.5rem;
 
   @media (min-width: 768px) {
+    display: flex;
     align-items: flex-start;
-    width: 30%;
+    width: 30em;
+    height: 30em;
+    justify-content: flex-end;
   }
 `;
 

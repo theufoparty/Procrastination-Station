@@ -15,10 +15,16 @@ const Wrapper = styled.div`
 `;
 
 const MainContent = styled.main`
+  width: 100%;
   padding: 2rem;
-  border-radius: 0 1em 1em 0em;
+  border-radius: 0 0 0 0;
+
   box-sizing: border-box;
   background-color: #feffff;
+  @media (min-width: 768px) {
+    width: 80%;
+    border-radius: 0em 1em 1em 0em;
+  }
 `;
 
 interface LayoutProps {

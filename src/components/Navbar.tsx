@@ -5,27 +5,84 @@ import { useAuth } from '../utils/useAuth';
 import { auth, db } from '../../firebaseConfig';
 import { Link } from 'react-router-dom';
 
-const Sidebar = styled.div`
-  width: 100%;
+const HamburgerIcon = styled.div`
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2000;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 1.5rem;
+  width: 1.5rem;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 0.25rem;
+    background-color: #000;
+    border-radius: 0.125rem;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+const Sidebar = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+  height: 100vh;
+  width: 90%;
   background-color: #feffff;
-  border-right: 1px solid #e6e8ec;
+  border-left: 1px solid #e6e8ec;
   color: #000000;
-  left: 2em;
-  top: 2em;
   padding: 1rem 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 1500;
+  transition: right 0.3s ease;
 
   @media (min-width: 768px) {
+    position: static;
+    height: auto;
     width: 20%;
+    border-radius: 1em 0em 0em 1em;
+    flex-direction: column;
+    border-left: none;
+    left: auto;
+    right: auto;
+    top: 2em;
   }
 `;
 
+const Overlay = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  z-index: 1000;
+`;
+
 const Greeting = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 1.5em;
+  font-weight: 100;
+  margin-bottom: 2em;
+  margin-top: 5em;
+
+  @media (min-width: 768px) {
+    margin-top: 1em;
+  }
 `;
 
 const NavLinks = styled.ul`
@@ -49,14 +106,15 @@ const NavLinks = styled.ul`
 `;
 
 const LogoutButton = styled.button`
-  padding: 0.5rem 1em;
+  padding: 1em;
   background-color: #3c64e7;
   border: none;
-  border-radius: 0.5em;
+  border-radius: 2em;
   color: #ecf0f1;
   cursor: pointer;
   font-size: 1em;
-  width: 60%;
+  width: 14em;
+  height: 3em;
   align-self: center;
   margin-top: 3em;
 
@@ -72,6 +130,7 @@ const Navbar = () => {
   const allianceLink = allianceId ? `/alliance/${allianceId}` : '/create-alliance';
 
   const [greeting, setGreeting] = useState<string>('Hello');
+  const [isOpen, setIsOpen] = useState(false);
 
   const determineGreeting = () => {
     const currentHour = new Date().getHours();
@@ -118,28 +177,44 @@ const Navbar = () => {
   };
 
   return (
-    <Sidebar>
-      <div>
-        <Greeting>
-          {greeting}, {user?.displayName || user?.email}
-        </Greeting>
-        <NavLinks>
-          <li>
-            <Link to='/todaystask'>Today's Task</Link>
-          </li>
-          <li>
-            <Link to='/tasks'>All Tasks</Link>
-          </li>
-          <li>
-            <Link to='/projects'>Projects</Link>
-          </li>
-          <li>
-            <Link to={allianceLink}>Alliance</Link>
-          </li>
-        </NavLinks>
-      </div>
-      <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-    </Sidebar>
+    <>
+      <HamburgerIcon onClick={() => setIsOpen((prev) => !prev)}>
+        <span />
+        <span />
+        <span />
+      </HamburgerIcon>
+      <Overlay isOpen={isOpen} onClick={() => setIsOpen(false)} />
+      <Sidebar isOpen={isOpen}>
+        <div>
+          <Greeting>
+            {greeting}, {user?.displayName || user?.email}
+          </Greeting>
+          <NavLinks>
+            <li>
+              <Link to='/todaystask' onClick={() => setIsOpen(false)}>
+                Today's Task
+              </Link>
+            </li>
+            <li>
+              <Link to='/tasks' onClick={() => setIsOpen(false)}>
+                All Tasks
+              </Link>
+            </li>
+            <li>
+              <Link to='/projects' onClick={() => setIsOpen(false)}>
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link to={allianceLink} onClick={() => setIsOpen(false)}>
+                Alliance
+              </Link>
+            </li>
+          </NavLinks>
+        </div>
+        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+      </Sidebar>
+    </>
   );
 };
 

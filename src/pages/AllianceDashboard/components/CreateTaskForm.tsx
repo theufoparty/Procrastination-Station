@@ -51,10 +51,10 @@ const DarkHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 35vh;
   background-color: #2b3044;
-  padding: 1rem;
+  padding: 1em;
   align-items: flex-start;
+  padding-top: 4em;
 `;
 
 const CloseButton = styled.button`
@@ -172,9 +172,11 @@ const SubmitButton = styled.button`
   background-color: #4d63f3;
   color: #fff;
   border: none;
-  border-radius: 20px;
-  padding: 0.7rem;
-  font-size: 0.95rem;
+  border-radius: 2em;
+  height: 3em;
+  width: 14em;
+  padding: 1em;
+  font-size: 1em;
   font-weight: 100;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;

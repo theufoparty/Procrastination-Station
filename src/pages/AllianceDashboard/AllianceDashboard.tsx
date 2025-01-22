@@ -41,7 +41,7 @@ const ModalContainer = styled.div`
 
 const NewTaskContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const TaskListContainer = styled.div`
@@ -144,8 +144,6 @@ const AllianceDashboard: React.FC = () => {
   return (
     <Container>
       <NewTaskContainer>
-        <h2>Alliance Dashboard</h2>
-
         {isMemberOfAlliance && (
           <>
             {!isCreatingTask && (

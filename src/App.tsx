@@ -1,10 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { auth, db } from '../firebaseConfig';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './utils/useAuth';
@@ -81,64 +75,51 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
-        {user ? (
-          <HeaderContainer>
-            <Nav>
-              <Logo>Procrastination Station :</Logo>
-              <NavLinkStyled to="/">Home</NavLinkStyled>
-              <NavLinkStyled to="/alliance-list">Alliance List</NavLinkStyled>
-              <NavLinkStyled to="/create-alliance">
-                Create Alliance
-              </NavLinkStyled>
-            </Nav>
-          </HeaderContainer>
+        {/* {user ? (
+          // <HeaderContainer>
+          //   <Nav>
+          //     <Logo>Procrastination Station :</Logo>
+          //     <NavLinkStyled to="/">Home</NavLinkStyled>
+          //     <NavLinkStyled to="/alliance-list">Alliance List</NavLinkStyled>
+          //     <NavLinkStyled to="/create-alliance">
+          //       Create Alliance
+          //     </NavLinkStyled>
+          //   </Nav>
+          // </HeaderContainer>
+          ``
         ) : (
           ``
-        )}
+        )} */}
 
         {user ? (
           <Layout>
             <Routes>
+              <Route path='/' element={<PrivateRoute user={user} element={<Home />} />} />
+              <Route path='/tasks' element={<PrivateRoute user={user} element={<AllTasks />} />} />
               <Route
-                path="/"
-                element={<PrivateRoute user={user} element={<Home />} />}
+                path='/alliance-list'
+                element={<PrivateRoute user={user} element={<AlliancesList />} />}
               />
               <Route
-                path="/tasks"
-                element={<PrivateRoute user={user} element={<AllTasks />} />}
+                path='/create-alliance'
+                element={<PrivateRoute user={user} element={<CreateAlliance />} />}
               />
               <Route
-                path="/alliance-list"
-                element={
-                  <PrivateRoute user={user} element={<AlliancesList />} />
-                }
+                path='/alliance/:allianceId'
+                element={<PrivateRoute user={user} element={<AllianceDashboard />} />}
               />
               <Route
-                path="/create-alliance"
-                element={
-                  <PrivateRoute user={user} element={<CreateAlliance />} />
-                }
+                path='/join-alliance/:allianceId'
+                element={<PrivateRoute user={user} element={<JoinAlliancePage />} />}
               />
-              <Route
-                path="/alliance/:allianceId"
-                element={
-                  <PrivateRoute user={user} element={<AllianceDashboard />} />
-                }
-              />
-              <Route
-                path="/join-alliance/:allianceId"
-                element={
-                  <PrivateRoute user={user} element={<JoinAlliancePage />} />
-                }
-              />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           </Layout>
         ) : (
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="*" element={<Navigate to="/login" />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='*' element={<Navigate to='/login' />} />
           </Routes>
         )}
       </Router>
