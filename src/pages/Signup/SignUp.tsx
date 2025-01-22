@@ -15,15 +15,19 @@ const PageContainer = styled.main`
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row-reverse;
   }
 `;
 
 const LeftSection = styled.div`
-  margin-bottom: 2rem;
+  margin: 14em 2em 2em 2em;
   text-align: center;
 
   @media (min-width: 768px) {
     margin-bottom: 0;
+    width: 40%;
+    margin: 2em;
   }
 `;
 
@@ -34,7 +38,7 @@ const Title = styled.h1`
   margin-top: 2em;
 
   @media (min-width: 768px) {
-    font-size: 4em;
+    font-size: 3.5em;
     margin-top: 0;
   }
 `;
@@ -52,6 +56,7 @@ const RightSection = styled.div`
     width: 30em;
     height: 30em;
     justify-content: flex-end;
+    align-items: center;
   }
 `;
 
@@ -64,7 +69,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin: 1em;
+  margin: 3em;
 `;
 
 const FormGroup = styled.div`

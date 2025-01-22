@@ -15,15 +15,18 @@ const PageContainer = styled.main`
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    flex-direction: row-reverse;
   }
 `;
 
 const LeftSection = styled.div`
-  margin-bottom: 2rem;
+  margin: 14em 2em 2em 2em;
   text-align: center;
 
   @media (min-width: 768px) {
     margin-bottom: 0;
+    width: 40%;
+    margin: 2em;
   }
 `;
 
@@ -34,7 +37,7 @@ const Title = styled.h1`
   margin-top: 2em;
 
   @media (min-width: 768px) {
-    font-size: 4em;
+    font-size: 3.5;
     margin-top: 0;
   }
 `;
@@ -45,6 +48,7 @@ const RightSection = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  background-color: #dedede;
 
   @media (min-width: 768px) {
     display: flex;
@@ -52,6 +56,7 @@ const RightSection = styled.div`
     width: 30em;
     height: 30em;
     justify-content: flex-end;
+    align-items: center;
   }
 `;
 
@@ -64,7 +69,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin: 1em;
+  margin: 3em;
 `;
 
 const FormGroup = styled.div`
@@ -155,6 +160,12 @@ const ErrorMessage = styled.p`
   }
 `;
 
+const Text = styled.p`
+  font-size: 1em;
+  text-align: center;
+  margin-top: 1rem;
+`;
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -181,6 +192,15 @@ const Login = () => {
     <PageContainer>
       <LeftSection>
         <Title>Procrastination Station</Title>
+
+        <Text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Text>
       </LeftSection>
 
       <RightSection>
