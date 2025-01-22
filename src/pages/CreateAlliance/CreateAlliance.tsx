@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from 'firebase/firestore';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAlliance: React.FC = () => {
   const { user } = useAuth(auth, db);
   const [allianceName, setAllianceName] = useState('');
+  const navigate = useNavigate();
 
   const handleCreateAlliance = async () => {
     if (!user) {
@@ -14,15 +23,23 @@ const CreateAlliance: React.FC = () => {
     }
 
     try {
+      // 1. Create the alliance document
       const docRef = await addDoc(collection(db, 'alliances'), {
         name: allianceName,
         userIds: [user.uid],
         createdAt: serverTimestamp(),
       });
 
-      console.log('Alliance created with ID: ', docRef.id);
+      // 2. Update the user's allianceIds
+      const userDocRef = doc(db, 'users', user.uid);
+      await updateDoc(userDocRef, {
+        allianceIds: arrayUnion(docRef.id),
+      });
+
+      // 3. Navigate to the newly created alliance page
+      navigate(`/alliance/${docRef.id}`);
+
       setAllianceName('');
-      alert('Alliance created successfully!');
     } catch (error) {
       console.error('Error creating alliance: ', error);
       alert('Error creating alliance');
