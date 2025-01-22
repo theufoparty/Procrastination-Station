@@ -9,7 +9,7 @@ export type Alliance = {
 
 export type Task = {
   id: string;
-  allianceId: string;
+  allianceId?: string;
   name: string;
   description?: string;
   priority?: string;

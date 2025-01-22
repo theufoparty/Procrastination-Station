@@ -15,27 +15,12 @@ import {
 import { db, auth } from '../../firebaseConfig';
 import { Timestamp } from 'firebase/firestore';
 import { useAuth } from './useAuth';
+import { Task } from '../types/firestore';
 
 interface Alliance {
   userIds: string[];
   name: string;
   createdAt?: Timestamp;
-}
-
-export interface Task {
-  id: string;
-  allianceId: string;
-  name: string;
-  description?: string;
-  priority?: string;
-  recurrence?: string;
-  dueDate?: Timestamp | null;
-  completedAt?: Timestamp | null;
-  createdAt?: Timestamp;
-  updatedAt?: Timestamp;
-
-  assignedUserIds?: string[];
-  category?: string;
 }
 
 interface UserDoc {
@@ -50,7 +35,7 @@ export const useAlliance = (allianceId?: string) => {
   const currentUserUid = user?.uid ?? null;
 
   const [alliance, setAlliance] = useState<Alliance | null>(null);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [allianceTasks, setAllianceTasks] = useState<Task[]>([]);
   const [allianceMembers, setAllianceMembers] = useState<UserDoc[]>([]);
   const [isMemberOfAlliance, setIsMemberOfAlliance] = useState(false);
 
@@ -76,22 +61,22 @@ export const useAlliance = (allianceId?: string) => {
 
   useEffect(() => {
     if (!allianceId) {
-      setTasks([]);
+      setAllianceTasks([]);
       return;
     }
 
     const tasksRef = collection(db, 'tasks');
     const q = query(tasksRef, where('allianceId', '==', allianceId));
 
-    const unsubscribeTasks = onSnapshot(q, (snapshot) => {
+    const unsubscribeAllianceTasks = onSnapshot(q, (snapshot) => {
       const tasksData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...(doc.data() as Omit<Task, 'id'>),
       }));
-      setTasks(tasksData);
+      setAllianceTasks(tasksData);
     });
 
-    return () => unsubscribeTasks();
+    return () => unsubscribeAllianceTasks();
   }, [allianceId]);
 
   useEffect(() => {
@@ -115,11 +100,7 @@ export const useAlliance = (allianceId?: string) => {
     setAllianceMembers([]);
 
     batches.forEach((batch) => {
-      const q = query(
-        usersRef,
-        where(documentId(), 'in', batch) // Use documentId() instead of '__name__'
-      );
-
+      const q = query(usersRef, where(documentId(), 'in', batch));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const membersData = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -165,6 +146,7 @@ export const useAlliance = (allianceId?: string) => {
     }
   };
 
+  /** Leave Alliance */
   const leaveAlliance = async () => {
     if (!allianceId || !currentUserUid) return;
 
@@ -185,7 +167,8 @@ export const useAlliance = (allianceId?: string) => {
     }
   };
 
-  const createTask = async (taskData: {
+  /** Create a task for this alliance */
+  const createAllianceTask = async (taskData: {
     name: string;
     description?: string;
     priority?: string;
@@ -211,11 +194,12 @@ export const useAlliance = (allianceId?: string) => {
         updatedAt: serverTimestamp(),
       });
     } catch (error) {
-      console.error('Error creating task:', error);
+      console.error('Error creating alliance task:', error);
       throw error;
     }
   };
 
+  /** Update an existing task */
   const updateTask = async (taskId: string, data: Partial<Task>) => {
     try {
       const taskDocRef = doc(db, 'tasks', taskId);
@@ -231,12 +215,12 @@ export const useAlliance = (allianceId?: string) => {
 
   return {
     alliance,
-    tasks,
+    allianceTasks,
     allianceMembers,
     isMemberOfAlliance,
     joinAlliance,
     leaveAlliance,
-    createTask,
+    createAllianceTask,
     updateTask,
   };
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
-import { useAlliance, Task } from '../../utils/useAlliance';
+import { useAlliance } from '../../utils/useAlliance';
 import JoinAllianceButton from './components/JoinAllianceButton';
 import AllianceMemberList from './components/AllianceMemberList';
 import TaskList from './components/TaskList';
@@ -10,6 +10,7 @@ import CreateTaskForm from './components/CreateTaskForm';
 import LeaveAllianceButton from './components/LeaveAllianceButton';
 import styled, { keyframes } from 'styled-components';
 import { AllianceLink } from './components/AllianceLink';
+import { Task } from '../../types/firestore';
 
 const fadeIn = keyframes`
   from {
@@ -80,11 +81,11 @@ const AllianceDashboard: React.FC = () => {
 
   const {
     alliance,
-    tasks,
+    allianceTasks,
     allianceMembers,
     isMemberOfAlliance,
     joinAlliance,
-    createTask,
+    createAllianceTask,
     leaveAlliance,
     updateTask,
   } = useAlliance(allianceId);
@@ -118,7 +119,7 @@ const AllianceDashboard: React.FC = () => {
       return;
     }
     try {
-      await createTask(taskData);
+      await createAllianceTask(taskData);
       setIsCreatingTask(false);
     } catch {
       alert('Could not create task.');
@@ -191,7 +192,7 @@ const AllianceDashboard: React.FC = () => {
           <AllianceLink allianceId={allianceId} />
           <TaskListContainer>
             <TaskList
-              tasks={tasks}
+              tasks={allianceTasks}
               onUpdateTask={handleUpdateTask}
               allianceMembers={allianceMembers}
               categories={predefinedCategories}
