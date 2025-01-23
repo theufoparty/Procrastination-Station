@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import TaskSummary from './TaskSummary';
-import TaskCard from './TaskCard';
-import SimpleModal from './SimpleModal';
-import { Task } from '../../../types/firestore';
 import styled from 'styled-components';
+import { Task } from '../types/firestore';
+import TaskSummary from './TaskSummary';
+import SimpleModal from './SimpleModal';
+import TaskCard from './TaskCard';
 
 interface AllianceMember {
   id: string;

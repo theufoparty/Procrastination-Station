@@ -199,20 +199,6 @@ export const useAlliance = (allianceId?: string) => {
     }
   };
 
-  /** Update an existing task */
-  const updateTask = async (taskId: string, data: Partial<Task>) => {
-    try {
-      const taskDocRef = doc(db, 'tasks', taskId);
-      await updateDoc(taskDocRef, {
-        ...data,
-        updatedAt: serverTimestamp(),
-      });
-    } catch (error) {
-      console.error('Error updating task:', error);
-      throw error;
-    }
-  };
-
   return {
     alliance,
     allianceTasks,
@@ -221,6 +207,5 @@ export const useAlliance = (allianceId?: string) => {
     joinAlliance,
     leaveAlliance,
     createAllianceTask,
-    updateTask,
   };
 };

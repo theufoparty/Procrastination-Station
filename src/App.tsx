@@ -75,21 +75,18 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
-        {/* {user ? (
-          // <HeaderContainer>
-          //   <Nav>
-          //     <Logo>Procrastination Station :</Logo>
-          //     <NavLinkStyled to="/">Home</NavLinkStyled>
-          //     <NavLinkStyled to="/alliance-list">Alliance List</NavLinkStyled>
-          //     <NavLinkStyled to="/create-alliance">
-          //       Create Alliance
-          //     </NavLinkStyled>
-          //   </Nav>
-          // </HeaderContainer>
-          ``
+        {user ? (
+          <HeaderContainer>
+            <Nav>
+              <Logo>Procrastination Station :</Logo>
+              <NavLinkStyled to='/'>Home</NavLinkStyled>
+              <NavLinkStyled to='/alliance-list'>Alliance List</NavLinkStyled>
+              <NavLinkStyled to='/create-alliance'>Create Alliance</NavLinkStyled>
+            </Nav>
+          </HeaderContainer>
         ) : (
           ``
-        )} */}
+        )}
 
         {user ? (
           <Layout>

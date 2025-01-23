@@ -5,12 +5,13 @@ import { auth, db } from '../../../firebaseConfig';
 import { useAlliance } from '../../utils/useAlliance';
 import JoinAllianceButton from './components/JoinAllianceButton';
 import AllianceMemberList from './components/AllianceMemberList';
-import TaskList from './components/TaskList';
-import CreateTaskForm from './components/CreateTaskForm';
+import TaskList from '../../components/TaskList';
+import CreateTaskForm from '../../components/CreateTaskForm';
 import LeaveAllianceButton from './components/LeaveAllianceButton';
 import styled, { keyframes } from 'styled-components';
 import { AllianceLink } from './components/AllianceLink';
 import { Task } from '../../types/firestore';
+import { updateTask } from '../../utils/updateTask';
 
 const fadeIn = keyframes`
   from {
@@ -87,7 +88,6 @@ const AllianceDashboard: React.FC = () => {
     joinAlliance,
     createAllianceTask,
     leaveAlliance,
-    updateTask,
   } = useAlliance(allianceId);
 
   const [isCreatingTask, setIsCreatingTask] = useState(false);

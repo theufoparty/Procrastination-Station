@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Task } from '../../../types/firestore';
+import { Task } from '../types/firestore';
 
 interface TaskSummaryProps {
   task: Task;

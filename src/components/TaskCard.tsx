@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Timestamp } from 'firebase/firestore';
-import { Task } from '../../../types/firestore';
+import { Task } from '../types/firestore';
 
 const TaskContainer = styled.div`
   background-color: #fff;
