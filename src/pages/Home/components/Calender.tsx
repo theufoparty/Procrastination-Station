@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
+import { Task } from '../../../types/firestore';
 
 const CalendarContainer = styled.div`
   background: #ffffff;
@@ -51,26 +52,32 @@ const DateBox = styled.div<{
   isCurrentMonth: boolean;
   isSelected?: boolean;
   isToday?: boolean;
+  hasTasks?: boolean;
 }>`
   width: 40px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
   margin: 0.4em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background-color: ${(props) =>
-    props.isToday
-      ? '#ff9500'
+    !props.isCurrentMonth
+      ? '#8d8d8d'
       : props.isSelected
         ? '#ff9500'
-        : props.isCurrentMonth
-          ? '#f7f7f7'
-          : '#8d8d8d'};
+        : props.isToday
+          ? '#ff9500'
+          : props.hasTasks
+            ? '#fceeb5'
+            : '#f7f7f7'};
+
   color: ${(props) =>
-    props.isToday || props.isSelected ? '#ffffff' : props.isCurrentMonth ? '#333' : '#ffffff'};
+    props.isToday || props.isSelected ? '#fff' : !props.isCurrentMonth ? '#ffffff' : '#333'};
+
   cursor: ${(props) => (props.isCurrentMonth ? 'pointer' : 'default')};
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: ${(props) =>
@@ -106,14 +113,23 @@ const generateCalendarDays = (month: number, year: number) => {
   return [...leadingDays, ...currentMonthDays, ...trailingDays];
 };
 
-const Calendar: React.FC = () => {
+interface CalendarProps {
+  tasks: Task[];
+  onDateSelected?: (date: Date, tasksForDate: Task[]) => void;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ tasks, onDateSelected }) => {
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
 
-  const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  const days = generateCalendarDays(currentMonth, currentYear);
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  const days = useMemo(
+    () => generateCalendarDays(currentMonth, currentYear),
+    [currentMonth, currentYear]
+  );
 
   const handlePreviousMonth = () => {
     setCurrentMonth((prev) => {
@@ -135,9 +151,37 @@ const Calendar: React.FC = () => {
     });
   };
 
+  const getTasksForDate = (day: number, isCurrentMonth: boolean) => {
+    if (!isCurrentMonth) return [];
+
+    const dateObj = new Date(currentYear, currentMonth, day);
+    return tasks.filter((task) => {
+      if (!task.dueDate) return false;
+
+      const due = task.dueDate.toDate();
+
+      return (
+        due.getFullYear() === dateObj.getFullYear() &&
+        due.getMonth() === dateObj.getMonth() &&
+        due.getDate() === dateObj.getDate()
+      );
+    });
+  };
+
+  const hasTasksForDate = (day: number, isCurrentMonth: boolean) => {
+    return getTasksForDate(day, isCurrentMonth).length > 0;
+  };
+
   const handleDateClick = (date: number, isCurrentMonth: boolean) => {
-    if (isCurrentMonth) {
-      setSelectedDate(date);
+    if (!isCurrentMonth) return;
+
+    setSelectedDate(date);
+    const selectedDateObj = new Date(currentYear, currentMonth, date);
+
+    const tasksForDay = getTasksForDate(date, true);
+
+    if (onDateSelected) {
+      onDateSelected(selectedDateObj, tasksForDay);
     }
   };
 
@@ -180,6 +224,7 @@ const Calendar: React.FC = () => {
               isCurrentMonth={isCurrentMonth}
               isSelected={isCurrentMonth && selectedDate === date}
               isToday={isToday}
+              hasTasks={hasTasksForDate(date, isCurrentMonth)} // highlight if tasks exist
               onClick={() => handleDateClick(date, isCurrentMonth)}
             >
               {date}

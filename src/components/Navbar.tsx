@@ -55,6 +55,7 @@ const Sidebar = styled.div<{ isOpen: boolean }>`
     height: auto;
     width: 20%;
     border-radius: 1em 0em 0em 1em;
+    border-right: 1px solid #e6e8ec;
     flex-direction: column;
     border-left: none;
     left: auto;

@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { doc, onSnapshot, collection, query, where, documentId, getDocs } from 'firebase/firestore';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
-import { Alliance } from '../../types/firestore';
-import AllianceListDisplay from '../../components/AllianceListDisplay';
+import { Alliance, Task } from '../../types/firestore';
 import { User } from '../../types/user';
+import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
+import SmallTaskCard from './components/SmallTaskCard';
 
 const AllianceContainer = styled.div``;
 
@@ -36,38 +37,7 @@ const TodaysTaskBox = styled.div`
   align-items: center;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M0,50 C50,100 150,0 200,50 L200,100 L0,100 Z" fill="%23ffffff" opacity="0.06"/></svg>')
-      no-repeat center;
-    background-size: cover;
-    pointer-events: none;
-    z-index: 1;
-    transform: rotate(180deg);
-    transform-origin: center;
-  }
-
-  &::after {
-    content: '';
-    top: 0;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 60%;
-    transform: rotate(180deg);
-    transform-origin: center;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M0,50 C50,100 150,0 200,50 L200,100 L0,100 Z" fill="%23ffffff" opacity="0.09"/></svg>')
-      no-repeat center;
-    background-size: cover;
-    pointer-events: none;
-    z-index: 2;
-  }
+  justify-content: center; /* center the content vertically */
 `;
 
 const StatBox = styled.div`
@@ -85,33 +55,6 @@ const StatBox = styled.div`
   align-items: center;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M0,50 C50,100 150,0 200,50 L200,100 L0,100 Z" fill="%23ffffff" opacity="0.2"/></svg>')
-      no-repeat center;
-    background-size: cover;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M0,50 C50,100 150,0 200,50 L200,100 L0,100 Z" fill="%23ffffff" opacity="0.2"/></svg>')
-      no-repeat center;
-    background-size: cover;
-    pointer-events: none;
-    z-index: 2;
-  }
 `;
 
 const StatTitle = styled.h4`
@@ -128,6 +71,8 @@ const StatValue = styled.p`
 const Dashboard: FC = () => {
   const { user } = useAuth(auth, db);
   const [alliances, setAlliances] = useState<Alliance[]>([]);
+  const [allTasks, setAllTasks] = useState<Task[]>([]);
+  const [selectedDateTasks, setSelectedDateTasks] = useState<Task[]>([]);
   const tasksCompleted = 87;
 
   useEffect(() => {
@@ -152,11 +97,9 @@ const Dashboard: FC = () => {
         return;
       }
 
-      // Firestore 'in' query limit
+      // Firestore 'in' query limit of 10
       const sliceLimit = 10;
       const limitedAllianceIds = allianceIds.slice(0, sliceLimit);
-
-      // Fetch alliances
       const alliancesRef = collection(db, 'alliances');
       const q = query(alliancesRef, where(documentId(), 'in', limitedAllianceIds));
       const alliancesSnap = await getDocs(q);
@@ -171,16 +114,55 @@ const Dashboard: FC = () => {
     return () => unsubscribe();
   }, [user]);
 
+  useEffect(() => {
+    const fetchTasksForAlliances = async () => {
+      if (!alliances || alliances.length === 0) {
+        setAllTasks([]);
+        return;
+      }
+
+      const allianceIds = alliances.map((a) => a.id);
+      const limitIds = allianceIds.slice(0, 10);
+      const tasksRef = collection(db, 'tasks');
+      const qTasks = query(tasksRef, where('allianceId', 'in', limitIds));
+      const tasksSnap = await getDocs(qTasks);
+
+      const tasksData = tasksSnap.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Task, 'id'>),
+      })) as Task[];
+
+      setAllTasks(tasksData);
+    };
+
+    fetchTasksForAlliances();
+  }, [alliances]);
+
+  const handleDateSelected = (_date: Date, tasksForDate: Task[]) => {
+    setSelectedDateTasks(tasksForDate);
+  };
+
   return (
     <>
       <StatsContainer>
-        <Calendar />
+        <Calendar tasks={allTasks} onDateSelected={handleDateSelected} />
+        <TodaysTaskBox>
+          {selectedDateTasks.length === 0 ? (
+            <p style={{ margin: 0 }}>No tasks for this date</p>
+          ) : (
+            <>
+              {selectedDateTasks.map((task) => (
+                <SmallTaskCard key={task.id} task={task} />
+              ))}
+            </>
+          )}
+        </TodaysTaskBox>
         <StatBox>
           <StatTitle>Tasks Completed</StatTitle>
           <StatValue>{tasksCompleted}</StatValue>
         </StatBox>
-        <TodaysTaskBox>Todays Tasks</TodaysTaskBox>
       </StatsContainer>
+
       <AllianceContainer>
         <AllianceListDisplay
           alliances={alliances}

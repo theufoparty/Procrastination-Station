@@ -361,7 +361,6 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
             />
           </InputContainer>
 
-          {/* Priority Options as Buttons */}
           <InputContainer>
             <Label>Priority</Label>
             <PriorityButtonContainer>
