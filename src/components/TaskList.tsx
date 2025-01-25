@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Task } from '../types/firestore';
 import TaskSummary from './TaskSummary';
 import SimpleModal from './SimpleModal';
-import TaskCard from './TaskCard';
+import TaskCard from './TaskCard/TaskCard';
 
 interface AllianceMember {
   id: string;
@@ -109,6 +109,7 @@ const TaskList: React.FC<TaskListProps> = ({
               completedAt={selectedTask.completedAt}
               createdAt={selectedTask.createdAt}
               updatedAt={selectedTask.updatedAt}
+              subTask={selectedTask.subTask}
               assignedUserIds={selectedTask.assignedUserIds}
               category={selectedTask.category || 'Uncategorized'}
               onUpdateTask={handleUpdateTaskInList}

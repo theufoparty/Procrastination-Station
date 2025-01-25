@@ -50,6 +50,7 @@ const ModalContainer = styled.div`
 
 const AllTasks: React.FC = () => {
   const { user, userTasks, createUserTask } = useAuth(auth, db);
+
   const [isCreatingTask, setIsCreatingTask] = useState(false);
 
   const predefinedCategories = ['Personal', 'Work', 'Fitness', 'Errands', 'Others'];

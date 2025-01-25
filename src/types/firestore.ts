@@ -20,4 +20,11 @@ export type Task = {
   updatedAt?: Timestamp;
   assignedUserIds?: string[];
   category?: string;
+  subTask?: Record<string, SubTask[]>;
+};
+
+export type SubTask = {
+  name: string;
+  completed: boolean;
+  description?: string;
 };

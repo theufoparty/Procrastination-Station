@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { SubTask } from '../types/firestore';
 
 interface AllianceMember {
   id: string;
@@ -16,6 +17,7 @@ interface CreateTaskFormProps {
     dueDate?: Date | null;
     assignedUserIds?: string[];
     category?: string;
+    subTasks?: SubTask[];
   }) => void;
   allianceMembers: AllianceMember[];
   categories: string[];
@@ -277,9 +279,24 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
   const [taskTime, setTaskTime] = useState('');
   const [assignedIds, setAssignedIds] = useState<string[]>([]);
   const [taskCategory, setTaskCategory] = useState('None');
-
+  const [subTasks, setSubTasks] = useState<SubTask[]>([]);
   const priorityOptions = ['Low', 'Medium', 'High'];
   const recurrenceOptions = ['None', 'Daily', 'Weekly', 'Monthly'];
+
+  /** Add a new empty subtask row */
+  const handleAddSubTask = () => {
+    setSubTasks((prev) => [...prev, { name: '', completed: false }]);
+  };
+
+  /** Update the subtask name in the array */
+  const handleChangeSubTaskName = (index: number, newName: string) => {
+    setSubTasks((prev) => prev.map((st, i) => (i === index ? { ...st, name: newName } : st)));
+  };
+
+  /** Remove a subtask */
+  const handleRemoveSubTask = (index: number) => {
+    setSubTasks((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -300,6 +317,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
       dueDate: finalDueDate,
       assignedUserIds: assignedIds,
       category: taskCategory !== 'None' ? taskCategory : undefined,
+      subTasks,
     });
 
     setTaskName('');
@@ -310,6 +328,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
     setTaskTime('');
     setAssignedIds([]);
     setTaskCategory('None');
+    setSubTasks([]);
   };
 
   return (
@@ -359,6 +378,26 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
               onChange={(e) => setTaskDescription(e.target.value)}
               rows={2}
             />
+          </InputContainer>
+          <InputContainer>
+            <Label>Subtasks</Label>
+            {subTasks.map((subTask, index) => (
+              <div key={index} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                <LightInput
+                  type='text'
+                  placeholder='Subtask name'
+                  value={subTask.name}
+                  onChange={(e) => handleChangeSubTaskName(index, e.target.value)}
+                  required
+                />
+                <button type='button' onClick={() => handleRemoveSubTask(index)}>
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button type='button' onClick={handleAddSubTask}>
+              + Add Subtask
+            </button>
           </InputContainer>
 
           <InputContainer>

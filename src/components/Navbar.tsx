@@ -33,10 +33,10 @@ const HamburgerIcon = styled.div`
   }
 `;
 
-const Sidebar = styled.div<{ isOpen: boolean }>`
+const Sidebar = styled.div<{ isopen: boolean }>`
   position: fixed;
   top: 0;
-  right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+  right: ${({ isopen }) => (isopen ? '0' : '-100%')};
   height: 100vh;
   width: 90%;
   background-color: #feffff;
@@ -64,14 +64,14 @@ const Sidebar = styled.div<{ isOpen: boolean }>`
   }
 `;
 
-const Overlay = styled.div<{ isOpen: boolean }>`
+const Overlay = styled.div<{ isopen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ isopen }) => (isopen ? 'block' : 'none')};
   z-index: 1000;
 `;
 
@@ -131,7 +131,7 @@ const Navbar = () => {
   const allianceLink = allianceId ? `/alliance/${allianceId}` : '/create-alliance';
 
   const [greeting, setGreeting] = useState<string>('Hello');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isopen, setIsOpen] = useState(false);
 
   const determineGreeting = () => {
     const currentHour = new Date().getHours();
@@ -184,8 +184,8 @@ const Navbar = () => {
         <span />
         <span />
       </HamburgerIcon>
-      <Overlay isOpen={isOpen} onClick={() => setIsOpen(false)} />
-      <Sidebar isOpen={isOpen}>
+      <Overlay isopen={isopen} onClick={() => setIsOpen(false)} />
+      <Sidebar isopen={isopen}>
         <div>
           <Greeting>
             {greeting}, {user?.displayName || user?.email}
@@ -198,7 +198,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link to='/tasks' onClick={() => setIsOpen(false)}>
-                All Tasks
+                My Tasks
               </Link>
             </li>
             <li>
