@@ -32,8 +32,10 @@ interface TaskDetailsProps {
   allianceMembers: AllianceMember[];
   category?: string;
   timeLeft: string;
+
   onComplete: () => void;
   onEdit: () => void;
+  onRemove: () => void; // New prop for removing the task
 }
 
 const TaskDetails: React.FC<TaskDetailsProps> = ({
@@ -53,6 +55,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
   timeLeft,
   onComplete,
   onEdit,
+  onRemove,
 }) => {
   const assignedUsersDisplay =
     assignedUserIds && assignedUserIds.length > 0
@@ -111,7 +114,9 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
       <TaskDetail>
         <strong>Assigned Users:</strong> {assignedUsersDisplay}
       </TaskDetail>
-      <button onClick={onComplete}>Completed</button> <button onClick={onEdit}>Edit</button>
+      <button onClick={onComplete}>Completed</button>
+      <button onClick={onEdit}>Edit</button>
+      <button onClick={onRemove}>Remove</button>
     </div>
   );
 };

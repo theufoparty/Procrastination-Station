@@ -9,6 +9,7 @@ import { parseSubTaskMap, getNextDueDate } from '../../utils/taskUtils';
 import { useCountdown } from './useCountdown';
 import TaskDetails from './TaskDetails';
 import EditTaskForm from './EditTaskForm';
+import { removeTask } from '../../utils/removeTask';
 
 const TaskContainer = styled.div`
   background-color: #fff;
@@ -28,6 +29,7 @@ interface TaskCardProps extends Task {
   assignedUserIds?: string[];
   allianceMembers: AllianceMember[];
   categories: string[];
+  onClose: () => void;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -47,7 +49,17 @@ const TaskCard: React.FC<TaskCardProps> = ({
   category,
   subTask,
   onUpdateTask,
+  onClose,
 }) => {
+  const handleRemove = async () => {
+    try {
+      await removeTask(id);
+      onClose();
+    } catch (error) {
+      console.error('Error removing task:', error);
+    }
+  };
+
   const [isEditing, setIsEditing] = useState(false);
 
   // Flatten the subTasks from the map for display
@@ -181,6 +193,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
           category={category}
           timeLeft={timeLeft}
           onComplete={handleCompleted}
+          onRemove={handleRemove}
           onEdit={handleEdit}
         />
       )}

@@ -115,6 +115,7 @@ const TaskList: React.FC<TaskListProps> = ({
               onUpdateTask={handleUpdateTaskInList}
               allianceMembers={allianceMembers}
               categories={categories}
+              onClose={closeModal}
             />
           </SimpleModal>
         )}
