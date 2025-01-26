@@ -12,6 +12,7 @@ import styled, { keyframes } from 'styled-components';
 import { AllianceLink } from './components/AllianceLink';
 import { Task } from '../../types/firestore';
 import { updateTask } from '../../utils/updateTask';
+import { joinAlliance } from '../../utils/joinAlliance';
 
 const fadeIn = keyframes`
   from {
@@ -85,7 +86,6 @@ const AllianceDashboard: React.FC = () => {
     allianceTasks,
     allianceMembers,
     isMemberOfAlliance,
-    joinAlliance,
     createAllianceTask,
     leaveAlliance,
   } = useAlliance(allianceId);
@@ -98,10 +98,15 @@ const AllianceDashboard: React.FC = () => {
       alert('Please log in first.');
       return;
     }
-    try {
-      await joinAlliance();
-    } catch {
-      alert('Could not join alliance.');
+    if (allianceId) {
+      try {
+        await joinAlliance({
+          userId: user.uid,
+          allianceId: allianceId,
+        });
+      } catch {
+        alert('Could not join alliance.');
+      }
     }
   };
 

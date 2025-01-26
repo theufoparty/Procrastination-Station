@@ -13,6 +13,8 @@ import styled from 'styled-components';
 import GlobalStyle from './styles/globalStyles';
 import { JoinAlliancePage } from './pages/JoinAlliancePage/JoinAlliancePage';
 import AllTasks from './pages/AllTasks/AllTasks';
+import { useEffect, useState } from 'react';
+import { joinAlliance } from './utils/joinAlliance';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -66,6 +68,18 @@ const NavLinkStyled = styled(Link)`
 
 function App() {
   const { user, authLoading } = useAuth(auth, db);
+  const [redirectAllianceId, setRedirectAllianceId] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (user && user.uid && redirectAllianceId) {
+      joinAlliance({
+        userId: user.uid,
+        allianceId: redirectAllianceId,
+      }).then(() => {
+        window.location.href = `/alliance/${redirectAllianceId}`;
+      });
+    }
+  }, [user, redirectAllianceId]);
 
   if (authLoading) {
     return <div>Loading...</div>;
@@ -116,6 +130,10 @@ function App() {
           <Routes>
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route
+              path='/join-alliance/:allianceId'
+              element={<JoinAlliancePage setRedirectAllianceId={setRedirectAllianceId} />}
+            />
             <Route path='*' element={<Navigate to='/login' />} />
           </Routes>
         )}

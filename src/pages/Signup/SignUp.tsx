@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../../firebaseConfig';
+import { createUserWithProfile } from '../../utils/createUserWithProfile';
 
 const PageContainer = styled.main`
   min-height: 100vh;
@@ -176,14 +175,13 @@ const SignUp = () => {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await updateProfile(user, { displayName: name });
-      await setDoc(doc(db, 'users', user.uid), {
+      // Use the utility function to create the user
+      await createUserWithProfile({
+        auth,
+        db,
         name,
-        email: user.email,
-        createdAt: serverTimestamp(),
+        email,
+        password,
       });
 
       setName('');

@@ -6,7 +6,6 @@ import {
   query,
   where,
   updateDoc,
-  arrayUnion,
   arrayRemove,
   addDoc,
   serverTimestamp,
@@ -125,27 +124,6 @@ export const useAlliance = (allianceId?: string) => {
     };
   }, [alliance]);
 
-  /** Join Alliance */
-  const joinAlliance = async () => {
-    if (!allianceId || !currentUserUid) return;
-
-    try {
-      const allianceDocRef = doc(db, 'alliances', allianceId);
-      const userDocRef = doc(db, 'users', currentUserUid);
-
-      await updateDoc(allianceDocRef, {
-        userIds: arrayUnion(currentUserUid),
-      });
-
-      await updateDoc(userDocRef, {
-        allianceIds: arrayUnion(allianceId),
-      });
-    } catch (error) {
-      console.error('Error joining alliance:', error);
-      throw error;
-    }
-  };
-
   /** Leave Alliance */
   const leaveAlliance = async () => {
     if (!allianceId || !currentUserUid) return;
@@ -204,7 +182,6 @@ export const useAlliance = (allianceId?: string) => {
     allianceTasks,
     allianceMembers,
     isMemberOfAlliance,
-    joinAlliance,
     leaveAlliance,
     createAllianceTask,
   };
