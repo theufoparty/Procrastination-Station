@@ -33,11 +33,11 @@ const LeftSection = styled.div`
 const Title = styled.h1`
   font-weight: 100;
   font-size: 2.4em;
-  color: #333;
+  color: #252525;
   margin-top: 2em;
 
   @media (min-width: 768px) {
-    font-size: 3.5;
+    font-size: 3.5em;
     margin-top: 0;
   }
 `;
@@ -48,7 +48,6 @@ const RightSection = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  background-color: #dedede;
 
   @media (min-width: 768px) {
     display: flex;
@@ -69,7 +68,6 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin: 3em;
 `;
 
 const FormGroup = styled.div`
@@ -79,21 +77,24 @@ const FormGroup = styled.div`
 `;
 
 const StyledLabel = styled.label`
-  font-size: 1rem;
-  color: #444;
+  font-size: 1.2rem;
+  color: #252525;
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
 `;
 
 const StyledInput = styled.input`
-  padding: 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
+  padding: 1em 0 1em 0;
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: 1px solid #252525;
+  outline: none;
+  transition: border-color 0.3s ease;
 
   &:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #252525;
   }
 `;
 
@@ -105,48 +106,40 @@ const ButtonGroup = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 1rem;
-  font-size: 1rem;
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  border: 1px solid #252525;
+  background: none;
+  color: #252525;
   cursor: pointer;
-  border: 1px solid #007bff;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 8px;
-  width: 100%;
   transition:
     background-color 0.3s ease,
-    transform 0.2s ease;
+    color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(1px);
+    background-color: #252525;
+    color: #fff;
   }
 `;
 
 const SecondaryButton = styled.button`
-  padding: 1rem;
-  font-size: 1rem;
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  border: 1px solid #252525;
+  background: none;
+  color: #252525;
   cursor: pointer;
-  border: 1px solid #007bff;
-  background-color: #fff;
-  color: #007bff;
-  border-radius: 8px;
-  width: 100%;
   transition:
     background-color 0.3s ease,
-    transform 0.2s ease;
+    color 0.3s ease;
 
   &:hover {
-    background-color: #f1f9ff;
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(1px);
+    background-color: #252525;
+    color: #fff;
   }
 `;
 
@@ -158,12 +151,6 @@ const ErrorMessage = styled.p`
   &[role='alert'] {
     margin-top: 1rem;
   }
-`;
-
-const Text = styled.p`
-  font-size: 1em;
-  text-align: center;
-  margin-top: 1rem;
 `;
 
 const Login = () => {
@@ -192,15 +179,6 @@ const Login = () => {
     <PageContainer>
       <LeftSection>
         <Title>Procrastination Station</Title>
-
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.
-        </Text>
       </LeftSection>
 
       <RightSection>
