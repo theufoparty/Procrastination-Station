@@ -47,7 +47,7 @@ const Sidebar = styled.div<{ isopen: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 1500;
+  z-index: 998;
   transition: right 0.3s ease;
 
   @media (min-width: 768px) {
