@@ -1,14 +1,48 @@
-// components/TaskCard/TaskDetails.tsx
 import React from 'react';
 import styled from 'styled-components';
 import { Timestamp } from 'firebase/firestore';
 import { SubTask } from '../../types/firestore';
 import SubTaskList from './SubTaskList';
 
+const Container = styled.div``;
+
+const Title = styled.h2`
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+`;
+
 const TaskDetail = styled.p`
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   color: #555;
+
+  strong {
+    color: #333;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+`;
+
+const StyledButton = styled.button`
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: none;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+  }
 `;
 
 interface AllianceMember {
@@ -35,7 +69,7 @@ interface TaskDetailsProps {
 
   onComplete: () => void;
   onEdit: () => void;
-  onRemove: () => void; // New prop for removing the task
+  onRemove: () => void;
 }
 
 const TaskDetails: React.FC<TaskDetailsProps> = ({
@@ -68,17 +102,17 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
       : 'No one assigned';
 
   return (
-    <div>
-      <h2>{name}</h2>
+    <Container>
+      <Title>{name}</Title>
       <TaskDetail>
-        <strong>Account ID:</strong> {allianceId}
+        <strong>Account ID:</strong> {allianceId || 'N/A'}
       </TaskDetail>
       <TaskDetail>
         <strong>Description:</strong> {description}
       </TaskDetail>
       {subTasks.length > 0 && (
         <TaskDetail>
-          <strong>Subtasks (from map):</strong>
+          <strong>Subtasks:</strong>
           <SubTaskList subTasks={subTasks} />
         </TaskDetail>
       )}
@@ -114,10 +148,12 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
       <TaskDetail>
         <strong>Assigned Users:</strong> {assignedUsersDisplay}
       </TaskDetail>
-      <button onClick={onComplete}>Completed</button>
-      <button onClick={onEdit}>Edit</button>
-      <button onClick={onRemove}>Remove</button>
-    </div>
+      <ButtonGroup>
+        <StyledButton onClick={onComplete}>Complete</StyledButton>
+        <StyledButton onClick={onEdit}>Edit</StyledButton>
+        <StyledButton onClick={onRemove}>Remove</StyledButton>
+      </ButtonGroup>
+    </Container>
   );
 };
 

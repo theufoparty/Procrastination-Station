@@ -1,4 +1,3 @@
-// components/TaskCard/TaskCard.tsx
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Timestamp } from 'firebase/firestore';
@@ -13,9 +12,10 @@ import { removeTask } from '../../utils/removeTask';
 
 const TaskContainer = styled.div`
   background-color: #fff;
+
   padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
+  width: 100%;
+  height: fit-content;
 `;
 
 interface AllianceMember {
@@ -135,7 +135,6 @@ const TaskCard: React.FC<TaskCardProps> = ({
     }
 
     try {
-      // Convert array back into map if desired
       const newMap: Record<string, SubTask[]> = {
         defaultKey: newSubTasks,
       };

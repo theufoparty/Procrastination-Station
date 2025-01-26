@@ -92,7 +92,6 @@ const AllianceDashboard: React.FC = () => {
 
   const [isCreatingTask, setIsCreatingTask] = useState(false);
 
-  /** Handle Joining Alliance */
   const handleJoinAlliance = async () => {
     if (!user) {
       alert('Please log in first.');

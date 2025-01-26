@@ -1,14 +1,75 @@
-// components/TaskCard/EditTaskForm.tsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SubTask } from '../../types/firestore';
 import SubTaskList from './SubTaskList';
 import { parseDueDate } from '../../utils/taskUtils';
 
-const TaskDetail = styled.p`
+const Container = styled.div``;
+
+const Title = styled.h2`
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+`;
+
+const TaskDetail = styled.div`
+  margin-bottom: 1rem;
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    height: fit-content;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #666;
+      outline: none;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  select[multiple] {
+    height: auto;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+`;
+
+const StyledButton = styled.button`
+  padding: 0.8rem 1.2rem;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: #555;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: none;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+  }
 `;
 
 interface AllianceMember {
@@ -57,7 +118,6 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
   onSave,
   onCancel,
 }) => {
-  // Local state for editing
   const [editName, setEditName] = useState(initialName);
   const [editDescription, setEditDescription] = useState(initialDescription);
   const [editPriority, setEditPriority] = useState(initialPriority);
@@ -83,30 +143,29 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
   };
 
   return (
-    <div>
+    <Container>
+      <Title>Edit Task</Title>
       <TaskDetail>
-        <strong>Name:</strong>
-        <br />
+        <label htmlFor='name'>Name:</label>
         <input
+          id='name'
           type='text'
           value={editName}
           onChange={(e) => setEditName(e.target.value)}
-          style={{ width: '100%' }}
         />
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Description:</strong>
-        <br />
+        <label htmlFor='description'>Description:</label>
         <textarea
+          id='description'
           value={editDescription}
           onChange={(e) => setEditDescription(e.target.value)}
-          style={{ width: '100%' }}
         />
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Subtasks:</strong>
+        <label>Subtasks:</label>
         <SubTaskList
           subTasks={editSubTasks}
           editable
@@ -115,9 +174,12 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Priority:</strong>
-        <br />
-        <select value={editPriority} onChange={(e) => setEditPriority(e.target.value)}>
+        <label htmlFor='priority'>Priority:</label>
+        <select
+          id='priority'
+          value={editPriority}
+          onChange={(e) => setEditPriority(e.target.value)}
+        >
           <option>Low</option>
           <option>Medium</option>
           <option>High</option>
@@ -125,9 +187,12 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Recurrence:</strong>
-        <br />
-        <select value={editRecurrence} onChange={(e) => setEditRecurrence(e.target.value)}>
+        <label htmlFor='recurrence'>Recurrence:</label>
+        <select
+          id='recurrence'
+          value={editRecurrence}
+          onChange={(e) => setEditRecurrence(e.target.value)}
+        >
           <option>None</option>
           <option>Daily</option>
           <option>Weekly</option>
@@ -136,9 +201,9 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Due Date:</strong>
-        <br />
+        <label htmlFor='dueDate'>Due Date:</label>
         <input
+          id='dueDate'
           type='datetime-local'
           value={editDueDate}
           onChange={(e) => setEditDueDate(e.target.value)}
@@ -146,11 +211,10 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Assign Users:</strong>
-        <br />
+        <label htmlFor='assignUsers'>Assign Users:</label>
         <select
+          id='assignUsers'
           multiple
-          style={{ width: '100%', height: '100px' }}
           value={editAssignedIds}
           onChange={(e) => {
             const selected = Array.from(e.target.selectedOptions).map((o) => o.value);
@@ -166,9 +230,12 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <strong>Category:</strong>
-        <br />
-        <select value={editCategory} onChange={(e) => setEditCategory(e.target.value)}>
+        <label htmlFor='category'>Category:</label>
+        <select
+          id='category'
+          value={editCategory}
+          onChange={(e) => setEditCategory(e.target.value)}
+        >
           <option>None</option>
           {categories.map((cat) => (
             <option key={cat} value={cat}>
@@ -178,10 +245,11 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
         </select>
       </TaskDetail>
 
-      <div style={{ marginTop: '1rem' }}>
-        <button onClick={handleSave}>Save</button> <button onClick={onCancel}>Cancel</button>
-      </div>
-    </div>
+      <ButtonGroup>
+        <StyledButton onClick={handleSave}>Save</StyledButton>
+        <StyledButton onClick={onCancel}>Cancel</StyledButton>
+      </ButtonGroup>
+    </Container>
   );
 };
 

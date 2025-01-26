@@ -3,9 +3,9 @@ import { Alliance } from '../types/firestore';
 
 interface AllianceListDisplayProps {
   alliances: Alliance[];
-  title?: string; // Optional title to display
-  emptyMessage?: string; // Optional message if no alliances
-  className?: string; // For styled-components or additional styling
+  title?: string;
+  emptyMessage?: string;
+  className?: string;
 }
 
 const AllianceListDisplay = ({

@@ -1,4 +1,3 @@
-// components/TaskCard/SubTaskList.tsx
 import React from 'react';
 import { SubTask } from '../../types/firestore';
 
@@ -8,10 +7,6 @@ interface SubTaskListProps {
   onChangeSubTasks?: (updatedSubTasks: SubTask[]) => void;
 }
 
-/**
- * If `editable` is false, just display subtasks in read-only mode.
- * If `editable` is true, display input fields to allow editing.
- */
 const SubTaskList: React.FC<SubTaskListProps> = ({
   subTasks,
   editable = false,

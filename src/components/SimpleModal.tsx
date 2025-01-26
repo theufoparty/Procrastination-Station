@@ -9,6 +9,8 @@ const modalStyle: React.CSSProperties = {
   position: 'fixed',
   top: '50%',
   left: '50%',
+  height: '50em',
+  width: '40em',
   transform: 'translate(-50%, -50%)',
   backgroundColor: '#fff',
   padding: '2rem',

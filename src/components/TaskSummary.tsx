@@ -9,19 +9,26 @@ interface TaskSummaryProps {
 
 const TaskContainer = styled.div`
   position: relative;
-  border: 1px solid #e6e8ec;
-  border-radius: 1em;
-  padding: 1em;
-  text-align: center;
-  background: linear-gradient(135deg, #6e8efb, #3b53db);
-  color: #ffffff;
-  width: 12em;
+  border: 1px solid black;
+  margin: 1em;
+  border-radius: 12px;
+  padding: 1.5em;
+  color: #000000;
+  width: 20em;
   height: 12em;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 
   &::before {
     content: '';
@@ -51,17 +58,17 @@ const TaskContainer = styled.div`
   }
 `;
 
-const TaskHeader = styled.strong`
-  display: block;
-  font-size: 1.1rem;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
+const TaskHeader = styled.h3`
+  font-size: 1em;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.5rem;
 `;
 
 const TaskDetails = styled.p`
-  font-size: 0.9rem;
-  color: #ffffff;
-  margin: 0;
+  font-size: 1em;
+  color: #000000;
+  margin: 0.25rem 0;
 `;
 
 const TaskSummary: React.FC<TaskSummaryProps> = ({ task, onClick }) => {

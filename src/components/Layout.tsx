@@ -16,7 +16,6 @@ const Wrapper = styled.div`
 
 const MainContent = styled.main`
   width: 100%;
-  padding: 2rem;
   border-radius: 0 0 0 0;
 
   box-sizing: border-box;

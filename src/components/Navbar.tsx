@@ -107,20 +107,21 @@ const NavLinks = styled.ul`
 `;
 
 const LogoutButton = styled.button`
-  padding: 1em;
-  background-color: #3c64e7;
-  border: none;
-  border-radius: 2em;
-  color: #ecf0f1;
+  font-family: 'Montserrat', serif;
+  font-weight: 300;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #252525;
+  background: none;
+  color: #252525;
   cursor: pointer;
-  font-size: 1em;
-  width: 14em;
-  height: 3em;
-  align-self: center;
-  margin-top: 3em;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 
   &:hover {
-    background-color: #9bb2ff;
+    background-color: #252525;
+    color: #fff;
   }
 `;
 

@@ -5,7 +5,6 @@ interface AllianceLinkProps {
 }
 
 export function AllianceLink({ allianceId }: AllianceLinkProps) {
-  // Generate the full join URL, based on current window location and your route
   const joinAllianceLink = `${window.location.origin}/join-alliance/${allianceId}`;
 
   const [copied, setCopied] = useState(false);
@@ -14,8 +13,6 @@ export function AllianceLink({ allianceId }: AllianceLinkProps) {
     try {
       await navigator.clipboard.writeText(joinAllianceLink);
       setCopied(true);
-
-      // Reset the "Copied!" message after a short delay
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy invite link:', error);
@@ -33,9 +30,7 @@ export function AllianceLink({ allianceId }: AllianceLinkProps) {
       }}
     >
       <p style={{ margin: 0, fontWeight: 500 }}>Copy Invite Link to Alliance</p>
-      <button onClick={handleCopyLink}>
-        {copied ? 'Copied!' : 'Copy Link'}
-      </button>
+      <button onClick={handleCopyLink}>{copied ? 'Copied!' : 'Copy Link'}</button>
     </div>
   );
 }
