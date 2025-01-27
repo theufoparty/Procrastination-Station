@@ -54,7 +54,6 @@ const Sidebar = styled.div<{ isopen: boolean }>`
     position: static;
     height: auto;
     width: 20%;
-    border-radius: 1em 0em 0em 1em;
     border-right: 1px solid #e6e8ec;
     flex-direction: column;
     border-left: none;
@@ -94,7 +93,7 @@ const NavLinks = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   li {
     margin: 1rem 0;
@@ -107,6 +106,15 @@ const NavLinks = styled.ul`
 
     &:hover {
       color: #000000;
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+
+    li {
+      text-align: center;
     }
   }
 `;

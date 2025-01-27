@@ -34,8 +34,8 @@ const NewTaskButton = styled.button`
     color: #fff;
   }
 
-  top: 1rem;
-  right: 1rem;
+  top: 2em;
+  right: 2em;
 
   @media (max-width: 768px) {
     bottom: 1rem;

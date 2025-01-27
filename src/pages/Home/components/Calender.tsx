@@ -4,7 +4,6 @@ import { Task } from '../../../types/firestore';
 
 const CalendarContainer = styled.div`
   background: #fff;
-  border-radius: 12px;
   padding: 1rem;
   border: 1px solid #000;
   max-width: 400px;

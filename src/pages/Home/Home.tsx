@@ -30,7 +30,6 @@ const StatsContainer = styled.div`
 const TodaysTaskBox = styled.div`
   position: relative;
   border: 1px solid #000000;
-  border-radius: 12px;
   padding: 1em;
   background: #ffffff;
   cursor: pointer;
@@ -40,7 +39,6 @@ const TodaysTaskBox = styled.div`
 const StatBox = styled.div`
   position: relative;
   border: 1px solid #000000;
-  border-radius: 12px;
   padding: 1.5em;
   background: #ffffff;
   width: 20em;

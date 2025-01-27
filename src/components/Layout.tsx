@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
-    padding: 2em;
   }
 `;
 

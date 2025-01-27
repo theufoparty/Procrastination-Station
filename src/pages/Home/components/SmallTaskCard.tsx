@@ -5,7 +5,6 @@ import { Task } from '../../../types/firestore';
 const CardWrapper = styled.div`
   position: relative;
   border: 1px solid #000000;
-  border-radius: 12px;
   padding: 1.5em;
   background: #ffffff;
   width: 20em;
