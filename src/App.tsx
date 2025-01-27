@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { auth, db } from '../firebaseConfig';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './utils/useAuth';
@@ -9,62 +9,11 @@ import CreateAlliance from './pages/CreateAlliance/CreateAlliance';
 import AllianceDashboard from './pages/AllianceDashboard/AllianceDashboard';
 import Home from './pages/Home/Home';
 import Layout from './components/Layout';
-import styled from 'styled-components';
 import GlobalStyle from './styles/globalStyles';
 import { JoinAlliancePage } from './pages/JoinAlliancePage/JoinAlliancePage';
 import AllTasks from './pages/AllTasks/AllTasks';
 import { useEffect, useState } from 'react';
 import { joinAlliance } from './utils/joinAlliance';
-
-const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-const Logo = styled.h1`
-  margin: 0;
-  font-size: 1.5rem;
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-
-  @media (max-width: 600px) {
-    font-size: 1.25rem;
-  }
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  gap: 1rem;
-
-  @media (max-width: 600px) {
-    margin-top: 0.5rem;
-    width: 100%;
-    justify-content: space-around;
-  }
-`;
-
-const NavLinkStyled = styled(Link)`
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.2s ease-in-out;
-
-  &:hover {
-    color: #007bff;
-  }
-`;
 
 function App() {
   const { user, authLoading } = useAuth(auth, db);
@@ -89,19 +38,6 @@ function App() {
     <>
       <GlobalStyle />
       <Router>
-        {user ? (
-          <HeaderContainer>
-            <Nav>
-              <Logo>Procrastination Station :</Logo>
-              <NavLinkStyled to='/'>Home</NavLinkStyled>
-              <NavLinkStyled to='/alliance-list'>Alliance List</NavLinkStyled>
-              <NavLinkStyled to='/create-alliance'>Create Alliance</NavLinkStyled>
-            </Nav>
-          </HeaderContainer>
-        ) : (
-          ``
-        )}
-
         {user ? (
           <Layout>
             <Routes>

@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #e6e8ec;
+  background-color: #ffffff;
 
   @media (min-width: 768px) {
     display: flex;
@@ -19,7 +19,7 @@ const MainContent = styled.main`
   border-radius: 0 0 0 0;
 
   box-sizing: border-box;
-  background-color: #feffff;
+  background-color: #ffffff;
   @media (min-width: 768px) {
     width: 80%;
     border-radius: 0em 1em 1em 0em;

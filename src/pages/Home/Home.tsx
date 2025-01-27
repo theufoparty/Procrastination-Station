@@ -7,7 +7,7 @@ import { Alliance, Task } from '../../types/firestore';
 import { User } from '../../types/user';
 import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
-import SmallTaskCard from './components/SmallTaskCard';
+import TaskSummary from '../../components/TaskSummary';
 
 const AllianceContainer = styled.div``;
 
@@ -24,37 +24,24 @@ const StatsContainer = styled.div`
 
 const TodaysTaskBox = styled.div`
   position: relative;
-  border: 1px solid #e6e8ec;
-  border-radius: 1em;
+  border: 1px solid #000000;
+  border-radius: 12px;
   padding: 1em;
-  text-align: center;
-  background: linear-gradient(135deg, #2c2d32, #000000);
-  color: #ffffff;
-  width: 12em;
-  height: 12em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  justify-content: center; /* center the content vertically */
+  background: #ffffff;
+  cursor: pointer;
+  margin: 1em;
 `;
 
 const StatBox = styled.div`
   position: relative;
-  border: 1px solid #e6e8ec;
-  border-radius: 1em;
-  padding: 1em;
-  text-align: center;
-  background: linear-gradient(135deg, #6e8efb, #3b53db);
-  color: #ffffff;
-  width: 12em;
+  border: 1px solid #000000;
+  border-radius: 12px;
+  padding: 1.5em;
+  background: #ffffff;
+  width: 20em;
   height: 12em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 1em;
 `;
 
 const StatTitle = styled.h4`
@@ -152,7 +139,13 @@ const Dashboard: FC = () => {
           ) : (
             <>
               {selectedDateTasks.map((task) => (
-                <SmallTaskCard key={task.id} task={task} />
+                <TaskSummary
+                  key={task.id}
+                  task={task}
+                  onClick={function (): void {
+                    throw new Error('Function not implemented.');
+                  }}
+                />
               ))}
             </>
           )}

@@ -12,18 +12,21 @@ const Container = styled.div`
 `;
 
 const NewTaskButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: #485ed9;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  border: 1px solid #252525;
+  background: none;
+  color: #252525;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease-in-out;
-  margin-bottom: 1rem;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 
   &:hover {
-    background-color: #91b3df;
+    background-color: #252525;
+    color: #fff;
   }
 `;
 
@@ -46,6 +49,12 @@ const ModalContainer = styled.div`
   max-width: 600px;
   width: 100%;
   overflow: hidden;
+`;
+
+const TaskContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const AllTasks: React.FC = () => {
@@ -95,8 +104,10 @@ const AllTasks: React.FC = () => {
 
   return (
     <Container>
-      <h2>{user?.displayName || user?.email}'s Task Dashboard</h2>
-      <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
+      <TaskContainer>
+        <h2>{user?.displayName || user?.email}'s Task Dashboard</h2>
+        <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
+      </TaskContainer>
 
       {isCreatingTask && (
         <ModalOverlay>

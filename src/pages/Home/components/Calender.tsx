@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { Task } from '../../../types/firestore';
 
 const CalendarContainer = styled.div`
-  background: #ffffff;
+  background: #fff;
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000;
   max-width: 400px;
 `;
 

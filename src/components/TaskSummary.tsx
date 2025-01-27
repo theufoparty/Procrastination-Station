@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Task } from '../types/firestore';
+import { Task, SubTask } from '../types/firestore';
 
 interface TaskSummaryProps {
   task: Task;
@@ -9,82 +9,103 @@ interface TaskSummaryProps {
 
 const TaskContainer = styled.div`
   position: relative;
-  border: 1px solid black;
-  margin: 1em;
+  border: 1px solid #000000;
   border-radius: 12px;
   padding: 1.5em;
-  color: #000000;
+  background: #ffffff;
   width: 20em;
   height: 12em;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  overflow: hidden;
   cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M0,50 C50,100 150,0 200,50 L200,100 L0,100 Z" fill="%23ffffff" opacity="0.2"/></svg>')
-      no-repeat center;
-    background-size: cover;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M0,50 C50,100 150,0 200,50 L200,100 L0,100 Z" fill="%23ffffff" opacity="0.2"/></svg>')
-      no-repeat center;
-    background-size: cover;
-    pointer-events: none;
-    z-index: 2;
-  }
+  margin: 1em;
 `;
 
-const TaskHeader = styled.h3`
-  font-size: 1em;
-  font-weight: 600;
-  color: #000000;
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 0.5rem;
 `;
 
-const TaskDetails = styled.p`
-  font-size: 1em;
-  color: #000000;
-  margin: 0.25rem 0;
+const TaskTitle = styled.h3`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+`;
+
+const DueDate = styled.span`
+  font-size: 0.9rem;
+  color: #666;
+`;
+
+const DaysLeft = styled.p`
+  font-size: 0.9rem;
+  color: #ff5722; /* Highlighted color for urgency */
+  margin: 0.5rem 0;
+`;
+
+const ProgressBar = styled.div`
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.75rem 0 1rem;
+`;
+
+const Progress = styled.div<{ percentage: number }>`
+  width: ${(props) => props.percentage}%;
+  height: 100%;
+  background: #4caf50;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
 `;
 
 const TaskSummary: React.FC<TaskSummaryProps> = ({ task, onClick }) => {
-  const { name, priority, dueDate, category } = task;
+  const { name, dueDate, subTask } = task;
 
-  const due = dueDate ? dueDate.toDate().toLocaleString() : 'No due date';
+  // Flatten subTask record into a single array of SubTask objects
+  const allSubTasks: SubTask[] = subTask
+    ? Object.values(subTask).flat() // Combine all arrays in the record
+    : [];
 
-  const categoryDisplay = category || 'Uncategorized';
+  // Calculate progress
+  const totalSubtasks = allSubTasks.length;
+  const completedSubtasks = allSubTasks.filter((subTask) => subTask.completed).length;
+  const percentageComplete = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  // Calculate days left
+  const currentDate = new Date();
+  const dueDateObj = dueDate ? dueDate.toDate() : null;
+  const daysLeft =
+    dueDateObj && dueDateObj > currentDate
+      ? Math.ceil((dueDateObj.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24))
+      : 0;
 
   return (
     <TaskContainer onClick={() => onClick(task)}>
-      <TaskHeader>{name}</TaskHeader>
-      <TaskDetails>
-        Priority: {priority || 'Low'} | Category: {categoryDisplay}
-      </TaskDetails>
-      <TaskDetails>Due: {due}</TaskDetails>
+      <Header>
+        <TaskTitle>{name}</TaskTitle>
+        <DueDate>{dueDateObj ? dueDateObj.toLocaleDateString() : 'No due date'}</DueDate>
+      </Header>
+
+      {dueDateObj && daysLeft > 0 ? (
+        <DaysLeft>
+          {daysLeft} day{daysLeft > 1 ? 's' : ''} left
+        </DaysLeft>
+      ) : (
+        <DaysLeft style={{ color: '#d32f2f' }}>Overdue</DaysLeft>
+      )}
+
+      <Footer>Hello</Footer>
+      <ProgressBar>
+        <Progress percentage={percentageComplete} />
+      </ProgressBar>
     </TaskContainer>
   );
 };
