@@ -8,6 +8,7 @@ const CalendarContainer = styled.div`
   padding: 1rem;
   border: 1px solid #000;
   max-width: 400px;
+  margin: 1em;
 `;
 
 const CalendarHeader = styled.div`

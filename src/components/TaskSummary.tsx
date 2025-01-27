@@ -17,6 +17,11 @@ const TaskContainer = styled.div`
   height: 12em;
   cursor: pointer;
   margin: 1em;
+
+  @media (max-width: 768px) {
+    width: 80%;
+    margin: 1em auto;
+  }
 `;
 
 const Header = styled.div`

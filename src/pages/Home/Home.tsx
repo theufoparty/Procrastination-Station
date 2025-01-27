@@ -9,16 +9,21 @@ import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
 import TaskSummary from '../../components/TaskSummary';
 
-const AllianceContainer = styled.div``;
-
 const StatsContainer = styled.div`
+  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 4em;
+  margin-bottom: 2em;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: 600px) {
     flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 0em;
   }
 `;
 
@@ -154,15 +159,15 @@ const Dashboard: FC = () => {
           <StatTitle>Tasks Completed</StatTitle>
           <StatValue>{tasksCompleted}</StatValue>
         </StatBox>
-      </StatsContainer>
 
-      <AllianceContainer>
-        <AllianceListDisplay
-          alliances={alliances}
-          title='My Alliances'
-          emptyMessage='You are not part of any alliances yet.'
-        />
-      </AllianceContainer>
+        <StatBox>
+          <AllianceListDisplay
+            alliances={alliances}
+            title='My Alliances'
+            emptyMessage='You are not part of any alliances yet.'
+          />
+        </StatBox>
+      </StatsContainer>
     </>
   );
 };

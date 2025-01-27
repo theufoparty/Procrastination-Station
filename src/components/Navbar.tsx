@@ -7,15 +7,15 @@ import { Link } from 'react-router-dom';
 
 const HamburgerIcon = styled.div`
   position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 2000;
+  top: 1.2em;
+  right: 1.2em;
+  z-index: 999;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 2em;
+  width: 3em;
 
   span {
     display: block;
@@ -72,11 +72,11 @@ const Overlay = styled.div<{ isopen: boolean }>`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: ${({ isopen }) => (isopen ? 'block' : 'none')};
-  z-index: 1000;
+  z-index: 100;
 `;
 
 const Greeting = styled.h2`
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: 100;
   margin-bottom: 2em;
   margin-top: 5em;
@@ -89,7 +89,12 @@ const Greeting = styled.h2`
 const NavLinks = styled.ul`
   list-style: none;
   padding: 0;
+  gap: 2em;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   li {
     margin: 1rem 0;
@@ -103,6 +108,17 @@ const NavLinks = styled.ul`
     &:hover {
       color: #000000;
     }
+  }
+`;
+
+const MenuBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    align-items: flex-start;
   }
 `;
 
@@ -187,7 +203,7 @@ const Navbar = () => {
       </HamburgerIcon>
       <Overlay isopen={isopen} onClick={() => setIsOpen(false)} />
       <Sidebar isopen={isopen}>
-        <div>
+        <MenuBar>
           <Greeting>
             {greeting}, {user?.displayName || user?.email}
           </Greeting>
@@ -213,7 +229,7 @@ const Navbar = () => {
               </Link>
             </li>
           </NavLinks>
-        </div>
+        </MenuBar>
         <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
       </Sidebar>
     </>

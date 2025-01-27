@@ -39,7 +39,6 @@ const OuterContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   background-color: #f0f3f8;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   animation: ${fadeIn} 0.3s ease-out;
 `;
 
@@ -56,7 +55,6 @@ const DarkHeader = styled.div`
   background-color: #2b3044;
   padding: 1em;
   align-items: flex-start;
-  padding-top: 4em;
 `;
 
 const CloseButton = styled.button`

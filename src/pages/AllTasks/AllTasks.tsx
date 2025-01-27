@@ -8,6 +8,10 @@ import { updateTask } from '../../utils/updateTask';
 import { Task } from '../../types/firestore';
 
 const Container = styled.div`
+  min-height: 100vh; /* Ensure the container fills at least the viewport height */
+  display: flex; /* Flexbox layout for alignment */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Spread content to edges */
   margin: 2rem;
 `;
 
@@ -20,6 +24,7 @@ const NewTaskButton = styled.button`
   background: none;
   color: #252525;
   cursor: pointer;
+  position: fixed;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -27,6 +32,16 @@ const NewTaskButton = styled.button`
   &:hover {
     background-color: #252525;
     color: #fff;
+  }
+
+  top: 1rem;
+  right: 1rem;
+
+  @media (max-width: 768px) {
+    bottom: 1rem;
+    top: auto;
+    right: 50%;
+    transform: translateX(50%);
   }
 `;
 
@@ -41,6 +56,14 @@ const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
+  @media (min-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 
 const ModalContainer = styled.div`
@@ -53,7 +76,7 @@ const ModalContainer = styled.div`
 
 const TaskContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 `;
 
@@ -107,28 +130,27 @@ const AllTasks: React.FC = () => {
       <TaskContainer>
         <h2>{user?.displayName || user?.email}'s Task Dashboard</h2>
         <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
+
+        {isCreatingTask && (
+          <ModalOverlay>
+            <ModalContainer>
+              <CreateTaskForm
+                allianceMembers={[]}
+                categories={predefinedCategories}
+                onCreateTask={handleCreateTask}
+                onCancel={handleCancelCreateTask}
+              />
+            </ModalContainer>
+          </ModalOverlay>
+        )}
+
+        <TaskList
+          tasks={userTasks}
+          allianceMembers={[]}
+          categories={predefinedCategories}
+          onUpdateTask={handleUpdateTask}
+        />
       </TaskContainer>
-
-      {isCreatingTask && (
-        <ModalOverlay>
-          <ModalContainer>
-            <CreateTaskForm
-              allianceMembers={[]}
-              categories={predefinedCategories}
-              onCreateTask={handleCreateTask}
-              onCancel={handleCancelCreateTask}
-            />
-          </ModalContainer>
-        </ModalOverlay>
-      )}
-
-      <h3>Your Personal Tasks</h3>
-      <TaskList
-        tasks={userTasks}
-        allianceMembers={[]} // no alliance members
-        categories={predefinedCategories}
-        onUpdateTask={handleUpdateTask}
-      />
     </Container>
   );
 };
