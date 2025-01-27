@@ -37,8 +37,9 @@ const fadeIn = keyframes`
 
 const OuterContainer = styled.div`
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  background-color: #f0f3f8;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 0.5em;
   animation: ${fadeIn} 0.3s ease-out;
 `;
 
@@ -52,7 +53,7 @@ const DarkHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: #2b3044;
+  background-color: #374e56;
   padding: 1em;
   align-items: flex-start;
 `;
@@ -121,7 +122,7 @@ const LightInput = styled.input`
   padding: 0.4rem 0;
   font-size: 0.95rem;
   font-weight: 100;
-  color: #333;
+  color: #374e56;
   outline: none;
   background-color: transparent;
 
@@ -136,7 +137,7 @@ const TextArea = styled.textarea`
   padding: 0.4rem 0;
   font-size: 0.95rem;
   font-weight: 100;
-  color: #333;
+  color: #374e56;
   outline: none;
   resize: none;
   min-height: 60px;

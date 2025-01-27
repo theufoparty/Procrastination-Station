@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Task } from '../types/firestore';
-import TaskSummary from './TaskSummary';
+import TaskSummary from './TaskCard/TaskSummary';
 import SimpleModal from './SimpleModal';
 import TaskCard from './TaskCard/TaskCard';
 
@@ -21,6 +21,24 @@ interface TaskListProps {
 const TaskContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const CategoriesRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const CategoryColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -86,14 +104,16 @@ const TaskList: React.FC<TaskListProps> = ({
         {internalTasks.length === 0 ? (
           <p>No tasks yet.</p>
         ) : (
-          Object.keys(groupedTasks).map((category) => (
-            <div key={category} style={{ marginBottom: '2rem' }}>
-              <h4>{category}</h4>
-              {groupedTasks[category].map((task) => (
-                <TaskSummary key={task.id} task={task} onClick={handleTaskClick} />
-              ))}
-            </div>
-          ))
+          <CategoriesRow>
+            {Object.keys(groupedTasks).map((category) => (
+              <CategoryColumn key={category}>
+                <h4>{category}</h4>
+                {groupedTasks[category].map((task) => (
+                  <TaskSummary key={task.id} task={task} onClick={handleTaskClick} />
+                ))}
+              </CategoryColumn>
+            ))}
+          </CategoriesRow>
         )}
 
         {showModal && selectedTask && (

@@ -4,13 +4,14 @@ import { Task } from '../../../types/firestore';
 
 const CardWrapper = styled.div`
   position: relative;
-  border: 1px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 1.5em;
-  background: #ffffff;
+  background-color: #fff;
   width: 20em;
   height: 12em;
   cursor: pointer;
   margin: 1em;
+  border-radius: 0.5em;
 `;
 
 interface SmallTaskCardProps {

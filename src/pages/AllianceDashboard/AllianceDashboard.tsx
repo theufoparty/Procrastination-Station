@@ -62,16 +62,17 @@ const NewTaskButton = styled.button`
   font-weight: 400;
   padding: 0.8rem;
   font-size: 1.2rem;
-  border: 1px solid #252525;
-  background: none;
-  color: #252525;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
+  background-color: #fff;
+  border-radius: 0.5em;
+  color: #374e56;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
 
   &:hover {
-    background-color: #252525;
+    background-color: #374e56;
     color: #fff;
   }
 

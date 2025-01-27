@@ -7,7 +7,7 @@ import { Alliance, Task } from '../../types/firestore';
 import { User } from '../../types/user';
 import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
-import TaskSummary from '../../components/TaskSummary';
+import TaskSummary from '../../components/TaskCard/TaskSummary';
 
 const StatsContainer = styled.div`
   flex-wrap: wrap;
@@ -29,18 +29,20 @@ const StatsContainer = styled.div`
 
 const TodaysTaskBox = styled.div`
   position: relative;
-  border: 1px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 1em;
-  background: #ffffff;
+  border-radius: 0.5em;
+  background-color: #fff;
   cursor: pointer;
   margin: 1em;
 `;
 
 const StatBox = styled.div`
   position: relative;
-  border: 1px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 1.5em;
-  background: #ffffff;
+  border-radius: 0.5em;
+  background-color: #fff;
   width: 20em;
   height: 12em;
   cursor: pointer;

@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { signOut } from 'firebase/auth';
 import { useAuth } from '../utils/useAuth';
 import { auth, db } from '../../firebaseConfig';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const HamburgerIcon = styled.div`
   position: fixed;
-  top: 1.2em;
-  right: 1.2em;
+  top: 2em;
+  right: 2em;
   z-index: 999;
   cursor: pointer;
   display: flex;
@@ -21,7 +21,7 @@ const HamburgerIcon = styled.div`
     display: block;
     width: 100%;
     height: 0.25rem;
-    background-color: #000;
+    background-color: #374e56;
     border-radius: 0.125rem;
     transition:
       transform 0.3s ease,
@@ -42,19 +42,18 @@ const Sidebar = styled.div<{ isopen: boolean }>`
   background-color: #feffff;
   border-left: 1px solid #e6e8ec;
   color: #000000;
-  padding: 1rem 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 998;
   transition: right 0.3s ease;
+  margin: 2em;
 
   @media (min-width: 768px) {
     position: static;
     height: auto;
     width: 20%;
-    border-right: 1px solid #e6e8ec;
     flex-direction: column;
     border-left: none;
     left: auto;
@@ -94,18 +93,31 @@ const NavLinks = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
 
   li {
-    margin: 1rem 0;
+    margin: 1em;
+    width: 100%;
   }
 
   a {
     color: #000000;
     text-decoration: none;
     font-size: 1.2rem;
+    padding: 2em;
+    border-radius: 2em;
+    width: 100%;
 
     &:hover {
-      color: #000000;
+      color: #374e56;
+    }
+
+    &.active {
+      display: flex;
+      color: #374e56;
+      font-weight: bold;
+      background-color: #eeeeee;
+      width: 100%;
     }
   }
 
@@ -135,23 +147,23 @@ const LogoutButton = styled.button`
   font-weight: 300;
   padding: 0.8rem;
   font-size: 1rem;
-  border: 1px solid #252525;
-  background: none;
-  color: #252525;
+  border-radius: 0.5em;
+  border: 1px solid #374e56;
+  background-color: #fff;
+  color: #374e56;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
 
   &:hover {
-    background-color: #252525;
+    background-color: #374e56;
     color: #fff;
   }
 `;
 
 const Navbar = () => {
   const { user } = useAuth(auth, db);
-
   const allianceId = user?.allianceIds?.[0];
   const allianceLink = allianceId ? `/alliance/${allianceId}` : '/create-alliance';
 
@@ -217,24 +229,40 @@ const Navbar = () => {
           </Greeting>
           <NavLinks>
             <li>
-              <Link to='/todaystask' onClick={() => setIsOpen(false)}>
+              <NavLink
+                to='/todaystask'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                onClick={() => setIsOpen(false)}
+              >
                 Today's Task
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to='/tasks' onClick={() => setIsOpen(false)}>
+              <NavLink
+                to='/tasks'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                onClick={() => setIsOpen(false)}
+              >
                 My Tasks
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to='/projects' onClick={() => setIsOpen(false)}>
+              <NavLink
+                to='/projects'
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                onClick={() => setIsOpen(false)}
+              >
                 Projects
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={allianceLink} onClick={() => setIsOpen(false)}>
+              <NavLink
+                to={allianceLink}
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                onClick={() => setIsOpen(false)}
+              >
                 Alliance
-              </Link>
+              </NavLink>
             </li>
           </NavLinks>
         </MenuBar>

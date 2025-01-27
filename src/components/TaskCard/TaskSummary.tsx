@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Task, SubTask } from '../types/firestore';
+import { Task, SubTask } from '../../types/firestore';
 
 interface TaskSummaryProps {
   task: Task;
@@ -9,10 +9,11 @@ interface TaskSummaryProps {
 
 const TaskContainer = styled.div`
   position: relative;
-  border: 1px solid #000000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5em;
   padding: 1.5em;
-  background: #ffffff;
-  width: 30em;
+  background-color: #fff;
+  width: 20em;
   height: 12em;
   cursor: pointer;
   margin: 1em;

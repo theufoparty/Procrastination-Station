@@ -18,11 +18,16 @@ const Container = styled.div`
 const NewTaskButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
+  height: 3em;
+  width: fit-content;
   padding: 0.8rem;
   font-size: 1.2rem;
-  border: 1px solid #252525;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
   background: none;
-  color: #252525;
+  border: 1px solid #374e56;
+  border-radius: 0.5em;
+  color: #374e56;
+  background-color: #fff;
   cursor: pointer;
   position: fixed;
   transition:
@@ -30,7 +35,7 @@ const NewTaskButton = styled.button`
     color 0.3s ease;
 
   &:hover {
-    background-color: #252525;
+    background-color: #374e56;
     color: #fff;
   }
 
@@ -38,9 +43,10 @@ const NewTaskButton = styled.button`
   right: 2em;
 
   @media (max-width: 768px) {
-    bottom: 1rem;
+    bottom: 2rem;
     top: auto;
     right: 50%;
+    width: 85%;
     transform: translateX(50%);
   }
 `;
@@ -128,7 +134,6 @@ const AllTasks: React.FC = () => {
   return (
     <Container>
       <TaskContainer>
-        <h2>{user?.displayName || user?.email}'s Task Dashboard</h2>
         <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
 
         {isCreatingTask && (

@@ -32,15 +32,15 @@ const ButtonGroup = styled.div`
 const StyledButton = styled.button`
   padding: 0.8rem 1.2rem;
   font-size: 1rem;
-  border: 1px solid #333;
-  border-radius: 4px;
-  background: none;
-  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 0.5em;
+  color: #374e56;
+  background-color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #333;
+    background-color: #374e56;
     color: #fff;
   }
 `;

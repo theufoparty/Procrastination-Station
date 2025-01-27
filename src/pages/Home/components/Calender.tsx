@@ -5,9 +5,10 @@ import { Task } from '../../../types/firestore';
 const CalendarContainer = styled.div`
   background: #fff;
   padding: 1rem;
-  border: 1px solid #000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   max-width: 400px;
   margin: 1em;
+  border-radius: 0.5em;
 `;
 
 const CalendarHeader = styled.div`
@@ -27,10 +28,10 @@ const MonthSelector = styled.div`
     background: none;
     font-size: 1.2rem;
     cursor: pointer;
-    color: #333;
+    color: #374e56;
 
     &:hover {
-      color: #000;
+      color: #374e56;
     }
   }
 `;
@@ -39,7 +40,7 @@ const DaysContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   font-weight: bold;
-  color: #000000;
+  color: #374e56;
   text-align: center;
 `;
 
