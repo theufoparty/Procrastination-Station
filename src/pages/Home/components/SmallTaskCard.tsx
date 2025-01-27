@@ -10,8 +10,8 @@ const CardWrapper = styled.div`
   width: 20em;
   height: 12em;
   cursor: pointer;
-  margin: 1em;
-  border-radius: 0.5em;
+  margin: 20px;
+  border-radius: 20px;
 `;
 
 interface SmallTaskCardProps {

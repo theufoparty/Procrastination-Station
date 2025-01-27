@@ -61,7 +61,7 @@ const RightSection = styled.div`
 
 const FormContainer = styled.div`
   width: 100%;
-  padding: 1em;
+  padding: 20px;
 `;
 
 const StyledForm = styled.form`
@@ -113,8 +113,7 @@ const StyledButton = styled.button`
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #35328b;
   color: white;
-  border: none;
-  border-radius: 0.5em;
+  border-radius: 20px;
   cursor: pointer;
 `;
 
@@ -127,7 +126,7 @@ const SecondaryButton = styled.button`
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #9494bd;
   color: white;
-  border-radius: 0.5em;
+  border-radius: 20px;
   cursor: pointer;
 `;
 

@@ -19,7 +19,7 @@ const MainContent = styled.main`
   box-sizing: border-box;
   background-color: #f3f5fe;
   @media (min-width: 768px) {
-    width: 80%;
+    width: 100%;
     border-radius: 1em;
     margin: 2em 2em 2em 0;
   }

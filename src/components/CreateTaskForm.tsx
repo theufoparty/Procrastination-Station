@@ -39,7 +39,7 @@ const OuterContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-  border-radius: 0.5em;
+  border-radius: 20px;
   animation: ${fadeIn} 0.3s ease-out;
 `;
 
@@ -54,7 +54,7 @@ const DarkHeader = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   background-color: #374e56;
-  padding: 1em;
+  padding: 20px;
   align-items: flex-start;
 `;
 
@@ -80,7 +80,7 @@ const Title = styled.h2`
 const FormContainer = styled.div`
   z-index: 10;
   background-color: #ffffff;
-  padding: 1em;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -176,7 +176,7 @@ const SubmitButton = styled.button`
   border-radius: 2em;
   height: 3em;
   width: 14em;
-  padding: 1em;
+  padding: 20px;
   font-size: 1em;
   font-weight: 100;
   cursor: pointer;

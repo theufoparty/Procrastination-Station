@@ -8,6 +8,7 @@ import { User } from '../../types/user';
 import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
 import TaskSummary from '../../components/TaskCard/TaskSummary';
+import WeatherCard from './components/WeatherCard';
 
 const StatsContainer = styled.div`
   flex-wrap: wrap;
@@ -23,15 +24,15 @@ const StatsContainer = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-top: 0em;
+    margin: 20px;
   }
 `;
 
 const Greeting = styled.h2`
-  font-size: 2em;
-  font-weight: 100;
-  margin-bottom: 2em;
-  margin-top: 5em;
+  padding: 20px;
+  background-color: #fff;
+  cursor: pointer;
+  margin: 20px;
 
   @media (min-width: 768px) {
     margin-top: 1em;
@@ -41,23 +42,23 @@ const Greeting = styled.h2`
 const TodaysTaskBox = styled.div`
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  padding: 1em;
-  border-radius: 0.5em;
+  padding: 20px;
+  border-radius: 20px;
   background-color: #fff;
   cursor: pointer;
-  margin: 1em;
+  margin: 20px;
 `;
 
 const StatBox = styled.div`
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  padding: 1.5em;
-  border-radius: 0.5em;
+  padding: 20px;
+  border-radius: 20px;
   background-color: #fff;
   width: 20em;
   height: 12em;
   cursor: pointer;
-  margin: 1em;
+  margin: 20px;
 `;
 
 const StatTitle = styled.h4`
@@ -69,6 +70,22 @@ const StatTitle = styled.h4`
 const StatValue = styled.p`
   font-size: 2em;
   margin: 0;
+`;
+
+const WelcomeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  cursor: pointer;
+  margin: 20px;
+
+  @media (min-width: 768px) {
+    margin-top: 1em;
+  }
 `;
 
 const Dashboard: FC = () => {
@@ -184,9 +201,12 @@ const Dashboard: FC = () => {
 
   return (
     <>
-      <Greeting>
-        {greeting}, {user?.displayName || user?.email}
-      </Greeting>
+      <WelcomeContainer>
+        <Greeting>
+          {greeting}, {user?.displayName || user?.email}
+        </Greeting>
+        <WeatherCard />
+      </WelcomeContainer>
       <StatsContainer>
         <Calendar tasks={allTasks} onDateSelected={handleDateSelected} />
         <TodaysTaskBox>

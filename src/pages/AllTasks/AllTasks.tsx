@@ -24,7 +24,7 @@ const NewTaskButton = styled.button`
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #35328b;
   color: white;
-  border-radius: 0.5em;
+  border-radius: 20px;
   cursor: pointer;
 
   @media (max-width: 600px) {
@@ -62,6 +62,11 @@ const ModalOverlay = styled.div`
     width: 100vw;
     height: 100vh;
   }
+`;
+
+const TaskButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const ModalContainer = styled.div`
@@ -126,8 +131,11 @@ const AllTasks: React.FC = () => {
   return (
     <Container>
       <TaskContainer>
-        <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
-
+        <TaskButtonContainer>
+          <NewTaskButton onClick={() => setIsCreatingTask(true)}>
+            Create Personal Task
+          </NewTaskButton>
+        </TaskButtonContainer>
         {isCreatingTask && (
           <ModalOverlay>
             <ModalContainer>

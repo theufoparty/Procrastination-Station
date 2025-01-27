@@ -65,12 +65,17 @@ const NewTaskButton = styled.button`
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #35328b;
   color: white;
-  border-radius: 0.5em;
+  border-radius: 20px;
   cursor: pointer;
 
   @media (max-width: 600px) {
     width: 100%;
   }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const AllianceDashboard: React.FC = () => {
@@ -148,7 +153,10 @@ const AllianceDashboard: React.FC = () => {
         {isMemberOfAlliance && (
           <>
             {!isCreatingTask && (
-              <NewTaskButton onClick={() => setIsCreatingTask(true)}>New Task</NewTaskButton>
+              <ButtonContainer>
+                {' '}
+                <NewTaskButton onClick={() => setIsCreatingTask(true)}>New Task</NewTaskButton>
+              </ButtonContainer>
             )}
             {isCreatingTask && (
               <ModalOverlay>

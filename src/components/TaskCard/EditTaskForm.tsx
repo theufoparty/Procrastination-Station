@@ -60,7 +60,7 @@ const StyledButton = styled.button`
   padding: 0.8rem 1.2rem;
   font-size: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  border-radius: 0.5em;
+  border-radius: 20px;
   background: none;
   color: #374e56;
   background-color: #fff;

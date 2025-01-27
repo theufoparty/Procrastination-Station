@@ -48,17 +48,17 @@ const Sidebar = styled.div<{ isopen: boolean }>`
   justify-content: space-between;
   z-index: 998;
   transition: right 0.3s ease;
-  margin: 2em;
 
   @media (min-width: 768px) {
     position: static;
     height: auto;
-    width: 20%;
+    width: 12%;
     flex-direction: column;
     border-left: none;
     left: auto;
     right: auto;
     top: 2em;
+    margin: 2em;
   }
 `;
 
@@ -85,14 +85,14 @@ const NavLinks = styled.ul`
   width: 100%;
 
   li {
-    margin: 1em;
+    margin: 20px;
     width: 100%;
   }
 
   a {
     color: #000000;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1em;
     padding: 2em;
     border-radius: 2em;
     width: 100%;
@@ -104,8 +104,8 @@ const NavLinks = styled.ul`
     &.active {
       display: flex;
       color: #374e56;
-      font-weight: bold;
-      background-color: #eeeeee;
+      font-weight: 500;
+      background-color: #f3f5fe;
       width: 100%;
     }
   }
@@ -134,12 +134,12 @@ const MenuBar = styled.div`
 const LogoutButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
-  padding: 0.8rem;
-  font-size: 1.2rem;
+  padding: 20px;
+  font-size: 1em;
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #35328b;
   color: white;
-  border-radius: 0.5em;
+  border-radius: 20px;
   cursor: pointer;
 
   @media (max-width: 600px) {
