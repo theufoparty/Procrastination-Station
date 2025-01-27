@@ -191,6 +191,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
           allianceMembers={allianceMembers}
           category={category}
           timeLeft={timeLeft}
+          taskId={id}
           onComplete={handleCompleted}
           onRemove={handleRemove}
           onEdit={handleEdit}

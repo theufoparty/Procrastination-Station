@@ -18,25 +18,17 @@ const Container = styled.div`
 const NewTaskButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
-  height: 3em;
-  width: fit-content;
   padding: 0.8rem;
+  width: 16em;
   font-size: 1.2rem;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
-  background: none;
-  border: 1px solid #374e56;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  background-color: #35328b;
+  color: white;
   border-radius: 0.5em;
-  color: #374e56;
-  background-color: #fff;
   cursor: pointer;
-  position: fixed;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 
-  &:hover {
-    background-color: #374e56;
-    color: #fff;
+  @media (max-width: 600px) {
+    width: 100%;
   }
 
   top: 2em;

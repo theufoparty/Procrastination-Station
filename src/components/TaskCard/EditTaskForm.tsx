@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SubTask } from '../../types/firestore';
-import SubTaskList from './SubTaskList';
 import { parseDueDate } from '../../utils/taskUtils';
+import SubTaskListEditView from './SubTaskListEditView';
 
 const Container = styled.div``;
 
@@ -59,7 +59,7 @@ const ButtonGroup = styled.div`
 const StyledButton = styled.button`
   padding: 0.8rem 1.2rem;
   font-size: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
   background: none;
   color: #374e56;
@@ -167,9 +167,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
 
       <TaskDetail>
         <label>Subtasks:</label>
-        <SubTaskList
+        <SubTaskListEditView
           subTasks={editSubTasks}
-          editable
           onChangeSubTasks={(updated) => setEditSubTasks(updated)}
         />
       </TaskDetail>

@@ -27,9 +27,20 @@ const StatsContainer = styled.div`
   }
 `;
 
+const Greeting = styled.h2`
+  font-size: 2em;
+  font-weight: 100;
+  margin-bottom: 2em;
+  margin-top: 5em;
+
+  @media (min-width: 768px) {
+    margin-top: 1em;
+  }
+`;
+
 const TodaysTaskBox = styled.div`
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 1em;
   border-radius: 0.5em;
   background-color: #fff;
@@ -39,7 +50,7 @@ const TodaysTaskBox = styled.div`
 
 const StatBox = styled.div`
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 1.5em;
   border-radius: 0.5em;
   background-color: #fff;
@@ -65,7 +76,44 @@ const Dashboard: FC = () => {
   const [alliances, setAlliances] = useState<Alliance[]>([]);
   const [allTasks, setAllTasks] = useState<Task[]>([]);
   const [selectedDateTasks, setSelectedDateTasks] = useState<Task[]>([]);
+  const [greeting, setGreeting] = useState<string>('Hello');
   const tasksCompleted = 87;
+
+  const determineGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return 'Good morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'Good day';
+    } else if (currentHour >= 18 && currentHour < 22) {
+      return 'Good evening';
+    } else {
+      return 'Good night';
+    }
+  };
+
+  useEffect(() => {
+    setGreeting(determineGreeting());
+
+    const now = new Date();
+    const millisUntilNextHour =
+      (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+
+    const timeoutId = setTimeout(() => {
+      setGreeting(determineGreeting());
+
+      const intervalId = setInterval(
+        () => {
+          setGreeting(determineGreeting());
+        },
+        60 * 60 * 1000
+      );
+
+      return () => clearInterval(intervalId);
+    }, millisUntilNextHour);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -136,6 +184,9 @@ const Dashboard: FC = () => {
 
   return (
     <>
+      <Greeting>
+        {greeting}, {user?.displayName || user?.email}
+      </Greeting>
       <StatsContainer>
         <Calendar tasks={allTasks} onDateSelected={handleDateSelected} />
         <TodaysTaskBox>

@@ -52,8 +52,19 @@ const TaskList: React.FC<TaskListProps> = ({
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    // Update internal tasks when tasks change
     setInternalTasks(tasks);
-  }, [tasks]);
+
+    // If there's a selectedTask, ensure it stays in sync with the updated tasks
+    if (selectedTask) {
+      const updatedTask = tasks.find((task) => task.id === selectedTask.id);
+      if (updatedTask) {
+        setSelectedTask(updatedTask);
+      } else {
+        setSelectedTask(null); // Clear selectedTask if it no longer exists
+      }
+    }
+  }, [tasks, selectedTask]);
 
   const handleTaskClick = (task: Task) => {
     setSelectedTask(task);

@@ -4,7 +4,7 @@ import { Task } from '../../../types/firestore';
 
 const CardWrapper = styled.div`
   position: relative;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 1.5em;
   background-color: #fff;
   width: 20em;

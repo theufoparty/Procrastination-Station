@@ -109,20 +109,13 @@ const StyledButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
   padding: 0.8rem;
+  border: none;
   font-size: 1.2rem;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  background-color: #35328b;
+  color: white;
   border-radius: 0.5em;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
-  background-color: #fff;
-  color: #374e56;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-
-  &:hover {
-    background-color: #374e56;
-    color: #fff;
-  }
 `;
 
 const SecondaryButton = styled.button`
@@ -130,18 +123,15 @@ const SecondaryButton = styled.button`
   font-weight: 400;
   padding: 0.8rem;
   font-size: 1.2rem;
+  border: none;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  background-color: #9494bd;
+  color: white;
   border-radius: 0.5em;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
-  background-color: #fff;
-  color: #374e56;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 
-  &:hover {
-    background-color: #374e56;
-    color: #fff;
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `;
 

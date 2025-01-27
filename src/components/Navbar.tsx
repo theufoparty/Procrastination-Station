@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { signOut } from 'firebase/auth';
 import { useAuth } from '../utils/useAuth';
@@ -73,17 +73,6 @@ const Overlay = styled.div<{ isopen: boolean }>`
   z-index: 100;
 `;
 
-const Greeting = styled.h2`
-  font-size: 2em;
-  font-weight: 100;
-  margin-bottom: 2em;
-  margin-top: 5em;
-
-  @media (min-width: 768px) {
-    margin-top: 1em;
-  }
-`;
-
 const NavLinks = styled.ul`
   list-style: none;
   padding: 0;
@@ -144,21 +133,17 @@ const MenuBar = styled.div`
 
 const LogoutButton = styled.button`
   font-family: 'Montserrat', serif;
-  font-weight: 300;
+  font-weight: 400;
   padding: 0.8rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  background-color: #35328b;
+  color: white;
   border-radius: 0.5em;
-  border: 1px solid #374e56;
-  background-color: #fff;
-  color: #374e56;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 
-  &:hover {
-    background-color: #374e56;
-    color: #fff;
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `;
 
@@ -166,45 +151,7 @@ const Navbar = () => {
   const { user } = useAuth(auth, db);
   const allianceId = user?.allianceIds?.[0];
   const allianceLink = allianceId ? `/alliance/${allianceId}` : '/create-alliance';
-
-  const [greeting, setGreeting] = useState<string>('Hello');
   const [isopen, setIsOpen] = useState(false);
-
-  const determineGreeting = () => {
-    const currentHour = new Date().getHours();
-    if (currentHour >= 5 && currentHour < 12) {
-      return 'Good morning';
-    } else if (currentHour >= 12 && currentHour < 18) {
-      return 'Good day';
-    } else if (currentHour >= 18 && currentHour < 22) {
-      return 'Good evening';
-    } else {
-      return 'Good night';
-    }
-  };
-
-  useEffect(() => {
-    setGreeting(determineGreeting());
-
-    const now = new Date();
-    const millisUntilNextHour =
-      (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
-
-    const timeoutId = setTimeout(() => {
-      setGreeting(determineGreeting());
-
-      const intervalId = setInterval(
-        () => {
-          setGreeting(determineGreeting());
-        },
-        60 * 60 * 1000
-      );
-
-      return () => clearInterval(intervalId);
-    }, millisUntilNextHour);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
 
   const handleLogout = async () => {
     try {
@@ -224,9 +171,6 @@ const Navbar = () => {
       <Overlay isopen={isopen} onClick={() => setIsOpen(false)} />
       <Sidebar isopen={isopen}>
         <MenuBar>
-          <Greeting>
-            {greeting}, {user?.displayName || user?.email}
-          </Greeting>
           <NavLinks>
             <li>
               <NavLink

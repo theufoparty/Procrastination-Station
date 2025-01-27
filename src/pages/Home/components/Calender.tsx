@@ -5,7 +5,7 @@ import { Task } from '../../../types/firestore';
 const CalendarContainer = styled.div`
   background: #fff;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   max-width: 400px;
   margin: 1em;
   border-radius: 0.5em;
@@ -65,17 +65,17 @@ const DateBox = styled.div<{
 
   background-color: ${(props) =>
     !props.isCurrentMonth
-      ? '#8d8d8d'
+      ? '#35328b'
       : props.isSelected
-        ? '#ff9500'
+        ? '#9494bd'
         : props.isToday
-          ? '#ff9500'
+          ? '#9494bd'
           : props.hasTasks
-            ? '#fceeb5'
+            ? '#d4d4f3'
             : '#f7f7f7'};
 
   color: ${(props) =>
-    props.isToday || props.isSelected ? '#fff' : !props.isCurrentMonth ? '#ffffff' : '#333'};
+    props.isToday || props.isSelected ? '#fff' : !props.isCurrentMonth ? '#ffffff' : '#000000'};
 
   cursor: ${(props) => (props.isCurrentMonth ? 'pointer' : 'default')};
   transition: background-color 0.3s ease;

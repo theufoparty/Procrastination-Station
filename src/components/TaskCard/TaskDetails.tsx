@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Timestamp } from 'firebase/firestore';
+import SubTaskListDetailView from './SubTaskListDetailView';
 import { SubTask } from '../../types/firestore';
-import SubTaskList from './SubTaskList';
 
 const Container = styled.div``;
 
@@ -32,7 +32,7 @@ const ButtonGroup = styled.div`
 const StyledButton = styled.button`
   padding: 0.8rem 1.2rem;
   font-size: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
   color: #374e56;
   background-color: #fff;
@@ -66,13 +66,14 @@ interface TaskDetailsProps {
   allianceMembers: AllianceMember[];
   category?: string;
   timeLeft: string;
-
+  taskId: string;
   onComplete: () => void;
   onEdit: () => void;
   onRemove: () => void;
 }
 
 const TaskDetails: React.FC<TaskDetailsProps> = ({
+  taskId,
   allianceId,
   name,
   description,
@@ -113,7 +114,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
       {subTasks.length > 0 && (
         <TaskDetail>
           <strong>Subtasks:</strong>
-          <SubTaskList subTasks={subTasks} />
+          <SubTaskListDetailView subTasks={subTasks} taskId={taskId} />
         </TaskDetail>
       )}
       <TaskDetail>
