@@ -7,7 +7,6 @@ const CalendarContainer = styled.div`
   padding: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   max-width: 400px;
-  margin: 20px;
   border-radius: 20px;
 `;
 

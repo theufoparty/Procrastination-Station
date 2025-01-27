@@ -3,18 +3,18 @@ import styled from 'styled-components';
 
 const WeatherContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 1em;
   background-color: #fff;
   width: 100%;
   max-width: 600px;
   border-radius: 20px;
+  flex-direction: column;
 `;
 
 const TimeSection = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const TimeText = styled.h2`
@@ -36,8 +36,8 @@ const Temperature = styled.h2`
 `;
 
 const WeatherIcon = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 8em;
+  height: 8em;
 `;
 
 const WeatherDescription = styled.p`
@@ -189,13 +189,13 @@ const WeatherCard: FC = () => {
       ) : (
         <>
           <TimeSection>
-            <TimeText>{time}</TimeText>
-          </TimeSection>
-          <WeatherSection>
             <WeatherIcon
               src={mapWeatherCodeToIcon(weather.weatherCode, weather.isDayTime)}
               alt={weather.description}
             />
+            <TimeText>{time}</TimeText>
+          </TimeSection>
+          <WeatherSection>
             <Temperature>{weather.temp}°C</Temperature>
             <WeatherDescription>{weather.description}</WeatherDescription>
           </WeatherSection>

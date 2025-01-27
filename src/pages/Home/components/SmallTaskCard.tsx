@@ -10,7 +10,6 @@ const CardWrapper = styled.div`
   width: 20em;
   height: 12em;
   cursor: pointer;
-  margin: 20px;
   border-radius: 20px;
 `;
 

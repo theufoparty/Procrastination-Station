@@ -29,13 +29,10 @@ const StatsContainer = styled.div`
 `;
 
 const Greeting = styled.h2`
-  padding: 20px;
   background-color: #fff;
   cursor: pointer;
-  margin: 20px;
 
   @media (min-width: 768px) {
-    margin-top: 1em;
   }
 `;
 
@@ -46,7 +43,6 @@ const TodaysTaskBox = styled.div`
   border-radius: 20px;
   background-color: #fff;
   cursor: pointer;
-  margin: 20px;
 `;
 
 const StatBox = styled.div`
@@ -58,7 +54,6 @@ const StatBox = styled.div`
   width: 20em;
   height: 12em;
   cursor: pointer;
-  margin: 20px;
 `;
 
 const StatTitle = styled.h4`

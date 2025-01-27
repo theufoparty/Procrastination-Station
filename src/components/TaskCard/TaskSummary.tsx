@@ -16,7 +16,6 @@ const TaskContainer = styled.div`
   width: 20em;
   height: 12em;
   cursor: pointer;
-  margin: 20px;
 
   @media (max-width: 768px) {
     width: 100%;
