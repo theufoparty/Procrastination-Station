@@ -85,17 +85,12 @@ const NavLinks = styled.ul`
   width: 100%;
 
   li {
-    margin: 20px;
-    width: 100%;
   }
 
   a {
     color: #000000;
     text-decoration: none;
     font-size: 1em;
-    padding: 2em;
-    border-radius: 2em;
-    width: 100%;
 
     &:hover {
       color: #374e56;
@@ -106,6 +101,7 @@ const NavLinks = styled.ul`
       color: #374e56;
       font-weight: 500;
       background-color: #f3f5fe;
+      border-radius: 2em;
       width: 100%;
     }
   }

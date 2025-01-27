@@ -30,17 +30,21 @@ const ButtonGroup = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 0.8rem 1.2rem;
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
+  padding: 20px;
   font-size: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+  width: 26em;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   border-radius: 20px;
-  color: #374e56;
-  background-color: #fff;
+  color: #fff;
+  background-color: #35328b;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #374e56;
+    background-color: #1d1c45;
     color: #fff;
   }
 `;

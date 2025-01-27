@@ -6,8 +6,6 @@ const WeatherContainer = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   background-color: #fff;
-  width: 100%;
-  max-width: 600px;
   border-radius: 20px;
   flex-direction: column;
 `;
@@ -15,23 +13,28 @@ const WeatherContainer = styled.div`
 const TimeSection = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  width: 16em;
+  justify-content: space-between;
 `;
 
 const TimeText = styled.h2`
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 2em;
   font-weight: bold;
 `;
 
 const WeatherSection = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: row-reverse;
+  width: 16em;
+  justify-content: space-between;
 `;
 
 const Temperature = styled.h2`
   margin: 0;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: bold;
 `;
 
@@ -42,8 +45,8 @@ const WeatherIcon = styled.img`
 
 const WeatherDescription = styled.p`
   margin: 0;
-  font-size: 1rem;
-  color: #666;
+  font-size: 1em;
+  color: #404040;
 `;
 
 const WeatherCard: FC = () => {
@@ -85,7 +88,7 @@ const WeatherCard: FC = () => {
         currentFormattedTime < data.daily.sunset[0].slice(11);
 
       setWeather({
-        temp: data.daily.temperature_2m_max[0], // Using max temperature for the day
+        temp: data.daily.temperature_2m_max[0],
         description: mapWeatherCodeToDescription(data.daily.weathercode[0]),
         weatherCode: data.daily.weathercode[0],
         isDayTime,
@@ -145,41 +148,42 @@ const WeatherCard: FC = () => {
   };
 
   const mapWeatherCodeToIcon = (code: number, isDay: boolean): string => {
-    const baseIconUrl = 'https://openweathermap.org/img/wn/';
+    const baseIconUrl = 'https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/';
     const dayIcons: { [key: number]: string } = {
-      0: '01d',
-      1: '02d',
-      2: '03d',
-      3: '04d',
-      45: '50d',
-      48: '50d',
-      51: '09d',
-      61: '10d',
-      80: '09d',
-      95: '11d',
+      0: 'clear-day',
+      1: 'partly-cloudy-day',
+      2: 'partly-cloudy-day',
+      3: 'overcast',
+      45: 'fog-day',
+      48: 'fog-day',
+      51: 'drizzle',
+      61: 'rain',
+      80: 'rain',
+      95: 'thunderstorms',
     };
     const nightIcons: { [key: number]: string } = {
-      0: '01n',
-      1: '02n',
-      2: '03n',
-      3: '04n',
-      45: '50n',
-      48: '50n',
-      51: '09n',
-      61: '10n',
-      80: '09n',
-      95: '11n',
+      0: 'clear-night',
+      1: 'partly-cloudy-night',
+      2: 'partly-cloudy-night',
+      3: 'overcast',
+      45: 'fog-night',
+      48: 'fog-night',
+      51: 'drizzle',
+      61: 'rain',
+      80: 'rain',
+      95: 'thunderstorms',
     };
+
     const iconCode = isDay ? dayIcons[code] : nightIcons[code];
-    return `${baseIconUrl}${iconCode || '01d'}@2x.png`;
+    return `${baseIconUrl}${iconCode || 'clear-day'}.svg`;
   };
 
   useEffect(() => {
-    updateTime(); // Set initial time
-    const intervalId = setInterval(updateTime, 1000); // Update time every second
-    fetchLocation(); // Fetch location to get weather data
+    updateTime();
+    const intervalId = setInterval(updateTime, 1000);
+    fetchLocation();
 
-    return () => clearInterval(intervalId); // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, [fetchLocation]);
 
   return (

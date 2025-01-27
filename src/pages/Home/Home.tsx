@@ -51,7 +51,7 @@ const StatBox = styled.div`
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
-  width: 20em;
+  width: 14em;
   height: 12em;
   cursor: pointer;
 `;
@@ -79,7 +79,6 @@ const WelcomeContainer = styled.div`
   margin: 20px;
 
   @media (min-width: 768px) {
-    margin-top: 1em;
   }
 `;
 

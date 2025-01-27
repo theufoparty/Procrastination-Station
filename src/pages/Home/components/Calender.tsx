@@ -4,9 +4,8 @@ import { Task } from '../../../types/firestore';
 
 const CalendarContainer = styled.div`
   background: #fff;
-  padding: 1rem;
+  padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
   border-radius: 20px;
 `;
 
@@ -14,7 +13,7 @@ const CalendarHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 `;
 
 const MonthSelector = styled.div`
@@ -54,8 +53,8 @@ const DateBox = styled.div<{
   isToday?: boolean;
   hasTasks?: boolean;
 }>`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   margin: 0.4em;
   border-radius: 50%;
   display: flex;

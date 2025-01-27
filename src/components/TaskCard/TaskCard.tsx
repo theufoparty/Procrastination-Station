@@ -12,8 +12,6 @@ import { removeTask } from '../../utils/removeTask';
 
 const TaskContainer = styled.div`
   background-color: #fff;
-
-  padding: 1rem;
   width: 100%;
   height: fit-content;
 `;

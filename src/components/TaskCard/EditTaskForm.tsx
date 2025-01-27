@@ -52,14 +52,15 @@ const TaskDetail = styled.div`
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 20px;
   margin-top: 1.5rem;
 `;
 
 const StyledButton = styled.button`
-  padding: 0.8rem 1.2rem;
+  font-family: 'Montserrat', serif;
+  padding: 20px;
   font-size: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   border-radius: 20px;
   background: none;
   color: #374e56;

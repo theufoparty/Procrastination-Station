@@ -34,11 +34,20 @@ const CategoriesRow = styled.div`
 
 const CategoryColumn = styled.div`
   display: flex;
+  margin: 20px;
   flex-direction: column;
+
+  h4 {
+    margin-bottom: 20px;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
   }
+`;
+
+const Tasks = styled.h3`
+  margin-left: 20px;
 `;
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -91,7 +100,6 @@ const TaskList: React.FC<TaskListProps> = ({
     }
   };
 
-  /** Group Tasks by Category */
   const groupTasksByCategory = (tasks: Task[]): Record<string, Task[]> => {
     const map: Record<string, Task[]> = {};
 
@@ -110,7 +118,7 @@ const TaskList: React.FC<TaskListProps> = ({
 
   return (
     <div>
-      <h3>Tasks</h3>
+      <Tasks>Tasks</Tasks>
       <TaskContainer>
         {internalTasks.length === 0 ? (
           <p>No tasks yet.</p>

@@ -9,12 +9,14 @@ interface TaskSummaryProps {
 
 const TaskContainer = styled.div`
   position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  border: 1px solid #e7e7e7;
   border-radius: 20px;
-  padding: 1.5em;
+  padding: 20px;
   background-color: #fff;
   width: 20em;
   height: 12em;
+  margin-bottom: 20px;
   cursor: pointer;
 
   @media (max-width: 768px) {
