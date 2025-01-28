@@ -25,6 +25,27 @@ const fadeIn = keyframes`
   }
 `;
 
+const SearchInput = styled.input`
+  font-family: 'Montserrat', serif;
+  padding: 12px 20px;
+  font-size: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border: none;
+  width: 80%;
+  text-align: center;
+  outline: none;
+  background-color: #f3f5fe;
+
+  &::placeholder {
+    color: #a9a9a9;
+  }
+
+  &:focus {
+    border-bottom: 1px solid #35328b;
+  }
+`;
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -73,20 +94,31 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const SearchInput = styled.input`
-  padding: 10px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+const CategoryButtonContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  justify-content: center;
 `;
 
-const CategorySelect = styled.select`
-  padding: 10px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+const CategoryButton = styled.button<{ isSelected: boolean }>`
+  padding: 16px;
+  font-size: 1em;
+  width: 8em;
+  background-color: ${(props) => (props.isSelected ? '#35328b' : '#ffffff')};
+  color: ${(props) => (props.isSelected ? 'white' : '#838383')};
+  border-radius: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+
+  &:hover {
+    background-color: #35328b;
+    color: white;
+  }
 `;
 
 const AllianceDashboard: React.FC = () => {
@@ -217,17 +249,17 @@ const AllianceDashboard: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <CategorySelect
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value='All'>All Categories</option>
-            {predefinedCategories.map((category) => (
-              <option key={category} value={category}>
+          <CategoryButtonContainer>
+            {['All', ...predefinedCategories].map((category) => (
+              <CategoryButton
+                key={category}
+                isSelected={selectedCategory === category}
+                onClick={() => setSelectedCategory(category)}
+              >
                 {category}
-              </option>
+              </CategoryButton>
             ))}
-          </CategorySelect>
+          </CategoryButtonContainer>
 
           <TaskListContainer>
             <TaskList
@@ -235,8 +267,8 @@ const AllianceDashboard: React.FC = () => {
               onUpdateTask={handleUpdateTask}
               allianceMembers={allianceMembers}
               categories={predefinedCategories}
-              searchTerm={searchTerm} // Pass search term to TaskList
-              selectedCategory={selectedCategory} // Pass selected category to TaskList
+              searchTerm={searchTerm}
+              selectedCategory={selectedCategory}
             />
           </TaskListContainer>
         </>

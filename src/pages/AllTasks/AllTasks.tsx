@@ -17,6 +17,33 @@ const Container = styled.div`
   }
 `;
 
+const CategoryButtonContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+`;
+
+const CategoryButton = styled.button<{ isSelected: boolean }>`
+  padding: 16px;
+  font-size: 1em;
+  width: 6em;
+  background-color: ${(props) => (props.isSelected ? '#35328b' : '#ffffff')};
+  color: ${(props) => (props.isSelected ? 'white' : '#838383')};
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+
+  &:hover {
+    background-color: #35328b;
+    color: white;
+  }
+`;
+
 const NewTaskButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
@@ -135,14 +162,17 @@ const AllTasks: React.FC = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <select onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory}>
-        <option value='All'>All Categories</option>
-        {predefinedCategories.map((category) => (
-          <option key={category} value={category}>
+      <CategoryButtonContainer>
+        {['All', ...predefinedCategories].map((category) => (
+          <CategoryButton
+            key={category}
+            isSelected={selectedCategory === category}
+            onClick={() => setSelectedCategory(category)}
+          >
             {category}
-          </option>
+          </CategoryButton>
         ))}
-      </select>
+      </CategoryButtonContainer>
 
       {isCreatingTask && (
         <ModalOverlay>

@@ -36,29 +36,32 @@ const HamburgerIcon = styled.div`
 const Sidebar = styled.div<{ isopen: boolean }>`
   position: fixed;
   top: 0;
-  right: ${({ isopen }) => (isopen ? '0' : '-100%')};
+  left: ${({ isopen }) => (isopen ? '0' : '-100%')};
   height: 100vh;
   width: 90%;
   background-color: #feffff;
-  border-left: 1px solid #e6e8ec;
+  border-right: 1px solid #e6e8ec;
   color: #000000;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 998;
-  transition: right 0.3s ease;
+  transition: left 0.3s ease;
+
+  padding: 2em;
 
   @media (min-width: 768px) {
     position: static;
     height: auto;
     width: 12%;
     flex-direction: column;
-    border-left: none;
+    border-right: none;
     left: auto;
     right: auto;
     top: 2em;
     margin: 2em;
+    padding: 0;
   }
 `;
 
