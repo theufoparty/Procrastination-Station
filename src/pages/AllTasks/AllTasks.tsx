@@ -11,8 +11,10 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin: 2rem;
+
+  @media (min-width: 768px) {
+  }
 `;
 
 const NewTaskButton = styled.button`
@@ -27,11 +29,25 @@ const NewTaskButton = styled.button`
 `;
 
 const TaskSearchInput = styled.input`
-  padding: 10px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  font-family: 'Montserrat', serif;
+  align-self: center;
+  padding: 12px 20px;
+  font-size: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border: none;
+  width: 80%;
+  text-align: center;
+  outline: none;
+  background-color: #f3f5fe;
+
+  &::placeholder {
+    color: #a9a9a9;
+  }
+
+  &:focus {
+    border-bottom: 1px solid #35328b;
+  }
 `;
 
 const TaskButtonContainer = styled.div`
@@ -68,7 +84,6 @@ const AllTasks: React.FC = () => {
 
   const predefinedCategories = ['Personal', 'Work', 'Fitness', 'Errands', 'Others'];
 
-  // Apply search and category filtering after fetching userTasks
   const filteredTasks = userTasks.filter((task) => {
     const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
     const matchesSearchTerm = task.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -111,6 +126,9 @@ const AllTasks: React.FC = () => {
 
   return (
     <Container>
+      <TaskButtonContainer>
+        <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
+      </TaskButtonContainer>
       <TaskSearchInput
         type='text'
         placeholder='Search tasks by title'
@@ -125,10 +143,6 @@ const AllTasks: React.FC = () => {
           </option>
         ))}
       </select>
-
-      <TaskButtonContainer>
-        <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
-      </TaskButtonContainer>
 
       {isCreatingTask && (
         <ModalOverlay>
