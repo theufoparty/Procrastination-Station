@@ -7,8 +7,8 @@ import { NavLink } from 'react-router-dom';
 
 const HamburgerIcon = styled.div`
   position: fixed;
-  top: 2em;
-  left: 2em;
+  top: 4em;
+  left: 4em;
   z-index: 999;
   cursor: pointer;
   display: flex;

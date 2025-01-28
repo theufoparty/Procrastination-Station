@@ -26,11 +26,12 @@ const fadeIn = keyframes`
 `;
 
 const SearchInput = styled.input`
+  align-self: center;
   font-family: 'Montserrat', serif;
   padding: 12px 20px;
   font-size: 1em;
-  margin-bottom: 1em;
-  margin-top: 1em;
+  margin-bottom: 3em;
+  margin-top: 3em;
   border: none;
   width: 80%;
   text-align: center;
@@ -70,10 +71,21 @@ const NewTaskContainer = styled.div`
 
 const TaskListContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 const Container = styled.div`
-  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  min-height: 100vh;
+  background-color: #f3f5fe;
+  @media (min-width: 768px) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+  }
 `;
 
 const predefinedCategories = ['Work', 'Household', 'Fitness', 'Errands', 'Others'];

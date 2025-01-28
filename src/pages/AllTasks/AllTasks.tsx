@@ -8,12 +8,17 @@ import { Task } from '../../types/firestore';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  margin: 2rem;
+  border-radius: 20px;
 
+  min-height: 100vh;
+  background-color: #f3f5fe;
   @media (min-width: 768px) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
   }
 `;
 
@@ -60,8 +65,8 @@ const TaskSearchInput = styled.input`
   align-self: center;
   padding: 12px 20px;
   font-size: 1em;
-  margin-bottom: 1em;
-  margin-top: 1em;
+  margin-bottom: 3em;
+  margin-top: 3em;
   border: none;
   width: 80%;
   text-align: center;

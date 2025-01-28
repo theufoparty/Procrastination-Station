@@ -4,48 +4,49 @@ import { Timestamp } from 'firebase/firestore';
 import SubTaskListDetailView from './SubTaskListDetailView';
 import { SubTask } from '../../types/firestore';
 
-const Container = styled.div``;
-
-const Title = styled.h2`
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #333;
+const Container = styled.div`
+  margin: 1em;
+  background-color: #ffffff;
 `;
 
-const TaskDetail = styled.p`
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-  color: #555;
+const Title = styled.h2`
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 1em;
+`;
 
-  strong {
-    color: #333;
-  }
+const TaskDetail = styled.p<{ isCompleted?: boolean }>`
+  font-size: 1em;
+  color: ${({ isCompleted }) => (isCompleted ? '#6c757d' : '#555')};
+  margin-bottom: 1em;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ disabled?: boolean }>`
   font-family: 'Montserrat', serif;
   font-weight: 400;
-  padding: 20px;
+  padding: 14px 24px;
   font-size: 1rem;
   border: none;
-  width: 26em;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  width: 10em;
+  background-color: ${({ disabled }) => (disabled ? '#ccc' : '#35328b')};
+  color: ${({ disabled }) => (disabled ? '#666' : 'white')};
   border-radius: 20px;
-  color: #fff;
-  background-color: #35328b;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #1d1c45;
+    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#1d1c45')};
     color: #fff;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -109,54 +110,50 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
   return (
     <Container>
       <Title>{name}</Title>
-      <TaskDetail>
-        <strong>Account ID:</strong> {allianceId || 'N/A'}
-      </TaskDetail>
-      <TaskDetail>
-        <strong>Description:</strong> {description}
-      </TaskDetail>
+
+      <TaskDetail isCompleted={!!completedAt}>{category || 'Uncategorized'}</TaskDetail>
+      <TaskDetail isCompleted={!!completedAt}>Account ID: {allianceId || 'N/A'}</TaskDetail>
+
+      <TaskDetail isCompleted={!!completedAt}>Priority: {priority}</TaskDetail>
+
+      {dueDate && (
+        <TaskDetail isCompleted={!!completedAt}>{timeLeft || 'Calculating...'}</TaskDetail>
+      )}
+
+      <TaskDetail isCompleted={!!completedAt}>{description}</TaskDetail>
+
       {subTasks.length > 0 && (
-        <TaskDetail>
-          <strong>Subtasks:</strong>
+        <TaskDetail isCompleted={!!completedAt}>
           <SubTaskListDetailView subTasks={subTasks} taskId={taskId} />
         </TaskDetail>
       )}
-      <TaskDetail>
-        <strong>Priority:</strong> {priority}
+
+      <TaskDetail isCompleted={!!completedAt}>Recurrence: {recurrence || 'None'}</TaskDetail>
+      <TaskDetail isCompleted={!!completedAt}>
+        Due Date: {dueDate ? dueDate.toLocaleString() : 'No due date'}
       </TaskDetail>
-      <TaskDetail>
-        <strong>Recurrence:</strong> {recurrence || 'None'}
-      </TaskDetail>
-      <TaskDetail>
-        <strong>Due Date:</strong> {dueDate ? dueDate.toLocaleString() : 'No due date'}
-      </TaskDetail>
-      <TaskDetail>
-        <strong>Completed At:</strong>{' '}
+      <TaskDetail isCompleted={!!completedAt}>
+        Completed At:{' '}
         {completedAt ? new Date(completedAt.toDate()).toLocaleString() : 'Not completed yet'}
       </TaskDetail>
-      <TaskDetail>
-        <strong>Created At:</strong>{' '}
-        {createdAt ? new Date(createdAt.toDate()).toLocaleString() : 'Unknown'}
+      <TaskDetail isCompleted={!!completedAt}>
+        Created At: {createdAt ? new Date(createdAt.toDate()).toLocaleString() : 'Unknown'}
       </TaskDetail>
-      <TaskDetail>
-        <strong>Updated At:</strong>{' '}
-        {updatedAt ? new Date(updatedAt.toDate()).toLocaleString() : 'Never updated'}
+
+      <TaskDetail isCompleted={!!completedAt}>
+        Updated At: {updatedAt ? new Date(updatedAt.toDate()).toLocaleString() : 'Never updated'}
       </TaskDetail>
-      {dueDate && (
-        <TaskDetail>
-          <strong>Time left:</strong> {timeLeft || 'Calculating...'}
-        </TaskDetail>
-      )}
-      <TaskDetail>
-        <strong>Category:</strong> {category || 'Uncategorized'}
-      </TaskDetail>
-      <TaskDetail>
-        <strong>Assigned Users:</strong> {assignedUsersDisplay}
-      </TaskDetail>
+
+      <TaskDetail isCompleted={!!completedAt}>Assigned Users: {assignedUsersDisplay}</TaskDetail>
+
       <ButtonGroup>
-        <StyledButton onClick={onComplete}>Complete</StyledButton>
-        <StyledButton onClick={onEdit}>Edit</StyledButton>
-        <StyledButton onClick={onRemove}>Remove</StyledButton>
+        <StyledButton onClick={onComplete} disabled={!!completedAt}>
+          Finished
+        </StyledButton>
+        <StyledButton onClick={onEdit} disabled={!!completedAt}>
+          Edit
+        </StyledButton>
+        <StyledButton onClick={onRemove}>Remove Task</StyledButton>
       </ButtonGroup>
     </Container>
   );
