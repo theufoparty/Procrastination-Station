@@ -5,7 +5,8 @@ import { Task } from '../../../types/firestore';
 const CalendarContainer = styled.div`
   background: #fff;
   padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  border: 1px solid #e7e7e7;
   border-radius: 20px;
 `;
 

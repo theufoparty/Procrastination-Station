@@ -60,22 +60,33 @@ const predefinedCategories = ['Work', 'Household', 'Fitness', 'Errands', 'Others
 const NewTaskButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
-  padding: 0.8rem;
-  font-size: 1.2rem;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  padding: 16px;
+  font-size: 1rem;
   background-color: #35328b;
   color: white;
   border-radius: 20px;
   cursor: pointer;
-
-  @media (max-width: 600px) {
-    width: 100%;
-  }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const SearchInput = styled.input`
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const CategorySelect = styled.select`
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 `;
 
 const AllianceDashboard: React.FC = () => {
@@ -92,6 +103,8 @@ const AllianceDashboard: React.FC = () => {
   } = useAlliance(allianceId);
 
   const [isCreatingTask, setIsCreatingTask] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const handleJoinAlliance = async () => {
     if (!user) {
@@ -154,7 +167,6 @@ const AllianceDashboard: React.FC = () => {
           <>
             {!isCreatingTask && (
               <ButtonContainer>
-                {' '}
                 <NewTaskButton onClick={() => setIsCreatingTask(true)}>New Task</NewTaskButton>
               </ButtonContainer>
             )}
@@ -173,6 +185,7 @@ const AllianceDashboard: React.FC = () => {
           </>
         )}
       </NewTaskContainer>
+
       {!alliance ? (
         <p>Loading Alliance...</p>
       ) : (
@@ -196,14 +209,34 @@ const AllianceDashboard: React.FC = () => {
           />
 
           <AllianceMemberList members={allianceMembers} />
-
           <AllianceLink allianceId={allianceId} />
+
+          <SearchInput
+            type='text'
+            placeholder='Search tasks by title'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <CategorySelect
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value='All'>All Categories</option>
+            {predefinedCategories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </CategorySelect>
+
           <TaskListContainer>
             <TaskList
               tasks={allianceTasks}
               onUpdateTask={handleUpdateTask}
               allianceMembers={allianceMembers}
               categories={predefinedCategories}
+              searchTerm={searchTerm} // Pass search term to TaskList
+              selectedCategory={selectedCategory} // Pass selected category to TaskList
             />
           </TaskListContainer>
         </>

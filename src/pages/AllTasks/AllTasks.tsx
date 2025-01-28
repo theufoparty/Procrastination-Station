@@ -1,46 +1,42 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
 import TaskList from '../../components/TaskList';
 import CreateTaskForm from '../../components/CreateTaskForm';
 import { updateTask } from '../../utils/updateTask';
 import { Task } from '../../types/firestore';
+import styled from 'styled-components';
 
 const Container = styled.div`
-  min-height: 100vh; /* Ensure the container fills at least the viewport height */
-  display: flex; /* Flexbox layout for alignment */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: space-between; /* Spread content to edges */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 2rem;
 `;
 
 const NewTaskButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
-  padding: 0.8rem;
-  width: 16em;
-  font-size: 1.2rem;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  padding: 16px;
+  font-size: 1em;
   background-color: #35328b;
   color: white;
   border-radius: 20px;
   cursor: pointer;
+`;
 
-  @media (max-width: 600px) {
-    width: 100%;
-  }
+const TaskSearchInput = styled.input`
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
 
-  top: 2em;
-  right: 2em;
-
-  @media (max-width: 768px) {
-    bottom: 2rem;
-    top: auto;
-    right: 50%;
-    width: 85%;
-    transform: translateX(50%);
-  }
+const TaskButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const ModalOverlay = styled.div`
@@ -54,19 +50,6 @@ const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
-
-  @media (min-width: 768px) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-  }
-`;
-
-const TaskButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 
 const ModalContainer = styled.div`
@@ -77,18 +60,21 @@ const ModalContainer = styled.div`
   overflow: hidden;
 `;
 
-const TaskContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
 const AllTasks: React.FC = () => {
   const { user, userTasks, createUserTask } = useAuth(auth, db);
-
   const [isCreatingTask, setIsCreatingTask] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const predefinedCategories = ['Personal', 'Work', 'Fitness', 'Errands', 'Others'];
+
+  // Apply search and category filtering after fetching userTasks
+  const filteredTasks = userTasks.filter((task) => {
+    const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
+    const matchesSearchTerm = task.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return matchesCategory && matchesSearchTerm;
+  });
 
   const handleCreateTask = async (taskData: {
     name: string;
@@ -96,7 +82,6 @@ const AllTasks: React.FC = () => {
     priority?: string;
     recurrence?: string;
     dueDate?: Date | null;
-    // assignedUserIds?: string[]; // For user-only tasks
     category?: string;
   }) => {
     if (!user) {
@@ -124,38 +109,48 @@ const AllTasks: React.FC = () => {
     }
   };
 
-  const handleCancelCreateTask = () => {
-    setIsCreatingTask(false);
-  };
-
   return (
     <Container>
-      <TaskContainer>
-        <TaskButtonContainer>
-          <NewTaskButton onClick={() => setIsCreatingTask(true)}>
-            Create Personal Task
-          </NewTaskButton>
-        </TaskButtonContainer>
-        {isCreatingTask && (
-          <ModalOverlay>
-            <ModalContainer>
-              <CreateTaskForm
-                allianceMembers={[]}
-                categories={predefinedCategories}
-                onCreateTask={handleCreateTask}
-                onCancel={handleCancelCreateTask}
-              />
-            </ModalContainer>
-          </ModalOverlay>
-        )}
+      <TaskSearchInput
+        type='text'
+        placeholder='Search tasks by title'
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <select onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory}>
+        <option value='All'>All Categories</option>
+        {predefinedCategories.map((category) => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
 
-        <TaskList
-          tasks={userTasks}
-          allianceMembers={[]}
-          categories={predefinedCategories}
-          onUpdateTask={handleUpdateTask}
-        />
-      </TaskContainer>
+      <TaskButtonContainer>
+        <NewTaskButton onClick={() => setIsCreatingTask(true)}>Create Personal Task</NewTaskButton>
+      </TaskButtonContainer>
+
+      {isCreatingTask && (
+        <ModalOverlay>
+          <ModalContainer>
+            <CreateTaskForm
+              categories={predefinedCategories}
+              onCreateTask={handleCreateTask}
+              onCancel={() => setIsCreatingTask(false)}
+              allianceMembers={[]}
+            />
+          </ModalContainer>
+        </ModalOverlay>
+      )}
+
+      <TaskList
+        tasks={filteredTasks}
+        categories={predefinedCategories}
+        onUpdateTask={handleUpdateTask}
+        searchTerm={searchTerm}
+        selectedCategory={selectedCategory}
+        allianceMembers={[]}
+      />
     </Container>
   );
 };

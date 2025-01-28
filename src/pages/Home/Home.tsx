@@ -38,7 +38,8 @@ const Greeting = styled.h2`
 
 const TodaysTaskBox = styled.div`
   position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  border: 1px solid #e7e7e7;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
@@ -46,8 +47,9 @@ const TodaysTaskBox = styled.div`
 `;
 
 const StatBox = styled.div`
+  border: 1px solid #e7e7e7;
   position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
@@ -71,7 +73,8 @@ const WelcomeContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  border: 1px solid #e7e7e7;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;

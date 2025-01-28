@@ -16,6 +16,8 @@ interface TaskListProps {
   onUpdateTask: (taskId: string, data: Partial<Task>) => Promise<void>;
   allianceMembers: AllianceMember[];
   categories: string[];
+  searchTerm: string; // Add searchTerm prop
+  selectedCategory: string; // Add selectedCategory prop
 }
 
 const TaskContainer = styled.div`
@@ -39,15 +41,21 @@ const CategoryColumn = styled.div`
 
   h4 {
     margin-bottom: 20px;
+    font-weight: 200;
   }
 
   @media (max-width: 768px) {
-    width: 100%;
+    margin: 0px;
   }
 `;
 
 const Tasks = styled.h3`
   margin-left: 20px;
+  font-weight: 200;
+
+  @media (max-width: 768px) {
+    margin-left: 0px;
+  }
 `;
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -55,6 +63,8 @@ const TaskList: React.FC<TaskListProps> = ({
   onUpdateTask,
   allianceMembers,
   categories,
+  searchTerm,
+  selectedCategory,
 }) => {
   const [internalTasks, setInternalTasks] = useState<Task[]>(tasks);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -74,6 +84,13 @@ const TaskList: React.FC<TaskListProps> = ({
       }
     }
   }, [tasks, selectedTask]);
+
+  // Apply search and category filtering here
+  const filteredTasks = internalTasks.filter((task) => {
+    const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
+    const matchesSearchTerm = task.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearchTerm;
+  });
 
   const handleTaskClick = (task: Task) => {
     setSelectedTask(task);
@@ -114,14 +131,14 @@ const TaskList: React.FC<TaskListProps> = ({
     return map;
   };
 
-  const groupedTasks = groupTasksByCategory(internalTasks);
+  const groupedTasks = groupTasksByCategory(filteredTasks); // Group filtered tasks by category
 
   return (
     <div>
       <Tasks>Tasks</Tasks>
       <TaskContainer>
-        {internalTasks.length === 0 ? (
-          <p>No tasks yet.</p>
+        {filteredTasks.length === 0 ? (
+          <p>No tasks found.</p>
         ) : (
           <CategoriesRow>
             {Object.keys(groupedTasks).map((category) => (

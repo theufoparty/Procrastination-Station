@@ -130,7 +130,7 @@ const MenuBar = styled.div`
 const LogoutButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 400;
-  padding: 20px;
+  padding: 16px;
   font-size: 1em;
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #35328b;

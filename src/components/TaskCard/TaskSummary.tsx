@@ -34,7 +34,7 @@ const Header = styled.div`
 
 const TaskTitle = styled.h3`
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 200;
   color: #333;
   margin: 0;
 `;
