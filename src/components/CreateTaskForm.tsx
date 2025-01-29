@@ -36,26 +36,36 @@ const fadeIn = keyframes`
 `;
 
 const OuterContainer = styled.div`
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   background-color: #fff;
-  border-radius: 20px;
+  border-radius: 0px;
   animation: ${fadeIn} 0.3s ease-out;
+  overflow: hidden;
+  @media (min-width: 768px) {
+    border-radius: 20px;
+  }
 `;
 
 const Form = styled.form`
   display: flex;
-  height: 100vh;
   flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #f3f5fe;
 `;
 
 const DarkHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: #374e56;
+  background-color: #35328b;
+  border-radius: 20px;
   padding: 20px;
+  margin: 20px;
   align-items: flex-start;
+  height: 25em;
+  padding-bottom: 9em;
+  @media (min-width: 768px) {
+  }
 `;
 
 const CloseButton = styled.button`
@@ -81,9 +91,19 @@ const FormContainer = styled.div`
   z-index: 10;
   background-color: #ffffff;
   padding: 20px;
+  padding-top: 2em;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  margin-top: -7em;
+  margin-inline: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  @media (min-width: 768px) {
+    max-height: 75vh;
+  }
 `;
 
 const DarkLabel = styled.label`
@@ -140,10 +160,10 @@ const TextArea = styled.textarea`
   color: #374e56;
   outline: none;
   resize: none;
-  min-height: 60px;
+  min-height: 10em;
 
   &:focus {
-    border-bottom: 1px solid #007bff;
+    border-bottom: 1px solid #35328b;
   }
 `;
 
@@ -153,12 +173,12 @@ const Select = styled.select`
   padding: 0.4rem 0;
   font-size: 0.95rem;
   font-weight: 100;
-  color: #333;
+  color: #ffffff;
   background: transparent;
   outline: none;
 
   &:focus {
-    border-bottom: 1px solid #007bff;
+    border-bottom: 1px solid #35328b;
   }
 `;
 
@@ -169,8 +189,8 @@ const ButtonContainer = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  width: 100%;
-  background-color: #4d63f3;
+  display: flex;
+  background-color: #35328b;
   color: #fff;
   border: none;
   border-radius: 2em;
@@ -181,9 +201,11 @@ const SubmitButton = styled.button`
   font-weight: 100;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    background-color: #6f84f6;
+    background-color: #413dbe;
   }
 `;
 
@@ -208,7 +230,7 @@ const PriorityButton = styled.button<{ selected: boolean }>`
   font-weight: 100;
   transition: background-color 0.2s ease-in-out;
 
-  background-color: ${({ selected }) => (selected ? '#4d63f3' : '#e1e1e1')};
+  background-color: ${({ selected }) => (selected ? '#35328b;' : '#e1e1e1')};
   color: ${({ selected }) => (selected ? '#fff' : '#333')};
 
   &:hover {
@@ -216,11 +238,61 @@ const PriorityButton = styled.button<{ selected: boolean }>`
   }
 `;
 
+const AddSubtaskButton = styled.button`
+  display: flex;
+  background-color: #35328b;
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  height: 3em;
+  width: 14em;
+  padding: 20px;
+  font-size: 1em;
+  font-weight: 100;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #413dbe;
+  }
+`;
+
+const RemoveSubtaskButton = styled.button`
+  margin-top: 20px;
+  display: flex;
+  background-color: #35328b;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  padding: 20px;
+  font-size: 1em;
+  font-weight: 100;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  align-items: center;
+  justify-content: center;
+`;
+
 const CategoryButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 0.5rem;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SubtaskContainer = styled.div`
+  font-family: 'Montserrat', serif;
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1em;
+  align-items: flex-end;
 `;
 
 const CategoryButton = styled.button<{ selected: boolean }>`
@@ -232,7 +304,7 @@ const CategoryButton = styled.button<{ selected: boolean }>`
   font-weight: 100;
   transition: background-color 0.2s ease-in-out;
 
-  background-color: ${({ selected }) => (selected ? '#4d63f3' : '#e1e1e1')};
+  background-color: ${({ selected }) => (selected ? '#35328b;' : '#e1e1e1')};
   color: ${({ selected }) => (selected ? '#fff' : '#333')};
 
   &:hover {
@@ -248,12 +320,10 @@ const RecurrenceButton = styled.button<{ selected: boolean }>`
   font-size: 0.9rem;
   font-weight: 100;
   transition: background-color 0.2s ease-in-out;
-
   background-color: ${({ selected }) => (selected ? '#4d63f3' : '#e1e1e1')};
   color: ${({ selected }) => (selected ? '#fff' : '#333')};
-
   &:hover {
-    background-color: ${({ selected }) => (selected ? '#6f84f6' : '#d4d4d4')};
+    background-color: ${({ selected }) => (selected ? '#35328b;' : '#d4d4d4')};
   }
 `;
 
@@ -262,6 +332,8 @@ const RecurrenceButtonContainer = styled.div`
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 0.5rem;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
@@ -379,24 +451,25 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
             />
           </InputContainer>
           <InputContainer>
-            <Label>Subtasks</Label>
+            <AddSubtaskButton type='button' onClick={handleAddSubTask}>
+              + Add Subtask
+            </AddSubtaskButton>
             {subTasks.map((subTask, index) => (
-              <div key={index} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <LightInput
-                  type='text'
-                  placeholder='Subtask name'
-                  value={subTask.name}
-                  onChange={(e) => handleChangeSubTaskName(index, e.target.value)}
-                  required
-                />
-                <button type='button' onClick={() => handleRemoveSubTask(index)}>
-                  Remove
-                </button>
+              <div key={index}>
+                <SubtaskContainer>
+                  <RemoveSubtaskButton type='button' onClick={() => handleRemoveSubTask(index)}>
+                    X
+                  </RemoveSubtaskButton>
+                  <LightInput
+                    type='text'
+                    placeholder='Subtask name'
+                    value={subTask.name}
+                    onChange={(e) => handleChangeSubTaskName(index, e.target.value)}
+                    required
+                  />
+                </SubtaskContainer>
               </div>
             ))}
-            <button type='button' onClick={handleAddSubTask}>
-              + Add Subtask
-            </button>
           </InputContainer>
 
           <InputContainer>

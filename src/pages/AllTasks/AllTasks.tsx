@@ -102,10 +102,19 @@ const ModalOverlay = styled.div`
 
 const ModalContainer = styled.div`
   background: #fff;
-  border-radius: 8px;
+  border-radius: 0px;
   max-width: 600px;
   width: 100%;
-  overflow: hidden;
+  height: 100%;
+
+  @media (min-width: 768px) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    height: 80%;
+    border-radius: 20px;
+  }
 `;
 
 const AllTasks: React.FC = () => {
