@@ -19,7 +19,7 @@ const SimpleModal = ({ children, onClose }: SimpleModalProps) => {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    height: isSmallScreen ? '100%' : '90%',
+    height: isSmallScreen ? '100%' : '50%',
     width: isSmallScreen ? '100%' : '60%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: '#fff',

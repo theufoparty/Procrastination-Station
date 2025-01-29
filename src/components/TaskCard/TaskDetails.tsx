@@ -3,28 +3,42 @@ import styled from 'styled-components';
 import { Timestamp } from 'firebase/firestore';
 import SubTaskListDetailView from './SubTaskListDetailView';
 import { SubTask } from '../../types/firestore';
-
 const Container = styled.div`
-  margin: 1em;
-  background-color: #ffffff;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 const Title = styled.h2`
-  font-size: 2em;
+  font-size: 2.5rem;
   font-weight: 600;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
+  color: #333;
+`;
+
+const TopContainer = styled.div`
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const TaskDetail = styled.p<{ isCompleted?: boolean }>`
-  font-size: 1em;
+  font-size: 1rem;
   color: ${({ isCompleted }) => (isCompleted ? '#6c757d' : '#555')};
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   gap: 1.5rem;
   margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledButton = styled.button<{ disabled?: boolean }>`
@@ -109,9 +123,23 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
 
   return (
     <Container>
-      <Title>{name}</Title>
+      <TopContainer>
+        <Title>{name}</Title>{' '}
+        <TaskDetail isCompleted={!!completedAt}>
+          {dueDate
+            ? dueDate.toLocaleString('sv-SE', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+              })
+            : 'No due date'}
+        </TaskDetail>
+      </TopContainer>
 
       <TaskDetail isCompleted={!!completedAt}>{category || 'Uncategorized'}</TaskDetail>
+
+      <TaskDetail isCompleted={!!completedAt}>Recurrence: {recurrence || 'None'}</TaskDetail>
+
       <TaskDetail isCompleted={!!completedAt}>Account ID: {allianceId || 'N/A'}</TaskDetail>
 
       <TaskDetail isCompleted={!!completedAt}>Priority: {priority}</TaskDetail>
@@ -128,10 +156,6 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
         </TaskDetail>
       )}
 
-      <TaskDetail isCompleted={!!completedAt}>Recurrence: {recurrence || 'None'}</TaskDetail>
-      <TaskDetail isCompleted={!!completedAt}>
-        Due Date: {dueDate ? dueDate.toLocaleString() : 'No due date'}
-      </TaskDetail>
       <TaskDetail isCompleted={!!completedAt}>
         Completed At:{' '}
         {completedAt ? new Date(completedAt.toDate()).toLocaleString() : 'Not completed yet'}
@@ -144,15 +168,11 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
         Updated At: {updatedAt ? new Date(updatedAt.toDate()).toLocaleString() : 'Never updated'}
       </TaskDetail>
 
-      <TaskDetail isCompleted={!!completedAt}>Assigned Users: {assignedUsersDisplay}</TaskDetail>
+      <TaskDetail isCompleted={!!completedAt}>Assigned Member: {assignedUsersDisplay}</TaskDetail>
 
       <ButtonGroup>
-        <StyledButton onClick={onComplete} disabled={!!completedAt}>
-          Finished
-        </StyledButton>
-        <StyledButton onClick={onEdit} disabled={!!completedAt}>
-          Edit
-        </StyledButton>
+        <StyledButton onClick={onComplete}>Finished</StyledButton>
+        <StyledButton onClick={onEdit}>Edit</StyledButton>
         <StyledButton onClick={onRemove}>Remove Task</StyledButton>
       </ButtonGroup>
     </Container>

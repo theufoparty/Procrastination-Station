@@ -8,12 +8,14 @@ interface TaskSummaryProps {
 }
 
 const TaskContainer = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border: 1px solid #e7e7e7;
   border-radius: 20px;
   padding: 20px;
   background-color: #fff;
-  width: 20em;
+  width: 22em;
   height: 12em;
   margin-bottom: 20px;
   cursor: pointer;
@@ -27,7 +29,7 @@ const TaskContainer = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 0.5rem;
 `;
 
@@ -36,6 +38,7 @@ const TaskTitle = styled.h3`
   font-weight: 200;
   color: #333;
   margin: 0;
+  width: 60%;
 `;
 
 const DueDate = styled.span`
@@ -58,17 +61,12 @@ const ProgressBar = styled.div`
   margin: 0.75rem 0 1rem;
 `;
 
+const BottomContainer = styled.div``;
+
 const Progress = styled.div<{ percentage: number }>`
   width: ${(props) => props.percentage}%;
   height: 100%;
   background: #4caf50;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
 `;
 
 const TaskSummary: React.FC<TaskSummaryProps> = ({ task, onClick }) => {
@@ -94,18 +92,19 @@ const TaskSummary: React.FC<TaskSummaryProps> = ({ task, onClick }) => {
         <DueDate>{dueDateObj ? dueDateObj.toLocaleDateString() : 'No due date'}</DueDate>
       </Header>
 
-      {dueDateObj && daysLeft > 0 ? (
-        <DaysLeft>
-          {daysLeft} day{daysLeft > 1 ? 's' : ''} left
-        </DaysLeft>
-      ) : (
-        <DaysLeft style={{ color: '#d32f2f' }}>Overdue</DaysLeft>
-      )}
+      <BottomContainer>
+        {dueDateObj && daysLeft > 0 ? (
+          <DaysLeft>
+            {daysLeft} day{daysLeft > 1 ? 's' : ''} left
+          </DaysLeft>
+        ) : (
+          <DaysLeft style={{ color: '#d32f2f' }}>Overdue</DaysLeft>
+        )}
 
-      <Footer>Hello</Footer>
-      <ProgressBar>
-        <Progress percentage={percentageComplete} />
-      </ProgressBar>
+        <ProgressBar>
+          <Progress percentage={percentageComplete} />
+        </ProgressBar>
+      </BottomContainer>
     </TaskContainer>
   );
 };
