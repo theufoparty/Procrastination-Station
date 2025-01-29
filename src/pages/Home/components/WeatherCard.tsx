@@ -7,7 +7,7 @@ const WeatherContainer = styled.div`
   justify-content: space-between;
   background-color: #fff;
   border-radius: 20px;
-  flex-direction: column;
+  flex-direction: column-reverse;
 `;
 
 const TimeSection = styled.div`
@@ -21,21 +21,21 @@ const TimeSection = styled.div`
 const TimeText = styled.h2`
   margin: 0;
   font-size: 2em;
-  font-weight: bold;
+  font-weight: 600;
 `;
 
 const WeatherSection = styled.div`
   display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
+  align-items: flex-end;
+  flex-direction: column;
   width: 16em;
-  justify-content: space-between;
+  justify-content: flex-start;
 `;
 
 const Temperature = styled.h2`
   margin: 0;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
 `;
 
 const WeatherIcon = styled.img`

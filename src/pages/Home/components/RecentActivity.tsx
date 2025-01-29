@@ -4,10 +4,20 @@ import { Task } from '../../../types/firestore';
 import { onSnapshot, collection, query, orderBy, limit } from 'firebase/firestore';
 import { db } from '../../../../firebaseConfig';
 const ActivityFeedContainer = styled.div`
-  margin-top: 2em;
-  padding: 1em;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  border: 1px solid #e7e7e7;
+  position: relative;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  cursor: pointer;
+  width: 100%;
+  @media (min-width: 768px) {
+    min-width: 49%;
+    max-width: 45%;
+  }
+`;
+const Title = styled.h3`
+  margin-bottom: 1em;
 `;
 
 const ActivityItem = styled.div`
@@ -15,7 +25,7 @@ const ActivityItem = styled.div`
   margin-bottom: 1rem;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e7e7e7;
 `;
 
 const TaskName = styled.h4`
@@ -51,7 +61,7 @@ const RecentActivityFeed: React.FC = () => {
 
   return (
     <ActivityFeedContainer>
-      <h3>Recent Activity</h3>
+      <Title>Recent Activity</Title>
       {recentTasks.length === 0 ? (
         <p>No recent activity.</p>
       ) : (

@@ -18,10 +18,10 @@ const Wrapper = styled.div`
 const MainContent = styled.main`
   display: flex;
   flex-direction: column;
-  margin: 2rem;
+  margin: 2em;
+  margin-top: 6em;
   border-radius: 20px;
   padding: 2em;
-
   background-color: #f3f5fe;
   padding-top: 2em;
 
@@ -30,6 +30,7 @@ const MainContent = styled.main`
     flex-direction: column;
     padding: 0;
     width: 100%;
+    margin-top: 2em;
   }
 `;
 

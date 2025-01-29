@@ -7,8 +7,8 @@ import { NavLink } from 'react-router-dom';
 
 const HamburgerIcon = styled.div`
   position: absolute;
-  top: 4em;
-  left: 4em;
+  top: 2em;
+  left: 2em;
   z-index: 999;
   cursor: pointer;
   display: flex;
@@ -48,7 +48,6 @@ const Sidebar = styled.div<{ isopen: boolean }>`
   justify-content: space-between;
   z-index: 998;
   transition: left 0.3s ease;
-
   padding: 2em;
 
   @media (min-width: 768px) {
@@ -76,16 +75,25 @@ const Overlay = styled.div<{ isopen: boolean }>`
   z-index: 100;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const NavLinks = styled.ul`
   list-style: none;
   padding: 0;
-  gap: 2em;
+  gap: 4em;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+  margin-top: 8em;
+
+  @media (min-width: 768px) {
+  }
 
   li {
   }
@@ -140,9 +148,11 @@ const LogoutButton = styled.button`
   color: white;
   border-radius: 20px;
   cursor: pointer;
+  width: 14em;
 
   @media (max-width: 600px) {
-    width: 100%;
+    justify-self: center;
+    width: 14em;
   }
 `;
 
@@ -209,7 +219,9 @@ const Navbar = () => {
             </li>
           </NavLinks>
         </MenuBar>
-        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+        <ButtonContainer>
+          <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+        </ButtonContainer>
       </Sidebar>
     </>
   );

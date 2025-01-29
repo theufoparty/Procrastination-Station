@@ -3,14 +3,20 @@ import styled from 'styled-components';
 import { Task } from '../../../types/firestore';
 
 const CalendarContainer = styled.div`
+  font-family: 'Montserrat', serif;
   background: #fff;
   padding: 20px;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   border: 1px solid #e7e7e7;
   border-radius: 20px;
+  width: 100%;
+  @media (min-width: 768px) {
+    min-width: 49%;
+    max-width: 45%;
+  }
 `;
 
 const CalendarHeader = styled.div`
+  font-family: 'Montserrat', serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,6 +24,7 @@ const CalendarHeader = styled.div`
 `;
 
 const MonthSelector = styled.div`
+  font-family: 'Montserrat', serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -36,15 +43,17 @@ const MonthSelector = styled.div`
 `;
 
 const DaysContainer = styled.div`
+  font-family: 'Montserrat', serif;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  font-weight: bold;
+  font-weight: 600;
   color: #374e56;
   text-align: center;
 `;
 
 const DatesContainer = styled.div`
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(7, 1fr);
 `;
 

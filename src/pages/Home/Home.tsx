@@ -15,23 +15,27 @@ const StatsContainer = styled.div`
   flex-wrap: wrap;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 4em;
+  margin-top: 2em;
+  gap: 20px;
   margin-bottom: 2em;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  @media (min-width: 600px) {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
+  @media (min-width: 768px) {
     margin: 20px;
+    margin-top: 0;
+    flex-direction: row;
   }
 `;
 
 const Greeting = styled.h2`
+  font-family: 'Montserrat', serif;
   background-color: #fff;
   cursor: pointer;
+  font-weight: 600;
 
   @media (min-width: 768px) {
   }
@@ -39,24 +43,32 @@ const Greeting = styled.h2`
 
 const TodaysTaskBox = styled.div`
   position: relative;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   border: 1px solid #e7e7e7;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
   cursor: pointer;
+  width: 100%;
+  @media (min-width: 768px) {
+    min-width: 49%;
+    max-width: 45%;
+  }
 `;
 
 const StatBox = styled.div`
   border: 1px solid #e7e7e7;
   position: relative;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
   width: 14em;
   height: 12em;
   cursor: pointer;
+  width: 100%;
+  @media (min-width: 768px) {
+    min-width: 49%;
+    max-width: 45%;
+  }
 `;
 
 const StatTitle = styled.h4`
@@ -74,15 +86,15 @@ const WelcomeContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   border: 1px solid #e7e7e7;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
   cursor: pointer;
-  margin: 20px;
+  margin: 0;
 
   @media (min-width: 768px) {
+    margin: 20px;
   }
 `;
 
