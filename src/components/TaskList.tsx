@@ -34,6 +34,13 @@ const CategoriesRow = styled.div`
   }
 `;
 
+const NoTask = styled.p`
+  margin: 1em;
+  font-size: 1em;
+  margin-bottom: 20px;
+  align-self: center;
+`;
+
 const CategoryColumn = styled.div`
   display: flex;
   margin: 20px;
@@ -127,7 +134,7 @@ const TaskList: React.FC<TaskListProps> = ({
     <div>
       <TaskContainer>
         {filteredTasks.length === 0 ? (
-          <p>No tasks found.</p>
+          <NoTask>No tasks found.</NoTask>
         ) : (
           <CategoriesRow>
             {Object.keys(groupedTasks).map((category) => (

@@ -31,13 +31,13 @@ const LeftSection = styled.div`
 `;
 
 const Title = styled.h1`
-  font-weight: 100;
-  font-size: 2.4em;
+  font-weight: 300;
+  font-size: 2em;
   color: #252525;
   margin-top: 2em;
 
   @media (min-width: 768px) {
-    font-size: 3.5em;
+    font-size: 3em;
     margin-top: 0;
   }
 `;
@@ -77,17 +77,18 @@ const FormGroup = styled.div`
 `;
 
 const StyledLabel = styled.label`
-  font-size: 1.2rem;
+  font-size: 1em;
+  margin-top: 0.2em;
   color: #252525;
-  font-weight: 400;
+  font-weight: 300;
   font-family: 'Montserrat', serif;
 `;
 
 const StyledInput = styled.input`
   font-family: 'Montserrat', serif;
-  font-weight: 400;
-  padding: 1em 0 1em 0;
-  font-size: 1.2rem;
+  font-weight: 300;
+  padding-bottom: 1em;
+  font-size: 1em;
   border: none;
   border-bottom: 1px solid #252525;
   outline: none;
@@ -102,16 +103,15 @@ const ButtonGroup = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1em;
 `;
 
 const StyledButton = styled.button`
   font-family: 'Montserrat', serif;
-  font-weight: 400;
-  padding: 0.8rem;
+  font-weight: 300;
+  padding: 12px;
   border: none;
-  font-size: 1.2rem;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  font-size: 1em;
   background-color: #35328b;
   color: white;
   border-radius: 20px;
@@ -120,11 +120,10 @@ const StyledButton = styled.button`
 
 const SecondaryButton = styled.button`
   font-family: 'Montserrat', serif;
-  font-weight: 400;
-  padding: 0.8rem;
-  font-size: 1.2rem;
+  font-weight: 300;
+  padding: 12px;
+  font-size: 1em;
   border: none;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   background-color: #9494bd;
   color: white;
   border-radius: 20px;

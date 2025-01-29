@@ -43,9 +43,9 @@ const ButtonGroup = styled.div`
 
 const StyledButton = styled.button<{ disabled?: boolean }>`
   font-family: 'Montserrat', serif;
-  font-weight: 400;
-  padding: 14px 24px;
-  font-size: 1rem;
+  font-weight: 300;
+  padding: 12px;
+  font-size: 0.8em;
   border: none;
   width: 10em;
   background-color: ${({ disabled }) => (disabled ? '#ccc' : '#35328b')};

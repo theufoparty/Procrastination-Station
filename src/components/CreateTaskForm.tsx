@@ -42,13 +42,14 @@ const OuterContainer = styled.div`
   overflow: hidden;
   @media (min-width: 768px) {
     border-radius: 20px;
+    width: 20em;
   }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 50%;
   overflow-y: auto;
   background-color: #f3f5fe;
 `;
@@ -62,8 +63,7 @@ const DarkHeader = styled.div`
   padding: 20px;
   margin: 20px;
   align-items: flex-start;
-  height: 25em;
-  padding-bottom: 9em;
+  padding-bottom: 8em;
   @media (min-width: 768px) {
   }
 `;
@@ -76,15 +76,15 @@ const CloseButton = styled.button`
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
-  font-weight: 100;
+  font-weight: 300;
 `;
 
 const Title = styled.h2`
   margin: 0;
   text-align: center;
   color: #ffffff;
-  font-size: 2.2rem;
-  font-weight: 100;
+  font-size: 1.4em;
+  font-weight: 300;
 `;
 
 const FormContainer = styled.div`
@@ -95,34 +95,35 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-height: 70vh;
+  max-height: 73vh;
   overflow-y: auto;
   margin-top: -7em;
   margin-inline: 20px;
   margin-bottom: 20px;
   border-radius: 20px;
   @media (min-width: 768px) {
-    max-height: 75vh;
+    max-height: 50vh;
   }
 `;
 
 const DarkLabel = styled.label`
   display: block;
-  color: #fff;
-  font-size: 0.8rem;
+  color: #ffffff;
+  font-size: 0.6rem;
   margin-top: 1rem;
-  font-weight: 100;
+  font-weight: 300;
 `;
 
 const DarkInput = styled.input`
+  font-family: 'Montserrat', serif;
   width: 100%;
-  background: transparent;
+  background: #35328b;
   border: none;
   border-bottom: 1px solid #ccc;
   color: #fff;
   padding: 0.4rem 0;
-  font-size: 1rem;
-  font-weight: 100;
+  font-size: 0.6em;
+  font-weight: 300;
 
   &:focus {
     outline: none;
@@ -131,17 +132,18 @@ const DarkInput = styled.input`
 `;
 
 const Label = styled.label`
-  font-size: 0.9rem;
-  font-weight: 100;
+  font-size: 0.6rem;
+  font-weight: 300;
   color: #232323;
 `;
 
 const LightInput = styled.input`
+  font-family: 'Montserrat', serif;
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 0.4rem 0;
-  font-size: 0.95rem;
-  font-weight: 100;
+  font-size: 0.6em;
+  font-weight: 300;
   color: #374e56;
   outline: none;
   background-color: transparent;
@@ -152,11 +154,12 @@ const LightInput = styled.input`
 `;
 
 const TextArea = styled.textarea`
+  font-family: 'Montserrat', serif;
   border: none;
   border-bottom: 1px solid #ccc;
-  padding: 0.4rem 0;
-  font-size: 0.95rem;
-  font-weight: 100;
+  padding: 12px;
+  font-size: 0.6em;
+  font-weight: 300;
   color: #374e56;
   outline: none;
   resize: none;
@@ -170,9 +173,9 @@ const TextArea = styled.textarea`
 const Select = styled.select`
   border: none;
   border-bottom: 1px solid #ccc;
-  padding: 0.4rem 0;
-  font-size: 0.95rem;
-  font-weight: 100;
+  padding: 12px 0;
+  font-size: 0.6em;
+  font-weight: 300;
   color: #ffffff;
   background: transparent;
   outline: none;
@@ -189,16 +192,16 @@ const ButtonContainer = styled.div`
 `;
 
 const SubmitButton = styled.button`
+  font-family: 'Montserrat', serif;
   display: flex;
   background-color: #35328b;
   color: #fff;
   border: none;
   border-radius: 2em;
-  height: 3em;
   width: 14em;
-  padding: 20px;
-  font-size: 1em;
-  font-weight: 100;
+  padding: 12px;
+  font-size: 0.6em;
+  font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   align-items: center;
@@ -216,18 +219,22 @@ const InputContainer = styled.div`
 
 const PriorityButtonContainer = styled.div`
   display: flex;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5em;
+  row-gap: 1em;
+  flex-wrap: wrap;
 `;
 
 const PriorityButton = styled.button<{ selected: boolean }>`
-  flex: 1;
-  padding: 0.6rem;
+  font-family: 'Montserrat', serif;
+  padding: 12px;
+  width: 14em;
+  font-size: 0.6em;
   border: none;
   border-radius: 20px;
+  margin-inline: 1em;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 100;
+  font-weight: 300;
   transition: background-color 0.2s ease-in-out;
 
   background-color: ${({ selected }) => (selected ? '#35328b;' : '#e1e1e1')};
@@ -239,16 +246,16 @@ const PriorityButton = styled.button<{ selected: boolean }>`
 `;
 
 const AddSubtaskButton = styled.button`
+  font-family: 'Montserrat', serif;
   display: flex;
   background-color: #35328b;
   color: #fff;
   border: none;
   border-radius: 2em;
-  height: 3em;
   width: 14em;
-  padding: 20px;
-  font-size: 1em;
-  font-weight: 100;
+  padding: 12px;
+  font-size: 0.6em;
+  font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   align-items: center;
@@ -260,6 +267,7 @@ const AddSubtaskButton = styled.button`
 `;
 
 const RemoveSubtaskButton = styled.button`
+  font-family: 'Montserrat', serif;
   margin-top: 20px;
   display: flex;
   background-color: #35328b;
@@ -268,9 +276,9 @@ const RemoveSubtaskButton = styled.button`
   border-radius: 50%;
   height: 40px;
   width: 40px;
-  padding: 20px;
-  font-size: 1em;
-  font-weight: 100;
+  padding: 16px;
+  font-size: 0.6em;
+  font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   align-items: center;
@@ -279,11 +287,11 @@ const RemoveSubtaskButton = styled.button`
 
 const CategoryButtonContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
   margin-top: 0.5rem;
   align-items: center;
   justify-content: center;
+  row-gap: 1em;
+  flex-wrap: wrap;
 `;
 
 const SubtaskContainer = styled.div`
@@ -291,17 +299,20 @@ const SubtaskContainer = styled.div`
   display: flex;
   gap: 0.5em;
   margin-bottom: 0.5em;
-  font-size: 1em;
+  font-size: 0.6;
   align-items: flex-end;
 `;
 
 const CategoryButton = styled.button<{ selected: boolean }>`
-  padding: 0.6rem 1rem;
+  font-family: 'Montserrat', serif;
+  width: 8em;
+  padding: 12px;
+  margin-inline: 1em;
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 100;
+  font-size: 0.6em;
+  font-weight: 300;
   transition: background-color 0.2s ease-in-out;
 
   background-color: ${({ selected }) => (selected ? '#35328b;' : '#e1e1e1')};
@@ -313,12 +324,15 @@ const CategoryButton = styled.button<{ selected: boolean }>`
 `;
 
 const RecurrenceButton = styled.button<{ selected: boolean }>`
-  padding: 0.6rem 1rem;
+  font-family: 'Montserrat', serif;
+  padding: 12px;
+  width: 8em;
   border: none;
+  margin-inline: 1em;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 100;
+  font-size: 0.6em;
+  font-weight: 300;
   transition: background-color 0.2s ease-in-out;
   background-color: ${({ selected }) => (selected ? '#4d63f3' : '#e1e1e1')};
   color: ${({ selected }) => (selected ? '#fff' : '#333')};
@@ -329,11 +343,12 @@ const RecurrenceButton = styled.button<{ selected: boolean }>`
 
 const RecurrenceButtonContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5em;
   align-items: center;
   justify-content: center;
+  row-gap: 1em;
+  flex-wrap: wrap;
 `;
 
 const CreateTaskForm: React.FC<CreateTaskFormProps> = ({

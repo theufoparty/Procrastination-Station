@@ -26,12 +26,12 @@ const fadeIn = keyframes`
 `;
 
 const SearchInput = styled.input`
-  align-self: center;
   font-family: 'Montserrat', serif;
+  align-self: center;
   padding: 12px 20px;
-  font-size: 1em;
+  font-size: 0.8em;
   margin-bottom: 3em;
-  margin-top: 3em;
+  margin-top: 2em;
   border: none;
   width: 80%;
   text-align: center;
@@ -78,24 +78,21 @@ const TaskListContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
-  min-height: 100vh;
-  background-color: #f3f5fe;
   @media (min-width: 768px) {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 2rem;
   }
 `;
 
-const predefinedCategories = ['Work', 'Household', 'Fitness', 'Errands', 'Others'];
+const predefinedCategories = ['Work', 'Home', 'Fitness', 'Errands', 'Others', 'Personal'];
 
 const NewTaskButton = styled.button`
   font-family: 'Montserrat', serif;
-  font-weight: 400;
-  padding: 16px;
-  font-size: 1rem;
+  font-weight: 300;
+  padding: 12px;
+  border: none;
+  font-size: 0.8em;
   background-color: #35328b;
   color: white;
   border-radius: 20px;
@@ -116,11 +113,16 @@ const CategoryButtonContainer = styled.div`
 `;
 
 const CategoryButton = styled.button<{ isSelected: boolean }>`
-  padding: 16px;
-  font-size: 1em;
-  width: 8em;
+  padding: 12px;
+  font-size: 0.8em;
+  font-family: 'Montserrat', serif;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6em;
   background-color: ${(props) => (props.isSelected ? '#35328b' : '#ffffff')};
-  color: ${(props) => (props.isSelected ? 'white' : '#838383')};
+  color: ${(props) => (props.isSelected ? 'white' : '#000000')};
   border-radius: 20px;
   border: 1px solid #ccc;
   cursor: pointer;

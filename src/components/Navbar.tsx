@@ -6,7 +6,7 @@ import { auth, db } from '../../firebaseConfig';
 import { NavLink } from 'react-router-dom';
 
 const HamburgerIcon = styled.div`
-  position: fixed;
+  position: absolute;
   top: 4em;
   left: 4em;
   z-index: 999;
@@ -15,7 +15,7 @@ const HamburgerIcon = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 2em;
-  width: 3em;
+  width: 2.3em;
 
   span {
     display: block;
@@ -36,9 +36,9 @@ const HamburgerIcon = styled.div`
 const Sidebar = styled.div<{ isopen: boolean }>`
   position: fixed;
   top: 0;
+  height: 100%;
   left: ${({ isopen }) => (isopen ? '0' : '-100%')};
-  height: 100vh;
-  width: 90%;
+  width: 100%;
   background-color: #feffff;
   border-right: 1px solid #e6e8ec;
   color: #000000;
@@ -132,10 +132,10 @@ const MenuBar = styled.div`
 
 const LogoutButton = styled.button`
   font-family: 'Montserrat', serif;
-  font-weight: 400;
-  padding: 16px;
-  font-size: 1em;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+  font-weight: 300;
+  padding: 12px;
+  border: none;
+  font-size: 0.8em;
   background-color: #35328b;
   color: white;
   border-radius: 20px;

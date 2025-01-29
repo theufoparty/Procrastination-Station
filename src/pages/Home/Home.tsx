@@ -62,7 +62,7 @@ const StatBox = styled.div`
 const StatTitle = styled.h4`
   margin-bottom: 0.5em;
   font-size: 1.2em;
-  font-weight: 100;
+  font-weight: 300;
 `;
 
 const StatValue = styled.p`

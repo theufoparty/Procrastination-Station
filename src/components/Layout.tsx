@@ -6,10 +6,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
+  height: 0;
 
   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
+    height: 100vh;
   }
 `;
 
@@ -19,12 +21,11 @@ const MainContent = styled.main`
   margin: 2rem;
   border-radius: 20px;
   padding: 2em;
-  min-height: 100vh;
+
   background-color: #f3f5fe;
   padding-top: 2em;
 
   @media (min-width: 768px) {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 0;

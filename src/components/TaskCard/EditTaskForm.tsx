@@ -1,76 +1,106 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { SubTask } from '../../types/firestore';
 import { parseDueDate } from '../../utils/taskUtils';
 import SubTaskListEditView from './SubTaskListEditView';
 
-const Container = styled.div``;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const Container = styled.div`
+  background-color: #fff;
+  border-radius: 0px;
+  animation: ${fadeIn} 0.3s ease-out;
+  overflow: hidden;
+  padding: 20px;
+  @media (min-width: 768px) {
+    border-radius: 20px;
+  }
+`;
 
 const Title = styled.h2`
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #333;
+  margin: 0;
+  text-align: center;
+  color: #35328b;
+  font-size: 2.2rem;
+  font-weight: 300;
 `;
 
 const TaskDetail = styled.div`
   margin-bottom: 1rem;
-
-  label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #333;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  input,
-  textarea,
-  select {
-    width: 100%;
-    height: fit-content;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s;
-
-    &:focus {
-      border-color: #666;
-      outline: none;
-    }
-  }
-
-  textarea {
-    resize: vertical;
-  }
-
-  select[multiple] {
-    height: auto;
-  }
-`;
-
-const ButtonGroup = styled.div`
   display: flex;
-  gap: 20px;
-  margin-top: 1.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
-const StyledButton = styled.button`
-  font-family: 'Montserrat', serif;
-  padding: 20px;
-  font-size: 1rem;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
-  border-radius: 20px;
-  background: none;
+const Label = styled.label`
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #232323;
+`;
+
+const Input = styled.input`
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+  font-weight: 300;
   color: #374e56;
-  background-color: #fff;
+  outline: none;
+  background-color: transparent;
+
+  &:focus {
+    border-bottom: 1px solid #007bff;
+  }
+`;
+
+const Select = styled.select`
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #374e56;
+  background: transparent;
+  outline: none;
+
+  &:focus {
+    border-bottom: 1px solid #35328b;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 10px;
+`;
+
+const SubmitButton = styled.button`
+  display: flex;
+  background-color: #35328b;
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  width: 14em;
+  padding: 20px;
+  font-size: 1em;
+  font-weight: 300;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease-in-out;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    background-color: #374e56;
-    color: #fff;
+    background-color: #413dbe;
   }
 `;
 
@@ -149,7 +179,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       <Title>Edit Task</Title>
       <TaskDetail>
         <label htmlFor='name'>Name:</label>
-        <input
+        <Input
           id='name'
           type='text'
           value={editName}
@@ -158,7 +188,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <label htmlFor='description'>Description:</label>
+        <Label htmlFor='description'>Description:</Label>
         <textarea
           id='description'
           value={editDescription}
@@ -167,7 +197,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <label>Subtasks:</label>
+        <Label>Subtasks:</Label>
         <SubTaskListEditView
           subTasks={editSubTasks}
           onChangeSubTasks={(updated) => setEditSubTasks(updated)}
@@ -175,7 +205,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <label htmlFor='priority'>Priority:</label>
+        <Label htmlFor='priority'>Priority:</Label>
         <select
           id='priority'
           value={editPriority}
@@ -188,7 +218,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <label htmlFor='recurrence'>Recurrence:</label>
+        <Label htmlFor='recurrence'>Recurrence:</Label>
         <select
           id='recurrence'
           value={editRecurrence}
@@ -202,8 +232,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <label htmlFor='dueDate'>Due Date:</label>
-        <input
+        <Label htmlFor='dueDate'>Due Date:</Label>
+        <Input
           id='dueDate'
           type='datetime-local'
           value={editDueDate}
@@ -212,8 +242,8 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
       </TaskDetail>
 
       <TaskDetail>
-        <label htmlFor='assignUsers'>Assign Users:</label>
-        <select
+        <Label htmlFor='assignUsers'>Assign Users:</Label>
+        <Select
           id='assignUsers'
           multiple
           value={editAssignedIds}
@@ -227,11 +257,11 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
               {member.name}
             </option>
           ))}
-        </select>
+        </Select>
       </TaskDetail>
 
       <TaskDetail>
-        <label htmlFor='category'>Category:</label>
+        <Label htmlFor='category'>Category:</Label>
         <select
           id='category'
           value={editCategory}
@@ -246,10 +276,10 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
         </select>
       </TaskDetail>
 
-      <ButtonGroup>
-        <StyledButton onClick={handleSave}>Save</StyledButton>
-        <StyledButton onClick={onCancel}>Cancel</StyledButton>
-      </ButtonGroup>
+      <ButtonContainer>
+        <SubmitButton onClick={handleSave}>Save</SubmitButton>
+        <SubmitButton onClick={onCancel}>Cancel</SubmitButton>
+      </ButtonContainer>
     </Container>
   );
 };

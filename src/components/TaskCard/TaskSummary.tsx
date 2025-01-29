@@ -15,8 +15,8 @@ const TaskContainer = styled.div`
   border-radius: 20px;
   padding: 20px;
   background-color: #fff;
-  width: 22em;
-  height: 12em;
+  width: 16em;
+  height: 8em;
   margin-bottom: 20px;
   cursor: pointer;
 
@@ -29,12 +29,12 @@ const TaskContainer = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   margin-bottom: 0.5rem;
 `;
 
 const TaskTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1em;
   font-weight: 200;
   color: #333;
   margin: 0;
@@ -42,12 +42,12 @@ const TaskTitle = styled.h3`
 `;
 
 const DueDate = styled.span`
-  font-size: 0.9rem;
+  font-size: 0.8em;
   color: #666;
 `;
 
 const DaysLeft = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.8em;
   color: #ff5722;
   margin: 0.5rem 0;
 `;
@@ -58,7 +58,6 @@ const ProgressBar = styled.div`
   background: #f0f0f0;
   border-radius: 4px;
   overflow: hidden;
-  margin: 0.75rem 0 1rem;
 `;
 
 const BottomContainer = styled.div``;
