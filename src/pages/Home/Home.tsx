@@ -9,6 +9,7 @@ import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
 import TaskSummary from '../../components/TaskCard/TaskSummary';
 import WeatherCard from './components/WeatherCard';
+import RecentActivityFeed from './components/RecentActivity';
 
 const StatsContainer = styled.div`
   flex-wrap: wrap;
@@ -227,7 +228,7 @@ const Dashboard: FC = () => {
           <StatTitle>Tasks Completed</StatTitle>
           <StatValue>{tasksCompleted}</StatValue>
         </StatBox>
-
+        <RecentActivityFeed />
         <StatBox>
           <AllianceListDisplay
             alliances={alliances}

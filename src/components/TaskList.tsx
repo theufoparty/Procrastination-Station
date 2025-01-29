@@ -49,15 +49,6 @@ const CategoryColumn = styled.div`
   }
 `;
 
-const Tasks = styled.h3`
-  margin-left: 20px;
-  font-weight: 200;
-
-  @media (max-width: 768px) {
-    margin-left: 0px;
-  }
-`;
-
 const TaskList: React.FC<TaskListProps> = ({
   tasks,
   onUpdateTask,
@@ -80,12 +71,11 @@ const TaskList: React.FC<TaskListProps> = ({
       if (updatedTask) {
         setSelectedTask(updatedTask);
       } else {
-        setSelectedTask(null); // Clear selectedTask if it no longer exists
+        setSelectedTask(null);
       }
     }
   }, [tasks, selectedTask]);
 
-  // Apply search and category filtering here
   const filteredTasks = internalTasks.filter((task) => {
     const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
     const matchesSearchTerm = task.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -135,7 +125,6 @@ const TaskList: React.FC<TaskListProps> = ({
 
   return (
     <div>
-      <Tasks>Tasks</Tasks>
       <TaskContainer>
         {filteredTasks.length === 0 ? (
           <p>No tasks found.</p>

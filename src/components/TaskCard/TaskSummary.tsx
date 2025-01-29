@@ -9,7 +9,6 @@ interface TaskSummaryProps {
 
 const TaskContainer = styled.div`
   position: relative;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
   border: 1px solid #e7e7e7;
   border-radius: 20px;
   padding: 20px;
@@ -46,7 +45,7 @@ const DueDate = styled.span`
 
 const DaysLeft = styled.p`
   font-size: 0.9rem;
-  color: #ff5722; /* Highlighted color for urgency */
+  color: #ff5722;
   margin: 0.5rem 0;
 `;
 
@@ -75,17 +74,12 @@ const Footer = styled.div`
 const TaskSummary: React.FC<TaskSummaryProps> = ({ task, onClick }) => {
   const { name, dueDate, subTask } = task;
 
-  // Flatten subTask record into a single array of SubTask objects
-  const allSubTasks: SubTask[] = subTask
-    ? Object.values(subTask).flat() // Combine all arrays in the record
-    : [];
+  const allSubTasks: SubTask[] = subTask ? Object.values(subTask).flat() : [];
 
-  // Calculate progress
   const totalSubtasks = allSubTasks.length;
   const completedSubtasks = allSubTasks.filter((subTask) => subTask.completed).length;
   const percentageComplete = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
-  // Calculate days left
   const currentDate = new Date();
   const dueDateObj = dueDate ? dueDate.toDate() : null;
   const daysLeft =
