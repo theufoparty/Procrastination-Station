@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
 import TaskList from '../../components/TaskList';
-import CreateTaskForm from '../../components/CreateTaskForm';
+import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
 import { updateTask } from '../../utils/updateTask';
 import { Task } from '../../types/firestore';
 import styled from 'styled-components';
@@ -72,6 +72,7 @@ const TaskSearchInput = styled.input`
   width: 80%;
   text-align: center;
   outline: none;
+  color: black;
   background-color: #f3f5fe;
 
   &::placeholder {

@@ -14,7 +14,7 @@ import {
 import { db, auth } from '../../firebaseConfig';
 import { Timestamp } from 'firebase/firestore';
 import { useAuth } from './useAuth';
-import { Task } from '../types/firestore';
+import { SubTask, Task } from '../types/firestore';
 
 interface Alliance {
   userIds: string[];
@@ -154,6 +154,7 @@ export const useAlliance = (allianceId?: string) => {
     dueDate?: Date | null;
     assignedUserIds?: string[];
     category?: string;
+    subTasks?: SubTask[];
   }) => {
     if (!allianceId) return;
 
@@ -170,6 +171,11 @@ export const useAlliance = (allianceId?: string) => {
         category: taskData.category || null,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
+        subTask: taskData.subTasks
+          ? {
+              defaultKey: taskData.subTasks,
+            }
+          : null,
       });
     } catch (error) {
       console.error('Error creating alliance task:', error);

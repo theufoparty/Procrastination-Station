@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { SubTask } from '../types/firestore';
+import { SubTask } from '../../types/firestore';
 
 interface AllianceMember {
   id: string;
@@ -275,9 +275,9 @@ const RemoveSubtaskButton = styled.button`
   color: #fff;
   border: none;
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  padding: 16px;
+  height: 20px;
+  width: 20px;
+  padding: 8px;
   font-size: 0.6em;
   font-weight: 300;
   cursor: pointer;

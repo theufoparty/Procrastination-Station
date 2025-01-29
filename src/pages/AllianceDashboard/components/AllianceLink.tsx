@@ -1,4 +1,18 @@
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const ActionButton = styled.button`
+  font-family: 'Montserrat', serif;
+  font-weight: 300;
+  padding: 12px;
+  border: none;
+  font-size: 0.8em;
+  background-color: #35328b;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+`;
 
 interface AllianceLinkProps {
   allianceId?: string;
@@ -20,17 +34,6 @@ export function AllianceLink({ allianceId }: AllianceLinkProps) {
   };
 
   return (
-    <div
-      style={{
-        marginTop: '1rem',
-        border: '1px solid #ccc',
-        borderRadius: '0.25rem',
-        padding: '1rem',
-        display: 'inline-block',
-      }}
-    >
-      <p style={{ margin: 0, fontWeight: 500 }}>Copy Invite Link to Alliance</p>
-      <button onClick={handleCopyLink}>{copied ? 'Copied!' : 'Copy Link'}</button>
-    </div>
+    <ActionButton onClick={handleCopyLink}>{copied ? 'Copied!' : 'Copy Invite link'}</ActionButton>
   );
 }

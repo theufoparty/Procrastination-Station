@@ -3,16 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
 import { useAlliance } from '../../utils/useAlliance';
-import JoinAllianceButton from './components/JoinAllianceButton';
-import AllianceMemberList from './components/AllianceMemberList';
 import TaskList from '../../components/TaskList';
-import CreateTaskForm from '../../components/CreateTaskForm';
-import LeaveAllianceButton from './components/LeaveAllianceButton';
+import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
 import styled, { keyframes } from 'styled-components';
-import { AllianceLink } from './components/AllianceLink';
 import { Task } from '../../types/firestore';
 import { updateTask } from '../../utils/updateTask';
-import { joinAlliance } from '../../utils/joinAlliance';
+import { ManageAlliance } from './components/ManageAlliance';
+import Modal from '../../components/Modal';
 
 const fadeIn = keyframes`
   from {
@@ -47,29 +44,6 @@ const SearchInput = styled.input`
   }
 `;
 
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
-const ModalContainer = styled.div`
-  background: #fff;
-  animation: ${fadeIn} 0.3s ease-in-out;
-`;
-
-const NewTaskContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
 const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -87,7 +61,13 @@ const Container = styled.div`
 
 const predefinedCategories = ['Work', 'Home', 'Fitness', 'Errands', 'Others', 'Personal'];
 
-const NewTaskButton = styled.button`
+const ActionContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+`;
+
+const ActionButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 300;
   padding: 12px;
@@ -140,35 +120,12 @@ const AllianceDashboard: React.FC = () => {
   const { allianceId } = useParams<{ allianceId: string }>();
   const { user } = useAuth(auth, db);
 
-  const {
-    alliance,
-    allianceTasks,
-    allianceMembers,
-    isMemberOfAlliance,
-    createAllianceTask,
-    leaveAlliance,
-  } = useAlliance(allianceId);
+  const { alliance, allianceTasks, allianceMembers, createAllianceTask } = useAlliance(allianceId);
 
   const [isCreatingTask, setIsCreatingTask] = useState(false);
+  const [isManagingAlliance, setIsManagingAlliance] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const handleJoinAlliance = async () => {
-    if (!user) {
-      alert('Please log in first.');
-      return;
-    }
-    if (allianceId) {
-      try {
-        await joinAlliance({
-          userId: user.uid,
-          allianceId: allianceId,
-        });
-      } catch {
-        alert('Could not join alliance.');
-      }
-    }
-  };
 
   const handleCreateTask = async (taskData: {
     name: string;
@@ -209,55 +166,37 @@ const AllianceDashboard: React.FC = () => {
 
   return (
     <Container>
-      <NewTaskContainer>
-        {isMemberOfAlliance && (
-          <>
-            {!isCreatingTask && (
-              <ButtonContainer>
-                <NewTaskButton onClick={() => setIsCreatingTask(true)}>New Task</NewTaskButton>
-              </ButtonContainer>
-            )}
-            {isCreatingTask && (
-              <ModalOverlay>
-                <ModalContainer>
-                  <CreateTaskForm
-                    onCreateTask={handleCreateTask}
-                    allianceMembers={allianceMembers}
-                    categories={predefinedCategories}
-                    onCancel={handleCancelCreateTask}
-                  />
-                </ModalContainer>
-              </ModalOverlay>
-            )}
-          </>
-        )}
-      </NewTaskContainer>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p>
+          <strong>{alliance ? alliance.name : ''}</strong>
+        </p>
 
+        <ActionContainer>
+          <ButtonContainer>
+            <ActionButton onClick={() => setIsCreatingTask(true)}>New Task</ActionButton>
+          </ButtonContainer>
+          <ButtonContainer>
+            <ActionButton onClick={() => setIsManagingAlliance(true)}>
+              Manage membership
+            </ActionButton>
+          </ButtonContainer>
+          <Modal isOpen={isCreatingTask} onClose={handleCancelCreateTask}>
+            <CreateTaskForm
+              onCreateTask={handleCreateTask}
+              allianceMembers={allianceMembers}
+              categories={predefinedCategories}
+              onCancel={handleCancelCreateTask}
+            />
+          </Modal>
+          <Modal isOpen={isManagingAlliance} onClose={() => setIsManagingAlliance(false)}>
+            <ManageAlliance />
+          </Modal>
+        </ActionContainer>
+      </div>
       {!alliance ? (
         <p>Loading Alliance...</p>
       ) : (
         <>
-          <p>
-            <strong>Alliance Name:</strong> {alliance.name}
-          </p>
-          <p>
-            <strong>Is Member:</strong> {isMemberOfAlliance ? 'Yes' : 'No'}
-          </p>
-
-          <JoinAllianceButton
-            onJoin={handleJoinAlliance}
-            canJoin={!isMemberOfAlliance}
-            isLoggedIn={!!user}
-          />
-          <LeaveAllianceButton
-            onLeave={leaveAlliance}
-            canLeave={isMemberOfAlliance}
-            isLoggedIn={!!user}
-          />
-
-          <AllianceMemberList members={allianceMembers} />
-          <AllianceLink allianceId={allianceId} />
-
           <SearchInput
             type='text'
             placeholder='Search tasks by title'
