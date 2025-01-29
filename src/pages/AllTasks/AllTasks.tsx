@@ -106,15 +106,11 @@ const ModalContainer = styled.div`
   background: #fff;
   border-radius: 0px;
   max-width: 600px;
-  width: 100%;
-  height: 100%;
 
   @media (min-width: 768px) {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 2rem;
-    height: 80%;
     border-radius: 20px;
   }
 `;

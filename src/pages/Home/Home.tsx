@@ -12,7 +12,6 @@ import WeatherCard from './components/WeatherCard';
 import RecentActivityFeed from './components/RecentActivity';
 
 const StatsContainer = styled.div`
-  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   margin-top: 2em;
@@ -23,6 +22,7 @@ const StatsContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
+  flex-wrap: wrap;
 
   @media (min-width: 768px) {
     margin: 20px;
@@ -42,7 +42,8 @@ const Greeting = styled.h2`
 `;
 
 const TodaysTaskBox = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: center;
   border: 1px solid #e7e7e7;
   padding: 20px;
   border-radius: 20px;
@@ -50,8 +51,9 @@ const TodaysTaskBox = styled.div`
   cursor: pointer;
   width: 100%;
   @media (min-width: 768px) {
-    min-width: 49%;
-    max-width: 45%;
+    min-width: 20em;
+    max-width: 20em;
+    height: 21em;
   }
 `;
 
@@ -66,8 +68,26 @@ const StatBox = styled.div`
   cursor: pointer;
   width: 100%;
   @media (min-width: 768px) {
-    min-width: 49%;
-    max-width: 45%;
+    min-width: 20em;
+    max-width: 20em;
+    height: 21em;
+  }
+`;
+
+const AllianceBox = styled.div`
+  border: 1px solid #e7e7e7;
+  position: relative;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+  width: 14em;
+  height: 12em;
+  cursor: pointer;
+  width: 100%;
+  @media (min-width: 768px) {
+    min-width: 25em;
+    max-width: 20em;
+    height: 21em;
   }
 `;
 
@@ -240,14 +260,14 @@ const Dashboard: FC = () => {
           <StatTitle>Tasks Completed</StatTitle>
           <StatValue>{tasksCompleted}</StatValue>
         </StatBox>
-        <RecentActivityFeed />
-        <StatBox>
+        <AllianceBox>
           <AllianceListDisplay
             alliances={alliances}
             title='My Alliances'
             emptyMessage='You are not part of any alliances yet.'
           />
-        </StatBox>
+        </AllianceBox>
+        <RecentActivityFeed />
       </StatsContainer>
     </>
   );

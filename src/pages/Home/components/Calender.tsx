@@ -10,8 +10,9 @@ const CalendarContainer = styled.div`
   border-radius: 20px;
   width: 100%;
   @media (min-width: 768px) {
-    min-width: 49%;
-    max-width: 45%;
+    min-width: 29%;
+    max-width: 29%;
+    height: 21em;
   }
 `;
 
@@ -27,12 +28,12 @@ const MonthSelector = styled.div`
   font-family: 'Montserrat', serif;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.2em;
 
   button {
     border: none;
     background: none;
-    font-size: 1.2rem;
+    font-size: 0.8em;
     cursor: pointer;
     color: #374e56;
 
@@ -52,9 +53,11 @@ const DaysContainer = styled.div`
 `;
 
 const DatesContainer = styled.div`
+  margin-top: 0.6em;
   display: grid;
   justify-items: center;
   grid-template-columns: repeat(7, 1fr);
+  font-size: 0.5em;
 `;
 
 const DateBox = styled.div<{

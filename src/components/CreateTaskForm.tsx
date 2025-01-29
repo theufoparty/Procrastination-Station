@@ -49,7 +49,8 @@ const OuterContainer = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  height: 50%;
+  height: 100%;
+  width: 100%;
   overflow-y: auto;
   background-color: #f3f5fe;
 `;
