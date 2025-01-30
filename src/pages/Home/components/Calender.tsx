@@ -13,7 +13,7 @@ const CalendarContainer = styled.div`
   @media (min-width: 768px) {
     min-width: 24em;
     max-width: 24em;
-    height: 21em;
+    height: 20em;
     margin-bottom: 0;
   }
 `;

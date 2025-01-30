@@ -65,6 +65,7 @@ const TopContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 1em;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -181,9 +182,7 @@ const AllianceDashboard: React.FC = () => {
             <ActionButton onClick={() => setIsCreatingTask(true)}>New Task</ActionButton>
           </ButtonContainer>
           <ButtonContainer>
-            <ActionButton onClick={() => setIsManagingAlliance(true)}>
-              Manage membership
-            </ActionButton>
+            <ActionButton onClick={() => setIsManagingAlliance(true)}>Manage alliance</ActionButton>
           </ButtonContainer>
           <Modal isOpen={isCreatingTask} onClose={handleCancelCreateTask}>
             <TaskForm

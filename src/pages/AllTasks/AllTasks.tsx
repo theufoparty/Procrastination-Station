@@ -87,6 +87,7 @@ const TaskButtonContainer = styled.div`
   font-family: 'Montserrat', serif;
   display: flex;
   justify-content: flex-end;
+  padding: 1em;
 `;
 
 const ModalOverlay = styled.div`

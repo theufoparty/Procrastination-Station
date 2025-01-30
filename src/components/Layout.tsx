@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    min-height: 100vh;
   }
 `;
 
@@ -24,6 +24,7 @@ const MainContent = styled.main`
   padding: 1em;
   background-color: #f3f5fe;
   padding-top: 2em;
+  align-self: baseline;
 
   @media (min-width: 768px) {
     display: flex;
@@ -31,7 +32,6 @@ const MainContent = styled.main`
     padding: 0;
     width: 100%;
     margin-top: 2em;
-    padding: 2em;
   }
 `;
 

@@ -46,8 +46,8 @@ const TodaysTaskBox = styled.div`
   width: 100%;
   margin-bottom: 1em;
   @media (min-width: 768px) {
-    max-width: 20em;
-    height: 21em;
+    max-width: 18em;
+    height: 20em;
     margin-bottom: 0;
   }
 `;
@@ -62,13 +62,13 @@ const StatBox = styled.div`
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
-  width: 14em;
+  width: 100%;
   margin-bottom: 1em;
   cursor: pointer;
   width: 100%;
   @media (min-width: 768px) {
-    height: 10em;
-    width: 22em;
+    height: 9.5em;
+    width: 19em;
     margin-bottom: 0;
   }
 `;
@@ -95,6 +95,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1em;
 `;
 
 const StatTitle = styled.h4`
