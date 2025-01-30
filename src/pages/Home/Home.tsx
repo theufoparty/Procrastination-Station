@@ -8,24 +8,18 @@ import { User } from '../../types/user';
 import Calendar from './components/Calender';
 import TaskSummary from '../../components/TaskCard/TaskSummary';
 import WeatherCard from './components/WeatherCard';
+import MotivationalQuotes from './components/MotivationalQuotes';
+import TaskTimer from './components/Timer';
 
 const StatsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 2em;
-  gap: 20px;
-  margin-bottom: 2em;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-
   @media (min-width: 768px) {
     margin: 20px;
     margin-top: 0;
     flex-direction: row;
+    gap: 1em;
+    justify-content: space-between;
   }
 `;
 
@@ -41,34 +35,59 @@ const Greeting = styled.h2`
 
 const TodaysTaskBox = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   border: 1px solid #e7e7e7;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
   cursor: pointer;
   width: 100%;
+  margin-bottom: 1em;
   @media (min-width: 768px) {
-    min-width: 20em;
     max-width: 20em;
     height: 21em;
+    margin-bottom: 0;
   }
 `;
 
 const StatBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   border: 1px solid #e7e7e7;
   position: relative;
   padding: 20px;
   border-radius: 20px;
   background-color: #fff;
   width: 14em;
-  height: 12em;
+  margin-bottom: 1em;
   cursor: pointer;
   width: 100%;
   @media (min-width: 768px) {
-    min-width: 20em;
     max-width: 20em;
     height: 21em;
+    margin-bottom: 0;
+  }
+`;
+
+const GreetingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 1px solid #e7e7e7;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #fff;
+  width: 100%;
+  margin-bottom: 1em;
+  justify-content: space-between;
+  @media (min-width: 768px) {
+    width: 59%;
+    margin-bottom: 0;
   }
 `;
 
@@ -81,21 +100,20 @@ const StatTitle = styled.h4`
 const StatValue = styled.p`
   font-size: 2em;
   margin: 0;
+  margin-top: 3em;
 `;
 
 const WelcomeContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  border: 1px solid #e7e7e7;
-  padding: 20px;
-  border-radius: 20px;
-  background-color: #fff;
   cursor: pointer;
   margin: 0;
 
   @media (min-width: 768px) {
     margin: 20px;
+    flex-direction: row;
+    justify-content: space-between;
   }
 `;
 
@@ -212,11 +230,15 @@ const Dashboard: FC = () => {
   return (
     <>
       <WelcomeContainer>
-        <Greeting>
-          {greeting}, {user?.displayName || user?.email}
-        </Greeting>
+        <GreetingBox>
+          <Greeting>
+            {greeting}, {user?.displayName || user?.email}
+          </Greeting>
+          <MotivationalQuotes />
+        </GreetingBox>
         <WeatherCard />
       </WelcomeContainer>
+
       <StatsContainer>
         <Calendar tasks={allTasks} onDateSelected={handleDateSelected} />
         <TodaysTaskBox>
@@ -239,6 +261,9 @@ const Dashboard: FC = () => {
         <StatBox>
           <StatTitle>Tasks Completed</StatTitle>
           <StatValue>{tasksCompleted}</StatValue>
+        </StatBox>
+        <StatBox>
+          <TaskTimer />
         </StatBox>
       </StatsContainer>
     </>

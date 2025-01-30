@@ -33,6 +33,11 @@ const SearchInput = styled.input`
   }
 `;
 
+const AllianceName = styled.h2`
+  font-family: 'Montserrat', serif;
+  font-weight: 400;
+`;
+
 const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,6 +61,15 @@ const ActionContainer = styled.div`
   gap: 1em;
 `;
 
+const TopContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
 const ActionButton = styled.button`
   font-family: 'Montserrat', serif;
   font-weight: 300;
@@ -71,6 +85,9 @@ const ActionButton = styled.button`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  @media (max-width: 768px) {
+    margin-top: 2em;
+  }
 `;
 
 const CategoryButtonContainer = styled.div`
@@ -155,9 +172,9 @@ const AllianceDashboard: React.FC = () => {
 
   return (
     <Container>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <TopContainer>
         <p>
-          <strong>{alliance ? alliance.name : ''}</strong>
+          <AllianceName>{alliance ? alliance.name : ''}</AllianceName>
         </p>
 
         <ActionContainer>
@@ -184,7 +201,7 @@ const AllianceDashboard: React.FC = () => {
             <ManageAlliance />
           </Modal>
         </ActionContainer>
-      </div>
+      </TopContainer>
       {!alliance ? (
         <p>Loading Alliance...</p>
       ) : (

@@ -7,14 +7,23 @@ const WeatherContainer = styled.div`
   justify-content: space-between;
   background-color: #fff;
   border-radius: 20px;
-  flex-direction: column-reverse;
+  flex-direction: row;
+  border: 1px solid #e7e7e7;
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 1em;
+
+  @media (min-width: 768px) {
+    width: 49%;
+    margin-left: 1em;
+    margin-bottom: 0;
+  }
 `;
 
 const TimeSection = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  width: 16em;
   justify-content: space-between;
 `;
 
@@ -27,9 +36,9 @@ const TimeText = styled.h2`
 const WeatherSection = styled.div`
   display: flex;
   align-items: flex-end;
-  flex-direction: column;
-  width: 16em;
-  justify-content: flex-start;
+  flex-direction: column-reverse;
+  height: 100%;
+  justify-content: space-around;
 `;
 
 const Temperature = styled.h2`
@@ -39,8 +48,8 @@ const Temperature = styled.h2`
 `;
 
 const WeatherIcon = styled.img`
-  width: 8em;
-  height: 8em;
+  width: 10em;
+  height: 10em;
 `;
 
 const WeatherDescription = styled.p`
@@ -192,16 +201,17 @@ const WeatherCard: FC = () => {
         <p>{error}</p>
       ) : (
         <>
-          <TimeSection>
-            <WeatherIcon
-              src={mapWeatherCodeToIcon(weather.weatherCode, weather.isDayTime)}
-              alt={weather.description}
-            />
-            <TimeText>{time}</TimeText>
-          </TimeSection>
+          <WeatherIcon
+            src={mapWeatherCodeToIcon(weather.weatherCode, weather.isDayTime)}
+            alt={weather.description}
+          />
+
           <WeatherSection>
             <Temperature>{weather.temp}°C</Temperature>
             <WeatherDescription>{weather.description}</WeatherDescription>
+            <TimeSection>
+              <TimeText>{time}</TimeText>
+            </TimeSection>
           </WeatherSection>
         </>
       )}

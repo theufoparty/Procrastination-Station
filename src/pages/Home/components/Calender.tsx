@@ -9,10 +9,12 @@ const CalendarContainer = styled.div`
   border: 1px solid #e7e7e7;
   border-radius: 20px;
   width: 100%;
+  margin-bottom: 1em;
   @media (min-width: 768px) {
-    min-width: 29%;
-    max-width: 29%;
+    min-width: 24em;
+    max-width: 24em;
     height: 21em;
+    margin-bottom: 0;
   }
 `;
 
