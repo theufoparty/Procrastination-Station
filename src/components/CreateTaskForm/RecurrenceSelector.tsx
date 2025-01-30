@@ -1,4 +1,3 @@
-// RecurrenceSelector.tsx
 import React from 'react';
 import { Label, RecurrenceButtonContainer, RecurrenceButton, InputContainer } from './styled';
 
@@ -19,7 +18,7 @@ const RecurrenceSelector: React.FC<RecurrenceSelectorProps> = ({
     return (
       <InputContainer>
         <Label>Recurrence</Label>
-        <p style={{ marginTop: '0.3rem' }}>{taskRecurrence || '—'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskRecurrence || '—'}</p>
       </InputContainer>
     );
   }

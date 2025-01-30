@@ -16,9 +16,13 @@ export const OuterContainer = styled.div`
   border-radius: 0px;
   animation: ${fadeIn} 0.3s ease-out;
   overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+
   @media (min-width: 768px) {
     border-radius: 20px;
-    width: 20em;
+    height: 90vh;
+    width: 40vw;
   }
 `;
 
@@ -72,14 +76,13 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-height: 73vh;
   overflow-y: auto;
   margin-top: -7em;
   margin-inline: 20px;
   margin-bottom: 20px;
   border-radius: 20px;
+  justify-content: space-evenly;
   @media (min-width: 768px) {
-    max-height: 50vh;
   }
 `;
 
@@ -134,7 +137,7 @@ export const TextArea = styled.textarea`
   font-family: 'Montserrat', serif;
   border: none;
   border-bottom: 1px solid #ccc;
-  padding: 12px;
+  padding-top: 12px;
   font-size: 0.6em;
   font-weight: 300;
   color: #374e56;
@@ -148,27 +151,39 @@ export const TextArea = styled.textarea`
 `;
 
 export const Select = styled.select`
+  font-family: 'Montserrat', serif;
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 12px 0;
   font-size: 0.6em;
   font-weight: 300;
-  color: #ffffff;
-  background: transparent;
+  color: rgb(0, 0, 0);
+  background: white;
   outline: none;
 
   &:focus {
     border-bottom: 1px solid #35328b;
   }
+
+  option {
+    background-color: #fff;
+    color: #000;
+  }
+
+  option:checked {
+    background-color: #f3f5fe;
+    color: #000;
+  }
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5em;
   width: 100%;
   align-items: center;
   margin-top: 1rem;
+  justify-content: center;
 `;
 
 export const SubmitButton = styled.button`
@@ -177,8 +192,7 @@ export const SubmitButton = styled.button`
   background-color: #35328b;
   color: #fff;
   border: none;
-  border-radius: 2em;
-  width: 14em;
+  border-radius: 20px;
   padding: 12px;
   font-size: 0.6em;
   font-weight: 300;
@@ -193,6 +207,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const InputContainer = styled.div`
+  font-family: 'Montserrat', serif;
   display: flex;
   flex-direction: column;
 `;
@@ -201,15 +216,15 @@ export const PriorityButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 0.5em;
-  row-gap: 1em;
+  row-gap: 0.5em;
   flex-wrap: wrap;
 `;
 
 export const PriorityButton = styled.button<{ selected: boolean }>`
   font-family: 'Montserrat', serif;
   padding: 12px;
-  width: 14em;
-  font-size: 0.6em;
+  font-size: 0.5em;
+  width: 8em;
   border: none;
   border-radius: 20px;
   margin-inline: 1em;
@@ -230,11 +245,11 @@ export const AddSubtaskButton = styled.button`
   display: flex;
   background-color: #35328b;
   color: #fff;
+  width: fit-content;
   border: none;
-  border-radius: 2em;
-  width: 14em;
+  border-radius: 20px;
   padding: 12px;
-  font-size: 0.6em;
+  font-size: 0.5em;
   font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -270,14 +285,14 @@ export const CategoryButtonContainer = styled.div`
   margin-top: 0.5rem;
   align-items: center;
   justify-content: center;
-  row-gap: 1em;
+  row-gap: 0.5em;
   flex-wrap: wrap;
 `;
 
 export const SubtaskContainer = styled.div`
   font-family: 'Montserrat', serif;
   display: flex;
-  gap: 0.5em;
+  gap: 0.3em;
   margin-bottom: 0.5em;
   font-size: 0.6;
   align-items: flex-end;
@@ -291,7 +306,7 @@ export const CategoryButton = styled.button<{ selected: boolean }>`
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.6em;
+  font-size: 0.5em;
   font-weight: 300;
   transition: background-color 0.2s ease-in-out;
 
@@ -311,7 +326,7 @@ export const RecurrenceButton = styled.button<{ selected: boolean }>`
   margin-inline: 1em;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.6em;
+  font-size: 0.5em;
   font-weight: 300;
   transition: background-color 0.2s ease-in-out;
   background-color: ${({ selected }) => (selected ? '#4d63f3' : '#e1e1e1')};
@@ -327,7 +342,7 @@ export const RecurrenceButtonContainer = styled.div`
   margin-top: 0.5em;
   align-items: center;
   justify-content: center;
-  row-gap: 1em;
+  row-gap: 0.5em;
   flex-wrap: wrap;
 `;
 
@@ -342,6 +357,7 @@ export const ReadOnlySubtaskContainer = styled.div<{ completed: boolean }>`
   }
 
   p {
+    font-size: 0.6em;
     margin: 0;
     text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
   }

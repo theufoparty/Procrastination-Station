@@ -48,7 +48,7 @@ const Container = styled.div`
   }
 `;
 
-const predefinedCategories = ['Work', 'Home', 'Fitness', 'Errands', 'Others', 'Personal'];
+const predefinedCategories = ['Work', 'Home', 'Errands', 'Others', 'Personal'];
 
 const ActionContainer = styled.div`
   display: flex;

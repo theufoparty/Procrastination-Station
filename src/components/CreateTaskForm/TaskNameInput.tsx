@@ -1,4 +1,3 @@
-// TaskNameInput.tsx
 import React from 'react';
 import { DarkInput, DarkLabel } from './styled';
 
@@ -14,7 +13,6 @@ const TaskNameInput: React.FC<TaskNameInputProps> = ({
   readOnly = false,
 }) => {
   if (readOnly) {
-    // Display label + plain text for "view" mode
     return (
       <>
         <DarkLabel>NAME</DarkLabel>

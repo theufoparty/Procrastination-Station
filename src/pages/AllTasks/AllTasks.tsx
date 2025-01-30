@@ -122,7 +122,7 @@ const AllTasks: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const predefinedCategories = ['Work', 'Home', 'Fitness', 'Errands', 'Others', 'Personal'];
+  const predefinedCategories = ['Work', 'Home', 'Errands', 'Others', 'Personal'];
 
   const filteredTasks = userTasks.filter((task) => {
     const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;

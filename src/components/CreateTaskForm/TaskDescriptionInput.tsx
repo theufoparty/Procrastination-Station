@@ -1,4 +1,3 @@
-// TaskDescriptionInput.tsx
 import React from 'react';
 import { Label, TextArea, InputContainer } from './styled';
 
@@ -17,7 +16,7 @@ const TaskDescriptionInput: React.FC<TaskDescriptionInputProps> = ({
     return (
       <InputContainer>
         <Label>Description</Label>
-        <p style={{ marginTop: '0.3rem' }}>{taskDescription || '—'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskDescription || '—'}</p>
       </InputContainer>
     );
   }

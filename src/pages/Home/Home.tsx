@@ -5,11 +5,9 @@ import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
 import { Alliance, Task } from '../../types/firestore';
 import { User } from '../../types/user';
-import AllianceListDisplay from '../../components/AllianceListDisplay';
 import Calendar from './components/Calender';
 import TaskSummary from '../../components/TaskCard/TaskSummary';
 import WeatherCard from './components/WeatherCard';
-import RecentActivityFeed from './components/RecentActivity';
 
 const StatsContainer = styled.div`
   display: flex;
@@ -69,23 +67,6 @@ const StatBox = styled.div`
   width: 100%;
   @media (min-width: 768px) {
     min-width: 20em;
-    max-width: 20em;
-    height: 21em;
-  }
-`;
-
-const AllianceBox = styled.div`
-  border: 1px solid #e7e7e7;
-  position: relative;
-  padding: 20px;
-  border-radius: 20px;
-  background-color: #fff;
-  width: 14em;
-  height: 12em;
-  cursor: pointer;
-  width: 100%;
-  @media (min-width: 768px) {
-    min-width: 25em;
     max-width: 20em;
     height: 21em;
   }
@@ -184,7 +165,6 @@ const Dashboard: FC = () => {
         return;
       }
 
-      // Firestore 'in' query limit of 10
       const sliceLimit = 10;
       const limitedAllianceIds = allianceIds.slice(0, sliceLimit);
       const alliancesRef = collection(db, 'alliances');
@@ -260,14 +240,6 @@ const Dashboard: FC = () => {
           <StatTitle>Tasks Completed</StatTitle>
           <StatValue>{tasksCompleted}</StatValue>
         </StatBox>
-        <AllianceBox>
-          <AllianceListDisplay
-            alliances={alliances}
-            title='My Alliances'
-            emptyMessage='You are not part of any alliances yet.'
-          />
-        </AllianceBox>
-        <RecentActivityFeed />
       </StatsContainer>
     </>
   );

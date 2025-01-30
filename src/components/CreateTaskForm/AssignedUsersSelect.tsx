@@ -1,4 +1,3 @@
-// AssignedUsersSelect.tsx
 import React from 'react';
 import { Label, Select, InputContainer } from './styled';
 
@@ -22,19 +21,17 @@ const AssignedUsersSelect: React.FC<AssignedUsersSelectProps> = ({
   readOnly = false,
 }) => {
   if (readOnly) {
-    // Show read-only list of assigned user names
     const assignedMembers = allianceMembers.filter((m) => assignedIds.includes(m.id));
     const assignedNames = assignedMembers.map((m) => m.name).join(', ') || '—';
 
     return (
       <InputContainer>
         <Label>Assign Users</Label>
-        <p style={{ marginTop: '0.3rem' }}>{assignedNames}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{assignedNames}</p>
       </InputContainer>
     );
   }
 
-  // Editable mode
   return (
     <InputContainer>
       <Label htmlFor='assignedUsers'>Assign Users</Label>

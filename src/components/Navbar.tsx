@@ -36,7 +36,7 @@ const HamburgerIcon = styled.div`
 const Sidebar = styled.div<{ isopen: boolean }>`
   position: fixed;
   top: 0;
-  height: 100%;
+  height: 100vh;
   left: ${({ isopen }) => (isopen ? '0' : '-100%')};
   width: 100%;
   background-color: #feffff;
@@ -48,7 +48,6 @@ const Sidebar = styled.div<{ isopen: boolean }>`
   justify-content: space-between;
   z-index: 998;
   transition: left 0.3s ease;
-  padding: 2em;
 
   @media (min-width: 768px) {
     position: static;
@@ -78,6 +77,7 @@ const Overlay = styled.div<{ isopen: boolean }>`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 2em;
 `;
 
 const NavLinks = styled.ul`

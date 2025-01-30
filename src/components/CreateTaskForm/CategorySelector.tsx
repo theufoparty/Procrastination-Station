@@ -1,4 +1,3 @@
-// CategorySelector.tsx
 import React from 'react';
 import { Label, CategoryButtonContainer, CategoryButton, InputContainer } from './styled';
 
@@ -19,7 +18,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
     return (
       <InputContainer>
         <Label>Category</Label>
-        <p style={{ marginTop: '0.3rem' }}>{taskCategory || 'None'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskCategory || 'None'}</p>
       </InputContainer>
     );
   }

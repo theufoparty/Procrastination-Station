@@ -1,4 +1,3 @@
-// TaskDateInput.tsx
 import React from 'react';
 import { DarkLabel, DarkInput } from './styled';
 
@@ -24,7 +23,7 @@ const TaskDateInput: React.FC<TaskDateInputProps> = ({
 
   return (
     <>
-      <DarkLabel htmlFor='taskDate'>DATE</DarkLabel>
+      <DarkLabel htmlFor='taskDate'>DUE DATE</DarkLabel>
       <DarkInput
         id='taskDate'
         type='date'

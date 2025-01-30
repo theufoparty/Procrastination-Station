@@ -1,4 +1,3 @@
-// TaskTimeInput.tsx
 import React from 'react';
 import { Label, LightInput, InputContainer } from './styled';
 
@@ -17,7 +16,7 @@ const TaskTimeInput: React.FC<TaskTimeInputProps> = ({
     return (
       <InputContainer>
         <Label>TIME</Label>
-        <p style={{ marginTop: '0.3rem' }}>{taskTime || '—'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskTime || '—'}</p>
       </InputContainer>
     );
   }

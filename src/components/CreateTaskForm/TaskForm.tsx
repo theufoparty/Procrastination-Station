@@ -1,4 +1,3 @@
-// TaskForm.tsx
 import React, { useEffect, useState } from 'react';
 import {
   OuterContainer,
@@ -46,17 +45,16 @@ interface AllianceMember {
 type TaskFormMode = 'create' | 'edit' | 'view';
 
 interface TaskFormProps {
-  /** The mode controls how the form behaves/appears */
   mode: TaskFormMode;
-  /** Optional existing task data when editing or viewing */
+
   initialTask?: Task | null;
-  /** Called when the user saves/creates/updates the task */
+
   onSaveTask: (data: TaskInput) => void;
-  /** Alliance members, used for the user assignments */
+
   allianceMembers: AllianceMember[];
-  /** Categories for the category buttons */
+
   categories: string[];
-  /** Called when user closes the form */
+
   onCancel: () => void;
   onRequestEdit: () => void;
   removeTask: () => void;
@@ -72,7 +70,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
   categories,
   removeTask,
 }) => {
-  // Local state for the fields
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [taskPriority, setTaskPriority] = useState('Low');
@@ -82,21 +79,17 @@ const TaskForm: React.FC<TaskFormProps> = ({
   const [assignedIds, setAssignedIds] = useState<string[]>([]);
   const [taskCategory, setTaskCategory] = useState('None');
   const [subTasks, setSubTasks] = useState<SubTask[]>([]);
-
-  // We can re-use the same options from your original code
   const priorityOptions = ['Low', 'Medium', 'High'];
   const recurrenceOptions = ['None', 'Daily', 'Weekly', 'Monthly'];
 
-  /** On mount (and when initialTask changes), prefill state if in edit/view mode */
   useEffect(() => {
     if (initialTask && (mode === 'edit' || mode === 'view')) {
-      // Parse out date/time from existing dueDate
       let dateString = '';
       let timeString = '';
       if (initialTask.dueDate) {
         const due = new Date(initialTask.dueDate.toDate());
-        dateString = due.toISOString().slice(0, 10); // e.g. "2025-01-29"
-        timeString = due.toTimeString().slice(0, 5); // e.g. "13:30"
+        dateString = due.toISOString().slice(0, 10);
+        timeString = due.toTimeString().slice(0, 5);
       }
 
       setTaskName(initialTask.name || '');
@@ -109,14 +102,11 @@ const TaskForm: React.FC<TaskFormProps> = ({
       setTaskCategory(initialTask.category || 'None');
       setSubTasks(initialTask.subTask?.['defaultKey'] || []);
     }
-    // If mode is 'create', everything stays at initial blank state
   }, [initialTask, mode]);
 
-  /** Handle Form Submit (for create/edit). Not called in 'view' mode. */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Construct the finalDueDate from date + time
     let finalDueDate: Date | null = null;
     if (taskDate) {
       finalDueDate = new Date(taskDate);
@@ -125,8 +115,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
         finalDueDate.setHours(hours || 0, minutes || 0, 0, 0);
       }
     }
-
-    // Build the task object to pass back
     const taskPayload: TaskInput = {
       name: taskName,
       description: taskDescription,
@@ -142,7 +130,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
 
     onSaveTask(taskPayload);
 
-    // Optionally reset state if we are in "create" mode
     if (mode === 'create') {
       setTaskName('');
       setTaskDescription('');
@@ -156,7 +143,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
     }
   };
 
-  // 1) Mark task completed
   const handleCompleted = async () => {
     if (!onSaveTask) return;
 
@@ -186,7 +172,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
     }
   };
 
-  // For convenience, a single readOnly boolean to pass down to sub-components
   const readOnly = mode === 'view';
 
   return (
@@ -200,28 +185,23 @@ const TaskForm: React.FC<TaskFormProps> = ({
           <Title>
             {mode === 'create' && 'Create New Task'}
             {mode === 'edit' && 'Edit Task'}
-            {mode === 'view' && 'View Task'}
+            {mode === 'view' && 'Task Details'}
           </Title>
 
-          {/* Task Name */}
           <TaskNameInput taskName={taskName} setTaskName={setTaskName} readOnly={readOnly} />
 
-          {/* Task Date */}
           <TaskDateInput taskDate={taskDate} setTaskDate={setTaskDate} readOnly={readOnly} />
         </DarkHeader>
 
         <FormContainer>
-          {/* Task Time */}
           <TaskTimeInput taskTime={taskTime} setTaskTime={setTaskTime} readOnly={readOnly} />
 
-          {/* Task Description */}
           <TaskDescriptionInput
             taskDescription={taskDescription}
             setTaskDescription={setTaskDescription}
             readOnly={readOnly}
           />
 
-          {/* Subtasks */}
           <SubTasksInput
             taskId={initialTask?.id}
             subTasks={subTasks}
@@ -229,7 +209,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
             readOnly={readOnly}
           />
 
-          {/* Priority Selector */}
           <PrioritySelector
             priorityOptions={priorityOptions}
             taskPriority={taskPriority}
@@ -237,7 +216,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
             readOnly={readOnly}
           />
 
-          {/* Recurrence Selector */}
           <RecurrenceSelector
             recurrenceOptions={recurrenceOptions}
             taskRecurrence={taskRecurrence}
@@ -245,7 +223,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
             readOnly={readOnly}
           />
 
-          {/* Assign Users */}
           <AssignedUsersSelect
             allianceMembers={allianceMembers}
             assignedIds={assignedIds}
@@ -253,7 +230,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
             readOnly={readOnly}
           />
 
-          {/* Category Selector */}
           <CategorySelector
             categories={categories}
             taskCategory={taskCategory}
@@ -262,13 +238,10 @@ const TaskForm: React.FC<TaskFormProps> = ({
           />
 
           <ButtonContainer>
-            {/* If in create mode => "Create Task" button */}
             {mode === 'create' && <SubmitButton type='submit'>Create Task</SubmitButton>}
 
-            {/* If in edit mode => "Update Task" button */}
             {mode === 'edit' && <SubmitButton type='submit'>Update Task</SubmitButton>}
 
-            {/* If in view mode => "Edit Task" button (calls onRequestEdit) */}
             {mode === 'view' && (
               <>
                 <SubmitButton type='button' onClick={handleCompleted}>

@@ -1,4 +1,3 @@
-// SubTasksInput.tsx
 import React from 'react';
 import { SubTask } from '../../types/firestore';
 import {
@@ -7,8 +6,8 @@ import {
   SubtaskContainer,
   LightInput,
   InputContainer,
-  // If you put ReadOnlySubtaskContainer in the same styled file, import it too
   ReadOnlySubtaskContainer,
+  Label,
 } from './styled';
 import { updateSubtask } from '../../utils/updateSubtask';
 
@@ -25,9 +24,6 @@ const SubTasksInput: React.FC<SubTasksInputProps> = ({
   setSubTasks,
   readOnly = false,
 }) => {
-  // =====================================
-  // EDIT-ONLY HANDLERS
-  // =====================================
   const handleAddSubTask = () => {
     setSubTasks((prev) => [...prev, { name: '', completed: false }]);
   };
@@ -40,9 +36,6 @@ const SubTasksInput: React.FC<SubTasksInputProps> = ({
     setSubTasks((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // =====================================
-  // COMPLETION TOGGLING (ALSO ALLOWED IN "READ-ONLY" MODE)
-  // =====================================
   const handleToggleCompleted = (index: number) => {
     if (taskId) {
       const subTask = subTasks[index];
@@ -52,15 +45,10 @@ const SubTasksInput: React.FC<SubTasksInputProps> = ({
     }
   };
 
-  // =====================================
-  // READ-ONLY MODE
-  // =====================================
   if (readOnly) {
-    // Show subtasks in a simplified list,
-    // but still allow toggling completed status via checkbox
     return (
       <InputContainer>
-        <p style={{ fontWeight: 'bold' }}>Subtasks</p>
+        <Label>Subtasks</Label>
         {subTasks.length === 0 && <p>—</p>}
         {subTasks.map((subTask, index) => (
           <ReadOnlySubtaskContainer key={index} completed={subTask.completed}>
@@ -78,9 +66,6 @@ const SubTasksInput: React.FC<SubTasksInputProps> = ({
     );
   }
 
-  // =====================================
-  // EDITABLE MODE
-  // =====================================
   return (
     <InputContainer>
       <AddSubtaskButton type='button' onClick={handleAddSubTask}>
