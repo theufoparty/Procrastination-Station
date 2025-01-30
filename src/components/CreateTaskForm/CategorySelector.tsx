@@ -18,7 +18,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
     return (
       <InputContainer>
         <Label>Category</Label>
-        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskCategory || 'None'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.7em' }}>{taskCategory || 'None'}</p>
       </InputContainer>
     );
   }

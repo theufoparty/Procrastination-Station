@@ -18,7 +18,7 @@ const PrioritySelector: React.FC<PrioritySelectorProps> = ({
     return (
       <InputContainer>
         <Label>Priority</Label>
-        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskPriority}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.7em' }}>{taskPriority}</p>
       </InputContainer>
     );
   }

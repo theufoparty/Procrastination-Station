@@ -82,6 +82,7 @@ export const FormContainer = styled.div`
   margin-bottom: 20px;
   border-radius: 20px;
   justify-content: space-evenly;
+  height: 100%;
   @media (min-width: 768px) {
   }
 `;
@@ -89,7 +90,7 @@ export const FormContainer = styled.div`
 export const DarkLabel = styled.label`
   display: block;
   color: #ffffff;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   margin-top: 1rem;
   font-weight: 300;
 `;
@@ -102,7 +103,7 @@ export const DarkInput = styled.input`
   border-bottom: 1px solid #ccc;
   color: #fff;
   padding: 0.4rem 0;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
 
   &:focus {
@@ -112,7 +113,7 @@ export const DarkInput = styled.input`
 `;
 
 export const Label = styled.label`
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 300;
   color: #232323;
 `;
@@ -122,7 +123,7 @@ export const LightInput = styled.input`
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 0.4rem 0;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
   color: #374e56;
   outline: none;
@@ -138,7 +139,7 @@ export const TextArea = styled.textarea`
   border: none;
   border-bottom: 1px solid #ccc;
   padding-top: 12px;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
   color: #374e56;
   outline: none;
@@ -155,7 +156,7 @@ export const Select = styled.select`
   border: none;
   border-bottom: 1px solid #ccc;
   padding: 12px 0;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
   color: rgb(0, 0, 0);
   background: white;
@@ -194,7 +195,7 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: 20px;
   padding: 12px;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -214,20 +215,21 @@ export const InputContainer = styled.div`
 
 export const PriorityButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 0.5em;
-  row-gap: 0.5em;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
   flex-wrap: wrap;
 `;
 
 export const PriorityButton = styled.button<{ selected: boolean }>`
   font-family: 'Montserrat', serif;
   padding: 12px;
-  font-size: 0.5em;
+  font-size: 0.6em;
   width: 8em;
   border: none;
   border-radius: 20px;
-  margin-inline: 1em;
   cursor: pointer;
   font-weight: 300;
   transition: background-color 0.2s ease-in-out;
@@ -249,7 +251,7 @@ export const AddSubtaskButton = styled.button`
   border: none;
   border-radius: 20px;
   padding: 12px;
-  font-size: 0.5em;
+  font-size: 0.6em;
   font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -272,7 +274,7 @@ export const RemoveSubtaskButton = styled.button`
   height: 20px;
   width: 20px;
   padding: 8px;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -282,10 +284,11 @@ export const RemoveSubtaskButton = styled.button`
 
 export const CategoryButtonContainer = styled.div`
   display: flex;
-  margin-top: 0.5rem;
+  justify-content: space-between;
+  margin-top: 0.5em;
   align-items: center;
   justify-content: center;
-  row-gap: 0.5em;
+  gap: 0.5em;
   flex-wrap: wrap;
 `;
 
@@ -294,7 +297,7 @@ export const SubtaskContainer = styled.div`
   display: flex;
   gap: 0.3em;
   margin-bottom: 0.5em;
-  font-size: 0.6;
+  font-size: 0.7em;
   align-items: flex-end;
 `;
 
@@ -302,11 +305,10 @@ export const CategoryButton = styled.button<{ selected: boolean }>`
   font-family: 'Montserrat', serif;
   width: 8em;
   padding: 12px;
-  margin-inline: 1em;
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.5em;
+  font-size: 0.6em;
   font-weight: 300;
   transition: background-color 0.2s ease-in-out;
 
@@ -323,10 +325,9 @@ export const RecurrenceButton = styled.button<{ selected: boolean }>`
   padding: 12px;
   width: 8em;
   border: none;
-  margin-inline: 1em;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.5em;
+  font-size: 0.6em;
   font-weight: 300;
   transition: background-color 0.2s ease-in-out;
   background-color: ${({ selected }) => (selected ? '#4d63f3' : '#e1e1e1')};
@@ -338,11 +339,11 @@ export const RecurrenceButton = styled.button<{ selected: boolean }>`
 
 export const RecurrenceButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 0.5em;
   align-items: center;
   justify-content: center;
-  row-gap: 0.5em;
+  gap: 0.5em;
   flex-wrap: wrap;
 `;
 
@@ -357,7 +358,7 @@ export const ReadOnlySubtaskContainer = styled.div<{ completed: boolean }>`
   }
 
   p {
-    font-size: 0.6em;
+    font-size: 0.7em;
     margin: 0;
     text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
   }

@@ -16,7 +16,7 @@ const TaskTimeInput: React.FC<TaskTimeInputProps> = ({
     return (
       <InputContainer>
         <Label>TIME</Label>
-        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskTime || '—'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.7em' }}>{taskTime || '—'}</p>
       </InputContainer>
     );
   }

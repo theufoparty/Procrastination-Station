@@ -122,7 +122,7 @@ const SubmitButton = styled.button`
   border-radius: 20px;
   width: 14em;
   padding: 12ppx;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 300;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;

@@ -27,7 +27,7 @@ const AssignedUsersSelect: React.FC<AssignedUsersSelectProps> = ({
     return (
       <InputContainer>
         <Label>Assign Users</Label>
-        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{assignedNames}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.7em' }}>{assignedNames}</p>
       </InputContainer>
     );
   }

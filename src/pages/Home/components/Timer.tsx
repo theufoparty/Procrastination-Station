@@ -25,7 +25,7 @@ const ButtonRow = styled.div`
   button {
     padding: 12px;
     width: 6em;
-    font-size: 0.8em;
+    font-size: 0.6em;
     border-radius: 20px;
     cursor: pointer;
     background-color: #35328b;

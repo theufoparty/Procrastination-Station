@@ -56,6 +56,10 @@ const WeatherDescription = styled.p`
   margin: 0;
   font-size: 1em;
   color: #404040;
+
+  @media (max-width: 768px) {
+    font-size: 0.8em;
+  }
 `;
 
 const WeatherCard: FC = () => {

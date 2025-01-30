@@ -18,7 +18,7 @@ const RecurrenceSelector: React.FC<RecurrenceSelectorProps> = ({
     return (
       <InputContainer>
         <Label>Recurrence</Label>
-        <p style={{ marginTop: '0.3rem', fontSize: '0.6em' }}>{taskRecurrence || '—'}</p>
+        <p style={{ marginTop: '0.3rem', fontSize: '0.7em' }}>{taskRecurrence || '—'}</p>
       </InputContainer>
     );
   }
