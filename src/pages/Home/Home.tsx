@@ -217,7 +217,7 @@ const Dashboard: FC = () => {
         ...(doc.data() as Omit<Task, 'id'>),
       })) as Task[];
 
-      setAllTasks(tasksData);
+      setAllTasks((previousTasks) => [...previousTasks, ...tasksData]);
     };
 
     fetchTasksForAlliances();
@@ -226,6 +226,8 @@ const Dashboard: FC = () => {
   const handleDateSelected = (_date: Date, tasksForDate: Task[]) => {
     setSelectedDateTasks(tasksForDate);
   };
+
+  console.log(allTasks);
 
   return (
     <>
@@ -260,7 +262,9 @@ const Dashboard: FC = () => {
         </TodaysTaskBox>
         <StatBox>
           <StatTitle>Tasks Completed</StatTitle>
-          <StatValue>{tasksCompleted}</StatValue>
+          <StatValue>
+            {allTasks?.length ? 0 : allTasks.filter((task) => !!task.completedAt).length}
+          </StatValue>
         </StatBox>
         <StatBox>
           <TaskTimer />

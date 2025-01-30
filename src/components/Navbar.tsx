@@ -99,21 +99,24 @@ const NavLinks = styled.ul`
   }
 
   a {
+    display: flex;
     color: #000000;
     text-decoration: none;
     font-size: 1em;
+    white-space: nowrap;
+    width: fit-content;
+    padding: 0.4em 0.6em;
+    margin-left: -0.6em;
 
     &:hover {
       color: #374e56;
     }
 
     &.active {
-      display: flex;
       color: #374e56;
       font-weight: 500;
       background-color: #f3f5fe;
       border-radius: 2em;
-      width: 100%;
     }
   }
 
@@ -183,11 +186,11 @@ const Navbar = () => {
           <NavLinks>
             <li>
               <NavLink
-                to='/todaystask'
+                to='/'
                 className={({ isActive }) => (isActive ? 'active' : '')}
                 onClick={() => setIsOpen(false)}
               >
-                Today's Task
+                Home
               </NavLink>
             </li>
             <li>
@@ -197,15 +200,6 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 My Tasks
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to='/projects'
-                className={({ isActive }) => (isActive ? 'active' : '')}
-                onClick={() => setIsOpen(false)}
-              >
-                Projects
               </NavLink>
             </li>
             <li>

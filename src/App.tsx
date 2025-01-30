@@ -4,7 +4,6 @@ import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './utils/useAuth';
 import Login from './pages/Login/Login';
 import SignUp from './pages/Signup/SignUp';
-import AlliancesList from './pages/AllianceList/AllianceList';
 import CreateAlliance from './pages/CreateAlliance/CreateAlliance';
 import AllianceDashboard from './pages/AllianceDashboard/AllianceDashboard';
 import Home from './pages/Home/Home';
@@ -43,10 +42,6 @@ function App() {
             <Routes>
               <Route path='/' element={<PrivateRoute user={user} element={<Home />} />} />
               <Route path='/tasks' element={<PrivateRoute user={user} element={<AllTasks />} />} />
-              <Route
-                path='/alliance-list'
-                element={<PrivateRoute user={user} element={<AlliancesList />} />}
-              />
               <Route
                 path='/create-alliance'
                 element={<PrivateRoute user={user} element={<CreateAlliance />} />}

@@ -102,7 +102,7 @@ export const DarkInput = styled.input`
   border: none;
   border-bottom: 1px solid #ccc;
   color: #fff;
-  padding: 0.4rem 0;
+  padding: 0.5em;
   font-size: 0.7em;
   font-weight: 300;
 
@@ -122,8 +122,8 @@ export const LightInput = styled.input`
   font-family: 'Montserrat', serif;
   border: none;
   border-bottom: 1px solid #ccc;
-  padding: 0.4rem 0;
-  font-size: 0.7em;
+  padding: 0.5em;
+  font-size: 0.9em;
   font-weight: 300;
   color: #374e56;
   outline: none;
