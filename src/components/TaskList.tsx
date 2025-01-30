@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Task } from '../types/firestore';
-import TaskSummary from './TaskCard/TaskSummary';
+import TaskSummary from './TaskSummary';
 import Modal from './Modal';
-import TaskForm from './CreateTaskForm/TaskForm';
+import TaskForm from './TaskForm/TaskForm';
 import { Timestamp } from 'firebase/firestore';
 import { removeTask } from '../utils/removeTask';
 

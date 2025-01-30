@@ -5,7 +5,7 @@ import TaskList from '../../components/TaskList';
 import { updateTask } from '../../utils/updateTask';
 import { Task } from '../../types/firestore';
 import styled from 'styled-components';
-import TaskForm from '../../components/CreateTaskForm/TaskForm';
+import TaskForm from '../../components/TaskForm/TaskForm';
 
 const Container = styled.div`
   display: flex;

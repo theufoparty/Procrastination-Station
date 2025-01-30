@@ -1,12 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { doc, onSnapshot, collection, query, where, documentId, getDocs } from 'firebase/firestore';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
-import { Alliance, Task } from '../../types/firestore';
-import { User } from '../../types/user';
+import { Task } from '../../types/firestore';
 import Calendar from './components/Calender';
-import TaskSummary from '../../components/TaskCard/TaskSummary';
+import TaskSummary from '../../components/TaskSummary';
 import WeatherCard from './components/WeatherCard';
 import MotivationalQuotes from './components/MotivationalQuotes';
 import TaskTimer from './components/Timer';

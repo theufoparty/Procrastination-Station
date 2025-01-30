@@ -9,7 +9,7 @@ import { Task } from '../../types/firestore';
 import { updateTask } from '../../utils/updateTask';
 import { ManageAlliance } from './components/ManageAlliance';
 import Modal from '../../components/Modal';
-import TaskForm from '../../components/CreateTaskForm/TaskForm';
+import TaskForm from '../../components/TaskForm/TaskForm';
 
 const SearchInput = styled.input`
   font-family: 'Montserrat', serif;

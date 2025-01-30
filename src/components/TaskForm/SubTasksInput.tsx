@@ -84,12 +84,6 @@ const SubTasksInput: React.FC<SubTasksInputProps> = ({
               onChange={(e) => handleChangeSubTaskName(index, e.target.value)}
               required
             />
-            <input
-              type='checkbox'
-              checked={subTask.completed}
-              onChange={() => handleToggleCompleted(index)}
-              style={{ marginLeft: '0.5rem' }}
-            />
           </SubtaskContainer>
         </div>
       ))}
