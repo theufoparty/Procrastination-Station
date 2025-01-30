@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Task } from '../types/firestore';
 import TaskSummary from './TaskCard/TaskSummary';
-import SimpleModal from './SimpleModal';
-import TaskCard from './TaskCard/TaskCard';
+import Modal from './Modal';
+import TaskForm from './CreateTaskForm/TaskForm';
+import { Timestamp } from 'firebase/firestore';
+import { removeTask } from '../utils/removeTask';
 
 interface AllianceMember {
   id: string;
@@ -67,6 +69,7 @@ const TaskList: React.FC<TaskListProps> = ({
   const [internalTasks, setInternalTasks] = useState<Task[]>(tasks);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [taskFormMode, setTaskFormMode] = useState<'edit' | 'view'>('view');
 
   useEffect(() => {
     // Update internal tasks when tasks change
@@ -97,6 +100,7 @@ const TaskList: React.FC<TaskListProps> = ({
   const closeModal = () => {
     setShowModal(false);
     setSelectedTask(null);
+    setTaskFormMode('view');
   };
 
   const handleUpdateTaskInList = async (taskId: string, data: Partial<Task>) => {
@@ -129,7 +133,7 @@ const TaskList: React.FC<TaskListProps> = ({
   };
 
   const groupedTasks = groupTasksByCategory(filteredTasks); // Group filtered tasks by category
-
+  console.log(selectedTask);
   return (
     <div>
       <TaskContainer>
@@ -148,29 +152,34 @@ const TaskList: React.FC<TaskListProps> = ({
           </CategoriesRow>
         )}
 
-        {showModal && selectedTask && (
-          <SimpleModal onClose={closeModal}>
-            <TaskCard
-              id={selectedTask.id}
-              allianceId={selectedTask.allianceId}
-              name={selectedTask.name}
-              description={selectedTask.description}
-              priority={selectedTask.priority}
-              recurrence={selectedTask.recurrence}
-              dueDate={selectedTask.dueDate}
-              completedAt={selectedTask.completedAt}
-              createdAt={selectedTask.createdAt}
-              updatedAt={selectedTask.updatedAt}
-              subTask={selectedTask.subTask}
-              assignedUserIds={selectedTask.assignedUserIds}
-              category={selectedTask.category || 'Uncategorized'}
-              onUpdateTask={handleUpdateTaskInList}
-              allianceMembers={allianceMembers}
-              categories={categories}
-              onClose={closeModal}
-            />
-          </SimpleModal>
-        )}
+        <Modal isOpen={!!(showModal && selectedTask)} onClose={closeModal}>
+          <TaskForm
+            initialTask={selectedTask}
+            onCancel={closeModal}
+            onRequestEdit={() => setTaskFormMode('edit')}
+            onSaveTask={(taskData) => {
+              const taskInput: Partial<Task> = {
+                ...taskData,
+                dueDate: taskData.dueDate ? Timestamp.fromDate(taskData.dueDate) : null,
+                completedAt: taskData.completedAt ? Timestamp.fromDate(taskData.completedAt) : null,
+              };
+
+              if (selectedTask) {
+                handleUpdateTaskInList(selectedTask.id, taskInput).then(() => {
+                  setTaskFormMode('view');
+                });
+              }
+            }}
+            allianceMembers={allianceMembers}
+            categories={categories}
+            mode={taskFormMode}
+            removeTask={async () => {
+              if (selectedTask) {
+                await removeTask(selectedTask.id);
+              }
+            }}
+          />
+        </Modal>
       </TaskContainer>
     </div>
   );

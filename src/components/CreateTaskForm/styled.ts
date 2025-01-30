@@ -1,4 +1,3 @@
-// CreateTaskForm/styled.ts
 import styled, { keyframes } from 'styled-components';
 
 export const fadeIn = keyframes`
@@ -165,7 +164,10 @@ export const Select = styled.select`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 100%;
+  align-items: center;
   margin-top: 1rem;
 `;
 
@@ -327,4 +329,20 @@ export const RecurrenceButtonContainer = styled.div`
   justify-content: center;
   row-gap: 1em;
   flex-wrap: wrap;
+`;
+
+export const ReadOnlySubtaskContainer = styled.div<{ completed: boolean }>`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3rem;
+
+  input[type='checkbox'] {
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  p {
+    margin: 0;
+    text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
+  }
 `;

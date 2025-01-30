@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Timestamp } from 'firebase/firestore';
 import SubTaskListDetailView from './SubTaskListDetailView';
 import { SubTask } from '../../types/firestore';
+
 const Container = styled.div`
   background-color: #fff;
   padding: 20px;
@@ -172,8 +173,8 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({
 
       <ButtonGroup>
         <StyledButton onClick={onComplete}>Finished</StyledButton>
-        <StyledButton onClick={onEdit}>Edit</StyledButton>
         <StyledButton onClick={onRemove}>Remove Task</StyledButton>
+        <StyledButton onClick={onEdit}>Edit</StyledButton>
       </ButtonGroup>
     </Container>
   );

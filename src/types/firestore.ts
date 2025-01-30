@@ -20,7 +20,9 @@ export type Task = {
   updatedAt?: Timestamp;
   assignedUserIds?: string[];
   category?: string;
-  subTask?: Record<string, SubTask[]>;
+  subTask?: {
+    defaultKey: SubTask[];
+  };
 };
 
 export type SubTask = {

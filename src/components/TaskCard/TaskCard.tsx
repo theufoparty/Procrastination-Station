@@ -133,9 +133,9 @@ const TaskCard: React.FC<TaskCardProps> = ({
     }
 
     try {
-      const newMap: Record<string, SubTask[]> = {
+      const newMap = {
         defaultKey: newSubTasks,
-      };
+      } as const;
 
       await onUpdateTask(id, {
         name: newName,

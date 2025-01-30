@@ -4,23 +4,12 @@ import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
 import { useAlliance } from '../../utils/useAlliance';
 import TaskList from '../../components/TaskList';
-import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { Task } from '../../types/firestore';
 import { updateTask } from '../../utils/updateTask';
 import { ManageAlliance } from './components/ManageAlliance';
 import Modal from '../../components/Modal';
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+import TaskForm from '../../components/CreateTaskForm/TaskForm';
 
 const SearchInput = styled.input`
   font-family: 'Montserrat', serif;
@@ -181,11 +170,14 @@ const AllianceDashboard: React.FC = () => {
             </ActionButton>
           </ButtonContainer>
           <Modal isOpen={isCreatingTask} onClose={handleCancelCreateTask}>
-            <CreateTaskForm
-              onCreateTask={handleCreateTask}
+            <TaskForm
+              mode='create'
+              onSaveTask={handleCreateTask}
               allianceMembers={allianceMembers}
               categories={predefinedCategories}
               onCancel={handleCancelCreateTask}
+              onRequestEdit={() => {}}
+              removeTask={() => {}}
             />
           </Modal>
           <Modal isOpen={isManagingAlliance} onClose={() => setIsManagingAlliance(false)}>

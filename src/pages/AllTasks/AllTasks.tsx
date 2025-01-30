@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useAuth } from '../../utils/useAuth';
 import { auth, db } from '../../../firebaseConfig';
 import TaskList from '../../components/TaskList';
-import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
 import { updateTask } from '../../utils/updateTask';
 import { Task } from '../../types/firestore';
 import styled from 'styled-components';
+import TaskForm from '../../components/CreateTaskForm/TaskForm';
 
 const Container = styled.div`
   display: flex;
@@ -190,11 +190,14 @@ const AllTasks: React.FC = () => {
       {isCreatingTask && (
         <ModalOverlay>
           <ModalContainer>
-            <CreateTaskForm
-              categories={predefinedCategories}
-              onCreateTask={handleCreateTask}
-              onCancel={() => setIsCreatingTask(false)}
+            <TaskForm
+              mode='create'
+              onSaveTask={handleCreateTask}
               allianceMembers={[]}
+              categories={predefinedCategories}
+              onCancel={() => setIsCreatingTask(false)}
+              onRequestEdit={() => {}}
+              removeTask={() => {}}
             />
           </ModalContainer>
         </ModalOverlay>
