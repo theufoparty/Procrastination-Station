@@ -10,6 +10,7 @@ import TaskSummary from '../../components/TaskCard/TaskSummary';
 import WeatherCard from './components/WeatherCard';
 import MotivationalQuotes from './components/MotivationalQuotes';
 import TaskTimer from './components/Timer';
+import { useAlliance } from '../../utils/useAlliance';
 
 const StatsContainer = styled.div`
   display: flex;
@@ -118,12 +119,34 @@ const WelcomeContainer = styled.div`
 `;
 
 const Dashboard: FC = () => {
-  const { user } = useAuth(auth, db);
-  const [alliances, setAlliances] = useState<Alliance[]>([]);
+  const { user, userTasks } = useAuth(auth, db);
+  const { allianceTasks } = useAlliance(user?.allianceIds?.[0]);
+
   const [allTasks, setAllTasks] = useState<Task[]>([]);
   const [selectedDateTasks, setSelectedDateTasks] = useState<Task[]>([]);
+
+  const handleDateSelected = (_date: Date, tasksForDate: Task[]) => {
+    setSelectedDateTasks(tasksForDate);
+  };
+  useEffect(() => {
+    const tasks = [...userTasks, ...allianceTasks];
+    setAllTasks(tasks);
+    const today = new Date();
+    const tasksForToday = tasks.filter((task) => {
+      if (!task.dueDate) return false;
+
+      const due = task.dueDate.toDate();
+
+      return (
+        due.getFullYear() === today.getFullYear() &&
+        due.getMonth() === today.getMonth() &&
+        due.getDate() === today.getDate()
+      );
+    });
+    setSelectedDateTasks(tasksForToday);
+  }, [allianceTasks, userTasks]);
+
   const [greeting, setGreeting] = useState<string>('Hello');
-  const tasksCompleted = 87;
 
   const determineGreeting = () => {
     const currentHour = new Date().getHours();
@@ -161,73 +184,7 @@ const Dashboard: FC = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  useEffect(() => {
-    if (!user) {
-      setAlliances([]);
-      return;
-    }
-
-    const userDocRef = doc(db, 'users', user.uid);
-
-    const unsubscribe = onSnapshot(userDocRef, async (userSnap) => {
-      if (!userSnap.exists()) {
-        setAlliances([]);
-        return;
-      }
-
-      const userData = userSnap.data() as User;
-      const allianceIds = userData.allianceIds || [];
-
-      if (allianceIds.length === 0) {
-        setAlliances([]);
-        return;
-      }
-
-      const sliceLimit = 10;
-      const limitedAllianceIds = allianceIds.slice(0, sliceLimit);
-      const alliancesRef = collection(db, 'alliances');
-      const q = query(alliancesRef, where(documentId(), 'in', limitedAllianceIds));
-      const alliancesSnap = await getDocs(q);
-      const alliancesData = alliancesSnap.docs.map((allianceDoc) => ({
-        id: allianceDoc.id,
-        ...(allianceDoc.data() as Omit<Alliance, 'id'>),
-      })) as Alliance[];
-
-      setAlliances(alliancesData);
-    });
-
-    return () => unsubscribe();
-  }, [user]);
-
-  useEffect(() => {
-    const fetchTasksForAlliances = async () => {
-      if (!alliances || alliances.length === 0) {
-        setAllTasks([]);
-        return;
-      }
-
-      const allianceIds = alliances.map((a) => a.id);
-      const limitIds = allianceIds.slice(0, 10);
-      const tasksRef = collection(db, 'tasks');
-      const qTasks = query(tasksRef, where('allianceId', 'in', limitIds));
-      const tasksSnap = await getDocs(qTasks);
-
-      const tasksData = tasksSnap.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Task, 'id'>),
-      })) as Task[];
-
-      setAllTasks((previousTasks) => [...previousTasks, ...tasksData]);
-    };
-
-    fetchTasksForAlliances();
-  }, [alliances]);
-
-  const handleDateSelected = (_date: Date, tasksForDate: Task[]) => {
-    setSelectedDateTasks(tasksForDate);
-  };
-
-  console.log(allTasks);
+  const completedTasks = allTasks.filter((task) => task.completedAt).length;
 
   return (
     <>
@@ -262,9 +219,7 @@ const Dashboard: FC = () => {
         </TodaysTaskBox>
         <StatBox>
           <StatTitle>Tasks Completed</StatTitle>
-          <StatValue>
-            {allTasks?.length ? 0 : allTasks.filter((task) => !!task.completedAt).length}
-          </StatValue>
+          <StatValue>{completedTasks}</StatValue>
         </StatBox>
         <StatBox>
           <TaskTimer />
