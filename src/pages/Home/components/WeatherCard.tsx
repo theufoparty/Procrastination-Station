@@ -77,57 +77,13 @@ const WeatherCard: FC = () => {
   });
   const [error, setError] = useState<string>('');
 
+  // -------------- Utility Functions ----------------
+
   const updateTime = () => {
     const now = new Date();
+    // e.g. "08:35"
     setTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   };
-
-  const fetchWeather = useCallback(async (latitude: number, longitude: number) => {
-    try {
-      const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,weathercode&timezone=auto`
-      );
-      const data = await response.json();
-
-      const currentTime = new Date();
-      const currentHour = currentTime.getHours();
-      const currentMinutes = currentTime.getMinutes();
-      const currentFormattedTime = `${String(currentHour).padStart(2, '0')}:${String(
-        currentMinutes
-      ).padStart(2, '0')}`;
-
-      const isDayTime =
-        data.daily.sunrise[0].slice(11) < currentFormattedTime &&
-        currentFormattedTime < data.daily.sunset[0].slice(11);
-
-      setWeather({
-        temp: data.daily.temperature_2m_max[0],
-        description: mapWeatherCodeToDescription(data.daily.weathercode[0]),
-        weatherCode: data.daily.weathercode[0],
-        isDayTime,
-      });
-    } catch (error) {
-      console.error('Failed to fetch weather:', error);
-      setError('Could not fetch weather data.');
-    }
-  }, []);
-
-  const fetchLocation = useCallback(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          fetchWeather(latitude, longitude);
-        },
-        (err) => {
-          console.error('Error fetching location:', err);
-          setError('Could not fetch your location. Please enable location access.');
-        }
-      );
-    } else {
-      setError('Geolocation is not supported by your browser.');
-    }
-  }, [fetchWeather]);
 
   const mapWeatherCodeToDescription = (code: number): string => {
     const weatherCodes: { [key: number]: string } = {
@@ -162,6 +118,8 @@ const WeatherCard: FC = () => {
 
   const mapWeatherCodeToIcon = (code: number, isDay: boolean): string => {
     const baseIconUrl = 'https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/';
+
+    // Basic mapping examples – customize as you like
     const dayIcons: { [key: number]: string } = {
       0: 'clear-day',
       1: 'partly-cloudy-day',
@@ -174,6 +132,7 @@ const WeatherCard: FC = () => {
       80: 'rain',
       95: 'thunderstorms',
     };
+
     const nightIcons: { [key: number]: string } = {
       0: 'clear-night',
       1: 'partly-cloudy-night',
@@ -188,12 +147,84 @@ const WeatherCard: FC = () => {
     };
 
     const iconCode = isDay ? dayIcons[code] : nightIcons[code];
+    // Fallback to 'clear-day' if we don't have a specific match
     return `${baseIconUrl}${iconCode || 'clear-day'}.svg`;
   };
+
+  // -------------- Main Fetch Function --------------
+
+  const fetchWeather = useCallback(async (latitude: number, longitude: number) => {
+    try {
+      // Request hourly temperature_2m and weathercode, plus sunrise/sunset daily
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?` +
+          `latitude=${latitude}&longitude=${longitude}` +
+          `&hourly=temperature_2m,weathercode` +
+          `&daily=sunrise,sunset` +
+          `&timezone=auto`
+      );
+      const data = await response.json();
+
+      console.log('Open-Meteo Hourly Data:', data); // For debugging
+
+      // ---------------- Get current hour's data ----------------
+      const currentTime = new Date();
+      const hourlyTimes = data.hourly.time.map((t: string) => new Date(t));
+
+      // Find the index of the hour that is "on or after" the current time
+      let closestHourIndex = hourlyTimes.findIndex(
+        (t: Date) => t.getTime() >= currentTime.getTime()
+      );
+
+      // If all times are in the past (late in the day), pick the last hour
+      if (closestHourIndex === -1) {
+        closestHourIndex = hourlyTimes.length - 1;
+      }
+
+      const currentTemp = data.hourly.temperature_2m[closestHourIndex];
+      const currentCode = data.hourly.weathercode[closestHourIndex];
+
+      // ---------------- Determine Day or Night ----------------
+      // Using today's sunrise/sunset. If you want to handle multiple days,
+      // you'd need logic to pick the correct day, but for simplicity:
+      const todaySunrise = new Date(data.daily.sunrise[0]);
+      const todaySunset = new Date(data.daily.sunset[0]);
+      const isDayTime = currentTime >= todaySunrise && currentTime < todaySunset;
+
+      // ---------------- Update State ----------------
+      setWeather({
+        temp: currentTemp,
+        description: mapWeatherCodeToDescription(currentCode),
+        weatherCode: currentCode,
+        isDayTime,
+      });
+    } catch (error) {
+      console.error('Failed to fetch weather:', error);
+      setError('Could not fetch weather data.');
+    }
+  }, []);
+
+  const fetchLocation = useCallback(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(latitude, longitude);
+        },
+        (err) => {
+          console.error('Error fetching location:', err);
+          setError('Could not fetch your location. Please enable location access.');
+        }
+      );
+    } else {
+      setError('Geolocation is not supported by your browser.');
+    }
+  }, [fetchWeather]);
 
   useEffect(() => {
     updateTime();
     const intervalId = setInterval(updateTime, 1000);
+
     fetchLocation();
 
     return () => clearInterval(intervalId);

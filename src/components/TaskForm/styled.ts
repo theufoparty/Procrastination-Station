@@ -55,9 +55,10 @@ export const CloseButton = styled.button`
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.6em;
   cursor: pointer;
   font-weight: 300;
+  margin-bottom: 1em;
 `;
 
 export const Title = styled.h2`

@@ -30,6 +30,7 @@ const TaskContainer = styled.div`
 const CategoriesRow = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -45,7 +46,7 @@ const NoTask = styled.p`
 
 const CategoryColumn = styled.div`
   display: flex;
-  margin: 20px;
+  margin: 10px;
   flex-direction: column;
 
   h4 {

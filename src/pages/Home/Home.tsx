@@ -18,7 +18,8 @@ const StatsContainer = styled.div`
     margin-top: 0;
     flex-direction: row;
     gap: 1em;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 `;
 
@@ -66,8 +67,8 @@ const StatBox = styled.div`
   cursor: pointer;
   width: 100%;
   @media (min-width: 768px) {
-    max-width: 20em;
-    height: 21em;
+    height: 10em;
+    width: 22em;
     margin-bottom: 0;
   }
 `;
@@ -90,16 +91,22 @@ const GreetingBox = styled.div`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 const StatTitle = styled.h4`
   margin-bottom: 0.5em;
-  font-size: 1.2em;
+  font-size: 0.7em;
   font-weight: 300;
 `;
 
 const StatValue = styled.p`
   font-size: 2em;
   margin: 0;
-  margin-top: 3em;
+  margin-top: 1em;
 `;
 
 const WelcomeContainer = styled.div`
@@ -215,13 +222,15 @@ const Dashboard: FC = () => {
             </>
           )}
         </TodaysTaskBox>
-        <StatBox>
-          <StatTitle>Tasks Completed</StatTitle>
-          <StatValue>{completedTasks}</StatValue>
-        </StatBox>
-        <StatBox>
-          <TaskTimer />
-        </StatBox>
+        <Container>
+          <StatBox>
+            <StatTitle>Tasks Completed</StatTitle>
+            <StatValue>{completedTasks}</StatValue>
+          </StatBox>
+          <StatBox>
+            <TaskTimer />
+          </StatBox>
+        </Container>
       </StatsContainer>
     </>
   );

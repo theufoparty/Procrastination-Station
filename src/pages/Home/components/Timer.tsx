@@ -12,8 +12,7 @@ const TimerContainer = styled.div`
 `;
 
 const TimerDisplay = styled.h2`
-  font-size: 3em;
-  margin: 0.5em 0;
+  font-size: 2em;
 `;
 
 const ButtonRow = styled.div`
@@ -24,8 +23,11 @@ const ButtonRow = styled.div`
 
   button {
     padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 6em;
-    font-size: 0.6em;
+    font-size: 0.8em;
     border-radius: 20px;
     cursor: pointer;
     background-color: #35328b;

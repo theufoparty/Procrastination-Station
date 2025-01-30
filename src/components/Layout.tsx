@@ -21,7 +21,7 @@ const MainContent = styled.main`
   margin: 2em;
   margin-top: 6em;
   border-radius: 20px;
-  padding: 2em;
+  padding: 1em;
   background-color: #f3f5fe;
   padding-top: 2em;
 
@@ -31,6 +31,7 @@ const MainContent = styled.main`
     padding: 0;
     width: 100%;
     margin-top: 2em;
+    padding: 2em;
   }
 `;
 

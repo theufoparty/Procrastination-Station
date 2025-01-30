@@ -15,7 +15,7 @@ const TaskContainer = styled.div`
   border-radius: 20px;
   padding: 20px;
   background-color: #fff;
-  width: 16em;
+  width: 14em;
   height: 8em;
   margin-bottom: 20px;
   cursor: pointer;

@@ -10,7 +10,6 @@ import {
   SubmitButton,
 } from './styled';
 import { SubTask, Task } from '../../types/firestore';
-
 import TaskNameInput from './TaskNameInput';
 import TaskDateInput from './TaskDateInput';
 import TaskTimeInput from './TaskTimeInput';
