@@ -62,7 +62,10 @@ const DatesContainer = styled.div`
   font-size: 0.5em;
 `;
 
-const DateBox = styled.div<{
+const DateBox = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !['isCurrentMonth', 'isSelected', 'isToday', 'hasTasks'].includes(prop),
+})<{
   isCurrentMonth: boolean;
   isSelected?: boolean;
   isToday?: boolean;

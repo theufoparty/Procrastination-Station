@@ -165,8 +165,6 @@ const WeatherCard: FC = () => {
       );
       const data = await response.json();
 
-      console.log('Open-Meteo Hourly Data:', data); // For debugging
-
       // ---------------- Get current hour's data ----------------
       const currentTime = new Date();
       const hourlyTimes = data.hourly.time.map((t: string) => new Date(t));

@@ -46,8 +46,8 @@ const TodaysTaskBox = styled.div`
   width: 100%;
   margin-bottom: 1em;
   @media (min-width: 768px) {
-    max-width: 18em;
-    height: 20em;
+    max-width: 20em;
+    min-height: 20em;
     margin-bottom: 0;
   }
 `;
@@ -68,7 +68,7 @@ const StatBox = styled.div`
   width: 100%;
   @media (min-width: 768px) {
     height: 9.5em;
-    width: 19em;
+    width: 20em;
     margin-bottom: 0;
   }
 `;
@@ -94,7 +94,7 @@ const GreetingBox = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1em;
 `;
 

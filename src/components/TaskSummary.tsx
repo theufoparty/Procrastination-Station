@@ -15,7 +15,7 @@ const TaskContainer = styled.div`
   border-radius: 20px;
   padding: 20px;
   background-color: #fff;
-  width: 14em;
+  width: 16em;
   height: 8em;
   margin-bottom: 20px;
   cursor: pointer;
@@ -28,20 +28,24 @@ const TaskContainer = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: 0.5rem;
 `;
 
 const TaskTitle = styled.h3`
-  font-size: 1em;
+  font-size: 0.8em;
   font-weight: 200;
   color: #333;
   margin: 0;
   width: 60%;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+  }
 `;
 
 const DueDate = styled.span`
-  font-size: 0.8em;
+  font-size: 0.7em;
   color: #666;
 `;
 

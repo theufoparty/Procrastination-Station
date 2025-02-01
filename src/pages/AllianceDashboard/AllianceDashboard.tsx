@@ -36,6 +36,11 @@ const SearchInput = styled.input`
 const AllianceName = styled.h2`
   font-family: 'Montserrat', serif;
   font-weight: 400;
+  font-size: 0.8em;
+  @media (min-width: 768px) {
+    font-size: 1em;
+    margin-left: 1em;
+  }
 `;
 
 const TaskListContainer = styled.div`
@@ -52,7 +57,7 @@ const Container = styled.div`
   }
 `;
 
-const predefinedCategories = ['Work', 'Home', 'Errands', 'Others', 'Personal'];
+const predefinedCategories = ['Toil', 'Hearth', 'Quests', 'Odds', 'Fancies'];
 
 const ActionContainer = styled.div`
   display: flex;

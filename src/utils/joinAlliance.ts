@@ -10,11 +10,6 @@ export const joinAlliance = async ({
 }) => {
   if (!allianceId || !userId) return;
 
-  console.log({
-    allianceId,
-    userId,
-  });
-
   const allianceDocRef = doc(db, 'alliances', allianceId);
   const userDocRef = doc(db, 'users', userId);
 

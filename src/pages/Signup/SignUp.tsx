@@ -61,7 +61,7 @@ const RightSection = styled.div`
 
 const FormContainer = styled.div`
   width: 100%;
-  padding: 4cap;
+  padding: 40px;
 `;
 
 const StyledForm = styled.form`

@@ -134,7 +134,6 @@ const TaskList: React.FC<TaskListProps> = ({
   };
 
   const groupedTasks = groupTasksByCategory(filteredTasks); // Group filtered tasks by category
-  console.log(selectedTask);
   return (
     <div>
       <TaskContainer>
